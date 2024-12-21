@@ -1,11 +1,11 @@
 {
-  "name": "contentful-starter-gatsby-blog",
-  "description": "Contentful Gatsby Starter Blog",
+  "name": "videogamecomposer",
+  "description": "Videogamecomposer francoisgerinlajoie.ca",
   "private": true,
   "version": "0.0.1",
-  "author": "Contentful <opensource@contentful.com>",
+  "author": "Rick <rickpoulin2@gmail.com>",
   "bugs": {
-    "url": "https://github.com/contentful/starter-gatsby-blog/issues"
+    "url": "https://github.com/rickpoulin2/videogamecomposer/issues"
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^15.12.1",
@@ -30,7 +30,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "homepage": "https://github.com/contentful/starter-gatsby-blog#readme",
+  "homepage": "https://github.com/rickpoulin2/videogamecomposer",
   "keywords": [
     "gatsby",
     "contentful",
@@ -40,7 +40,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/contentful/starter-gatsby-blog.git"
+    "url": "git+https://github.com/rickpoulin2/videogamecomposer"
   },
   "scripts": {
     "dev": "gatsby develop",
