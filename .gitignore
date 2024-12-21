@@ -72,5 +72,4 @@ public
 # System files
 .DS_Store
 Thumbs.db
-yarn.lock
 contentful-import-error-log-*
