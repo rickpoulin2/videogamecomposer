@@ -1,0 +1,82 @@
+footer {
+  position: relative;
+
+  .container {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  >div {
+    position: relative;
+    z-index: 100;
+    padding-top: 35px !important;
+    background-color: var(--bs-primary);
+    color: white;
+
+    .text-body-secondary,
+    a {
+      color: var(--bs-light) !important;
+    }
+
+    a:hover {
+      color: var(--bs-hover) !important;
+    }
+  }
+
+  p {
+    font-size: 0.65em;
+  }
+
+  p.footer-copyright {
+    margin: 0;
+    font-size: 1em;
+  }
+
+
+  nav {
+    font-size: 1.4em;
+
+    ul {
+      justify-content: center;
+    }
+
+    @media only screen and (min-width: 768px) {
+      font-size: 1.2em;
+
+      ul {
+        justify-content: flex-end;
+      }
+
+      li .nav-link {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+      }
+    }
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    height: 83px;
+    width: 100%;
+    position: absolute;
+    z-index: 99;
+    top: -41px;
+    left: 0px;
+    transform: rotateX(180deg);
+
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="42" height="63"><style>.navtop{fill:%23444;stroke:%23444;stroke-width:2;}.navbot{fill:%23444;}</style><g class="navtop"><rect x="0" y="0" width="6" height="6" /><rect x="0" y="7" width="6" height="6" /><rect x="0" y="14" width="6" height="6" /><rect x="0" y="21" width="6" height="6" /><rect x="7" y="14" width="6" height="6" /><rect x="7" y="21" width="6" height="6" /><rect x="7" y="28" width="6" height="6" /><rect x="14" y="7" width="6" height="6" /><rect x="14" y="14" width="6" height="6" /><rect x="21" y="14" width="6" height="6" /><rect x="21" y="21" width="6" height="6" /><rect x="28" y="21" width="6" height="6" /><rect x="28" y="28" width="6" height="6" /><rect x="28" y="35" width="6" height="6" /><rect x="35" y="7" width="6" height="6" /><rect x="35" y="14" width="6" height="6" /><rect x="35" y="21" width="6" height="6" /></g><g class="navbot" stroke="transparent"><rect x="0" y="28" width="6" height="6" /><rect x="0" y="35" width="6" height="6" /><rect x="0" y="42" width="6" height="6" /><rect x="7" y="35" width="6" height="6" /><rect x="7" y="42" width="6" height="6" /><rect x="7" y="49" width="6" height="6" /><rect x="7" y="56" width="6" height="6" /><rect x="14" y="21" width="6" height="6" /><rect x="14" y="28" width="6" height="6" /><rect x="21" y="28" width="6" height="6" /><rect x="21" y="35" width="6" height="6" /><rect x="28" y="42" width="6" height="6" /><rect x="28" y="49" width="6" height="6" /><rect x="35" y="28" width="6" height="6" /><rect x="35" y="35" width="6" height="6" /></g></svg>');
+    background-repeat: repeat-x;
+    background-position: left bottom;
+  }
+
+  &::after {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="42" height="63"><style>.navtop{fill:%23cad5ca;stroke:%23416788;stroke-width:2;}.navbot{fill:%23cad5ca;}</style><g class="navtop"><rect x="0" y="0" width="6" height="6" /><rect x="0" y="7" width="6" height="6" /><rect x="0" y="14" width="6" height="6" /><rect x="0" y="21" width="6" height="6" /><rect x="7" y="14" width="6" height="6" /><rect x="7" y="21" width="6" height="6" /><rect x="7" y="28" width="6" height="6" /><rect x="14" y="7" width="6" height="6" /><rect x="14" y="14" width="6" height="6" /><rect x="21" y="14" width="6" height="6" /><rect x="21" y="21" width="6" height="6" /><rect x="28" y="21" width="6" height="6" /><rect x="28" y="28" width="6" height="6" /><rect x="28" y="35" width="6" height="6" /><rect x="35" y="7" width="6" height="6" /><rect x="35" y="14" width="6" height="6" /><rect x="35" y="21" width="6" height="6" /></g><g class="navbot" stroke="transparent"><rect x="0" y="28" width="6" height="6" /><rect x="0" y="35" width="6" height="6" /><rect x="0" y="42" width="6" height="6" /><rect x="7" y="35" width="6" height="6" /><rect x="7" y="42" width="6" height="6" /><rect x="7" y="49" width="6" height="6" /><rect x="7" y="56" width="6" height="6" /><rect x="14" y="21" width="6" height="6" /><rect x="14" y="28" width="6" height="6" /><rect x="21" y="28" width="6" height="6" /><rect x="21" y="35" width="6" height="6" /><rect x="28" y="42" width="6" height="6" /><rect x="28" y="49" width="6" height="6" /><rect x="35" y="28" width="6" height="6" /><rect x="35" y="35" width="6" height="6" /></g></svg>');
+    top: -43px;
+    left: -2px;
+    z-index: 101;
+    width: calc(100% - 2px);
+  }
+
+}

@@ -1,23 +1,8 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
 
-const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-          }
-        }
-      }
-    `
-  )
-
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+const Seo = ({ description = '', lang = 'en', meta = [], title, defaultTitle, image }) => {
+  const metaDescription = description
 
   return (
     <Helmet
@@ -57,10 +42,6 @@ const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
           content: `summary_large_image`,
         },
         {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter || ``,
-        },
-        {
           name: `twitter:title`,
           content: title,
         },
@@ -69,6 +50,21 @@ const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
           content: metaDescription,
         },
       ].concat(meta)}
+      link={[
+        {
+          rel: `icon`,
+          href: image,
+        },
+        {
+          rel: `preconnect`,
+          href: 'https://fonts.googleapis.com',
+        },
+        {
+          rel: `preconnect`,
+          href: 'https://fonts.gstatic.com',
+          crossOrigin: '',
+        },
+      ]}
     />
   )
 }
