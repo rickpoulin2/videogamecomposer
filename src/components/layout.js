@@ -4,6 +4,7 @@ import './variables.css'
 import './global.css'
 
 import { useStaticQuery, graphql } from 'gatsby'
+import { getSrc } from 'gatsby-plugin-image'
 import Seo from './seo'
 import Header from './header'
 import Footer from './footer'
@@ -14,7 +15,7 @@ const Layout = (props) => {
   const { allContentfulSiteGlobals } = useStaticQuery(
     graphql`
 query SiteGlobalsQuery {
-  allContentfulSiteGlobals(limit: 1, sort: {fields: siteTitle, order: DESC}) {
+  allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
     edges {
       node {
         __typename
@@ -30,12 +31,13 @@ query SiteGlobalsQuery {
         }
         copyrightLine
         siteLogo {
-          id
+          gatsbyImageData(layout:FIXED)
         }
         siteIcon {
-          fluid {
-            src
-          }
+          gatsbyImageData(layout:FIXED)
+        }
+        siteBackground {
+          gatsbyImageData(layout:FIXED)
         }
       }
     }
@@ -47,7 +49,7 @@ query SiteGlobalsQuery {
 
   return (
     <>
-      <Seo defaultTitle={siteData?.siteTitle} image={siteData.siteIcon.fluid.src} />
+      <Seo defaultTitle={siteData?.siteTitle} image={getSrc(siteData.siteIcon)} />
       <Header navItems={siteData?.headerNavigation} />
       <main>{children}</main>
       <Footer copyrightLine={siteData?.copyrightLine} content={siteData?.footerContent} navItems={siteData?.footerNavigation} />

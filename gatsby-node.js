@@ -1,24 +1,12 @@
 const path = require('path')
 
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
-  const typeDefs = `
+  actions.createTypes(`
   type RichText {
     raw: String!
   }
   union ContentfulLinkTypes = ContentfulInternalLink | ContentfulExternalLink
-  type ContentfulSiteGlobals implements Node {
-    id: ID!
-    siteTitle: String!
-    headerNavigation: [ContentfulLinkTypes]
-    footerNavigation: [ContentfulLinkTypes]
-    siteIcon: ContentfulAsset
-    siteLogo: ContentfulAsset
-    siteBackground: ContentfulAsset
-    footerContent: RichText
-    copyrightLine: String
-  }
-  type ContentfulInternalLink implements Node {
+    type ContentfulInternalLink implements Node {
     id: ID!
     text: String!
     target: ContentfulPage
@@ -34,8 +22,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     hideText: Boolean
   }
-  `
-  createTypes(typeDefs);
+  type ContentfulSiteGlobals implements Node {
+    id: ID!
+    siteTitle: String!
+    headerNavigation: [ContentfulLinkTypes] @link(from: "headerNavigation___NODE")
+    footerNavigation: [ContentfulLinkTypes] @link(from: "footerNavigation___NODE")
+    siteIcon: ContentfulAsset @link(from: "siteIcon___NODE")
+    siteLogo: ContentfulAsset @link(from: "siteLogo___NODE")
+    siteBackground: ContentfulAsset @link(from: "siteBackground___NODE")
+    footerContent: RichText
+    copyrightLine: String
+  }
+  `);
 }
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
