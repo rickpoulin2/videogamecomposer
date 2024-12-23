@@ -3,6 +3,10 @@ header {
   position: relative;
   background-color: var(--bs-primary);
 
+  .site-logo {
+    max-height: 50px;
+  }
+
   .navbar-brand {
     display: inline-flex;
     align-items: center;
@@ -49,6 +53,14 @@ header {
   .offcanvas.showing {
     .navbar-cta {
       padding-top: 2em;
+    }
+
+    .site-logo {
+      img {
+        max-height: 30px;
+      }
+
+      margin-right: 1em;
     }
 
     .offcanvas-body>* {

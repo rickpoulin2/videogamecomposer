@@ -1,37 +1,16 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { GatsbyImage, getSrc } from 'gatsby-plugin-image'
 
 import * as styles from './header.scss'
 
-/*
-{
-  allContentfulSiteGlobals(limit: 1, sort: {fields: siteTitle, order: DESC}) {
-    edges {
-      node {
-        __typename
-        siteTitle
-        headerNavigation {
-          __typename
-          id
-          text
-          hideText
-          target {
-            title
-          }
-        }
-      }
-    }
-  }
-}
-*/
-
-const Header = () => (
+const Header = ({ siteLogo }) => (
   <header>
     <nav class="navbar navbar-dark navbar-expand-lg">
       <div class="container-lg">
         <div class="navbar-brand">
           <a href="home.html" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img src="/img/sitelogo.png" style={{ maxHeight: '50px' }} />
+            <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" />
           </a>
           <p class="h1"><span>François</span> Gérin-Lajoie</p>
         </div>
@@ -42,7 +21,7 @@ const Header = () => (
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
           <div class="offcanvas-header">
             <a href="home.html" class="d-inline-flex link-body-emphasis text-decoration-none">
-              <img src="/img/sitelogo.png" style={{ maxHeight: '30px', marginRight: '1em' }} />
+              <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" />
             </a>
             <p class="h3 offcanvas-title" id="offcanvasDarkNavbarLabel">François Gérin-Lajoie</p>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>

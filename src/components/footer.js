@@ -15,15 +15,15 @@ const Footer = ({ copyrightLine, content }) => (
 
           <nav class="col-12 col-md-4">
             <ul class="nav">
-              <li><a class="nav-link" target="_blank" href="mailto:oragus2@yahoo.com" title="E-mail"><i class="fas fa-envelope"></i></a></li>
-              <li><a class="nav-link" target="_blank" href="https://www.facebook.com/oragus2" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-              <li><a class="nav-link" target="_blank" href="https://www.youtube.com/@Francois_Gerin-Lajoie" title="YouTube"><i class="fab fa-youtube"></i></a></li>
-              <li><a class="nav-link" target="_blank" href="https://open.spotify.com/artist/0LMAZVEqk9GYrQOfEpUKLL?si=ma4GwUhFRW6nzBIDImMrog" title="Spotify"><i
+              <li><a class="nav-link" target="_blank" rel="noreferrer" href="mailto:oragus2@yahoo.com" title="E-mail"><i class="fas fa-envelope"></i></a></li>
+              <li><a class="nav-link" target="_blank" rel="noreferrer" href="https://www.facebook.com/oragus2" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+              <li><a class="nav-link" target="_blank" rel="noreferrer" href="https://www.youtube.com/@Francois_Gerin-Lajoie" title="YouTube"><i class="fab fa-youtube"></i></a></li>
+              <li><a class="nav-link" target="_blank" rel="noreferrer" href="https://open.spotify.com/artist/0LMAZVEqk9GYrQOfEpUKLL?si=ma4GwUhFRW6nzBIDImMrog" title="Spotify"><i
                 class="fab fa-spotify"></i></a>
               </li>
-              <li><a class="nav-link" target="_blank" href="https://oragus.bandcamp.com/" title="Bandcamp"><i class="fab fa-bandcamp"></i></a></li>
-              <li><a class="nav-link" target="_blank" href="https://oragus.itch.io/" title="itch.io"><i class="fab fa-itch-io"></i></a></li>
-              <li><a class="nav-link" target="_blank" href="https://music.apple.com/ca/artist/fran%C3%A7ois-g%C3%A9rin-lajoie/1697343847" title="iTunes"><i
+              <li><a class="nav-link" target="_blank" rel="noreferrer" href="https://oragus.bandcamp.com/" title="Bandcamp"><i class="fab fa-bandcamp"></i></a></li>
+              <li><a class="nav-link" target="_blank" rel="noreferrer" href="https://oragus.itch.io/" title="itch.io"><i class="fab fa-itch-io"></i></a></li>
+              <li><a class="nav-link" target="_blank" rel="noreferrer" href="https://music.apple.com/ca/artist/fran%C3%A7ois-g%C3%A9rin-lajoie/1697343847" title="iTunes"><i
                 class="fab fa-apple"></i></a></li>
             </ul>
           </nav>

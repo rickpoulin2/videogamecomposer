@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^15.12.1",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
     "gatsby": "^5.0.0",
     "gatsby-plugin-image": "^3.0.0-next",
     "gatsby-plugin-react-helmet": "^5.0.0",

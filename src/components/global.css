@@ -118,15 +118,14 @@ body {
 
 body {
   background-color: var(--bs-primary);
-}
-
-main {
-  background-image: url('/img/bg-desktop.png');
   background-position: center;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-color: var(--bs-light);
+}
+
+main {
   padding: 3em 0;
   min-height: calc(100vh - 200px);
 }

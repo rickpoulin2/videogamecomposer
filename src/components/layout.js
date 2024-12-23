@@ -1,5 +1,7 @@
 import React from 'react'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
 import './variables.css'
 import './global.css'
 
@@ -31,7 +33,7 @@ query SiteGlobalsQuery {
         }
         copyrightLine
         siteLogo {
-          gatsbyImageData(layout:FIXED)
+          gatsbyImageData(width:50)
         }
         siteIcon {
           gatsbyImageData(layout:FIXED)
@@ -46,11 +48,14 @@ query SiteGlobalsQuery {
     `
   )
   const siteData = allContentfulSiteGlobals?.edges[0]?.node;
+  if (siteData.siteBackground != null) {
+    document.body.style.backgroundImage = 'url(' + getSrc(siteData.siteBackground) + ')'
+  }
 
   return (
     <>
       <Seo defaultTitle={siteData?.siteTitle} image={getSrc(siteData.siteIcon)} />
-      <Header navItems={siteData?.headerNavigation} />
+      <Header navItems={siteData?.headerNavigation} siteLogo={siteData.siteLogo} />
       <main>{children}</main>
       <Footer copyrightLine={siteData?.copyrightLine} content={siteData?.footerContent} navItems={siteData?.footerNavigation} />
     </>
