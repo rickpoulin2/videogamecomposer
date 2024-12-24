@@ -6,39 +6,39 @@ import * as styles from './header.scss'
 
 const Header = ({ siteLogo }) => (
   <header>
-    <nav class="navbar navbar-dark navbar-expand-lg">
-      <div class="container-lg">
-        <div class="navbar-brand">
-          <a href="home.html" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" />
+    <nav className="navbar navbar-dark navbar-expand-lg">
+      <div className="container-lg">
+        <div className="navbar-brand">
+          <a href="home.html" className="d-inline-flex link-body-emphasis text-decoration-none">
+            <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
           </a>
-          <p class="h1"><span>François</span> Gérin-Lajoie</p>
+          <p className="h1"><span>François</span> Gérin-Lajoie</p>
         </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+        <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
           aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-          <div class="offcanvas-header">
-            <a href="home.html" class="d-inline-flex link-body-emphasis text-decoration-none">
-              <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" />
+        <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+          <div className="offcanvas-header">
+            <a href="home.html" className="d-inline-flex link-body-emphasis text-decoration-none">
+              <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
             </a>
-            <p class="h3 offcanvas-title" id="offcanvasDarkNavbarLabel">François Gérin-Lajoie</p>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <p className="h3 offcanvas-title" id="offcanvasDarkNavbarLabel">François Gérin-Lajoie</p>
+            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body">
-            <nav class="col-lg">
-              <ul class="navbar-nav justify-content-center">
-                <li class="nav-item"><a href="home.html" class="nav-link px-3 active">Home</a></li>
-                <li class="nav-item"><a href="albums.html" class="nav-link px-3">Albums</a></li>
-                <li class="nav-item"><a href="credits.html" class="nav-link px-3">Credits</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link px-3">Reflections</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link px-3">About</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link px-3">Contact</a></li>
+          <div className="offcanvas-body">
+            <nav className="col-lg">
+              <ul className="navbar-nav justify-content-center">
+                <li className="nav-item"><a href="home.html" className="nav-link px-3 active">Home</a></li>
+                <li className="nav-item"><a href="albums.html" className="nav-link px-3">Albums</a></li>
+                <li className="nav-item"><a href="credits.html" className="nav-link px-3">Credits</a></li>
+                <li className="nav-item"><a href="blog.html" className="nav-link px-3">Reflections</a></li>
+                <li className="nav-item"><a href="about.html" className="nav-link px-3">About</a></li>
+                <li className="nav-item"><a href="contact.html" className="nav-link px-3">Contact</a></li>
               </ul>
             </nav>
-            <div class="navbar-cta">
-              <a href="#" class="btn btn-outline-primary">Join Mailing List</a>
+            <div className="navbar-cta">
+              <a href="#" className="btn btn-outline-primary">Join Mailing List</a>
             </div>
           </div>
         </div>
@@ -49,19 +49,19 @@ const Header = ({ siteLogo }) => (
 
 /*
 const Navigation = () => (
-  <nav role="navigation" className={styles.container} aria-label="Main">
-    <Link to="/" className={styles.logoLink}>
-      <span className={styles.logo} />
-      <span className={styles.navigationItem}>Gatsby Starter Contentful</span>
+  <nav role="navigation" classNameName={styles.container} aria-label="Main">
+    <Link to="/" classNameName={styles.logoLink}>
+      <span classNameName={styles.logo} />
+      <span classNameName={styles.navigationItem}>Gatsby Starter Contentful</span>
     </Link>
-    <ul className={styles.navigation}>
-      <li className={styles.navigationItem}>
-        <Link to="/" activeClassName="active">
+    <ul classNameName={styles.navigation}>
+      <li classNameName={styles.navigationItem}>
+        <Link to="/" activeclassNameName="active">
           Home
         </Link>
       </li>
-      <li className={styles.navigationItem}>
-        <Link to="/blog/" activeClassName="active">
+      <li classNameName={styles.navigationItem}>
+        <Link to="/blog/" activeclassNameName="active">
           Blog
         </Link>
       </li>
