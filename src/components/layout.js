@@ -48,12 +48,10 @@ query SiteGlobalsQuery {
     `
   )
   const siteData = allContentfulSiteGlobals?.edges[0]?.node;
-  if (siteData.siteBackground != null) {
-    document.body.style.backgroundImage = 'url(' + getSrc(siteData.siteBackground) + ')'
-  }
 
   return (
     <>
+      <style>{`body { background-image: url(${getSrc(siteData.siteBackground)}) }`}</style>
       <Seo defaultTitle={siteData?.siteTitle} image={getSrc(siteData.siteIcon)} />
       <Header navItems={siteData?.headerNavigation} siteLogo={siteData.siteLogo} />
       <main>{children}</main>
