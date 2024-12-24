@@ -1,72 +1,54 @@
 import * as React from 'react'
-import { Helmet } from 'react-helmet'
+import get from 'lodash/get'
+import { useStaticQuery, graphql } from 'gatsby'
+import { getSrc } from 'gatsby-plugin-image'
 
-const Seo = ({ description = '', lang = 'en', meta = [], title, defaultTitle, image }) => {
-  const metaDescription = description
+const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
+  const { allContentfulSiteGlobals } = useStaticQuery(
+    graphql`
+  query metaQuery {
+    allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
+      nodes {
+        __typename
+        siteTitle
+        siteIcon {
+          gatsbyImageData(layout:FIXED)
+        }
+        siteBackground {
+          gatsbyImageData(layout:FIXED)
+        }
+      }
+    }
+  }`
+  )
+  const siteData = get(allContentfulSiteGlobals, 'nodes[0]');
+  let siteTitle = siteData.siteTitle;
+  if (title) {
+    siteTitle = `${title} | ` + siteTitle;
+  }
+  const image = getSrc(siteData.siteIcon);
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      defaultTitle={defaultTitle}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          name: `image`,
-          content: image,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          property: `og:image`,
-          content: image,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary_large_image`,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
-      link={[
-        {
-          rel: `icon`,
-          href: image,
-        },
-        {
-          rel: `preconnect`,
-          href: 'https://fonts.googleapis.com',
-        },
-        {
-          rel: `preconnect`,
-          href: 'https://fonts.gstatic.com',
-          crossOrigin: '',
-        },
-      ]}
-    />
+    <>
+      <html lang={lang} />
+      <body style={{ backgroundImage: `url(${getSrc(siteData.siteBackground)})` }} />
+      <title>{siteTitle}</title>
+      <meta name="description" content={description} />
+      <meta name="image" content={image} />
+      <meta name="og:title" content={siteTitle} />
+      <meta name="og:description" content={description} />
+      <meta name="og:type" content="website" />
+      <meta name="og:image" content={image} />
+      <meta name="twitter:title" content={siteTitle} />
+      <meta name="twitter:description" content={description} />
+
+      <link rel="icon" href={image} />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      {children}
+    </>
   )
 }
 
 export default Seo
+
