@@ -45,6 +45,10 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
       <link rel="icon" href={image} />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link rel="stylesheet" href="css/custom-svg.css" />
+      <link rel="stylesheet" href="css/fontawesome.min.css" />
+      <link rel="stylesheet" href="css/fa-solid.min.css" />
+      <link rel="stylesheet" href="css/fa-brands.min.css" />
       {children}
     </>
   )
