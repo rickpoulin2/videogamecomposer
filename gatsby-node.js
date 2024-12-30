@@ -6,7 +6,6 @@ exports.createSchemaCustomization = ({ actions }) => {
     raw: String!
   }
   type ContentfulLink implements Node {
-    id: ID!
     isInternal: Boolean!
     text: String!
     targetPage: ContentfulPage @link(from: "targetPage___NODE")
@@ -15,8 +14,23 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     hideText: Boolean
   }
+  type ContentfulComponentText implements Node {
+    styles: String
+    content: RichText!
+  }
+  type ContentfulComponentHero implements Node {
+    heading: String
+    styles: String
+    body: RichText!
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+    portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
+  }
+  type ContentfulComponentGroup implements Node {
+    styles: String
+    content: [ContentfulPageContent] @link(from: "content___NODE")
+  }
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero
   type ContentfulSiteGlobals implements Node {
-    id: ID!
     siteTitle: String!
     siteHeadingStart: String
     siteHeadingEnd: String!
@@ -32,58 +46,66 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulPage implements Node {
     title: String!
     url: String!
+    hideTitle: Boolean!
+    introContent: [ContentfulPageContent] @link(from: "introContent___NODE")
+    mainContent: [ContentfulPageContent] @link(from: "mainContent___NODE")
   }
   `);
 }
 
-exports.createPages = async ({ graphql, actions, reporter }) => {
+createPageTypes = async (graphql, actions, reporter, template, pathTransform, query) => {
   const { createPage } = actions
-
-  // Define a template for blog post
-  const blogPost = path.resolve('./src/templates/blog-post.js')
-
-  const result = await graphql(
-    `
-      {
-        allContentfulBlogPost {
-          nodes {
-            title
-            slug
-          }
-        }
-      }
-    `
-  )
-
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your Contentful posts`,
-      result.errors
-    )
+  const results = await graphql(query)
+  if (results.errors) {
+    reporter.panicOnBuild(`Can't find Contentful results`, results.errors)
     return
   }
+  Object.keys(results.data).forEach((x) => {
+    const items = results.data[x].nodes;
 
-  const posts = result.data.allContentfulBlogPost.nodes
+    if (items.length > 0) {
+      items.forEach((item, index) => {
+        const previousPostSlug = index === 0 ? null : items[index - 1].url
+        const nextPostSlug = index === items.length - 1 ? null : items[index + 1].url
 
-  // Create blog posts pages
-  // But only if there's at least one blog post found in Contentful
-  // `context` is available in the template as a prop and as a variable in GraphQL
-
-  if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostSlug = index === 0 ? null : posts[index - 1].slug
-      const nextPostSlug =
-        index === posts.length - 1 ? null : posts[index + 1].slug
-
-      createPage({
-        path: `/blog/${post.slug}/`,
-        component: blogPost,
-        context: {
-          slug: post.slug,
-          previousPostSlug,
-          nextPostSlug,
-        },
+        createPage({
+          path: pathTransform(item.url),
+          component: template,
+          context: {
+            slug: item.url,
+            previousPostSlug,
+            nextPostSlug,
+          },
+        })
       })
-    })
-  }
+    }
+  })
+}
+
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  await createPageTypes(graphql, actions, reporter,
+    path.resolve('./src/templates/page.js'),
+    (slug) => `/${slug}/`,
+    `{
+      allContentfulPage {
+        nodes {
+          title
+          url
+        }
+      }
+    }`
+  );
+
+  await createPageTypes(graphql, actions, reporter,
+    path.resolve('./src/templates/blog-post.js'),
+    (slug) => `/blog/${slug}/`,
+    `{
+      allContentfulBlogPost {
+        nodes {
+          title
+          slug
+        }
+      }
+    }`
+  )
 }

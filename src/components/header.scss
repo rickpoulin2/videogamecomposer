@@ -45,8 +45,12 @@ header {
     justify-content: space-between;
   }
 
+  .navbar-nav {
+    --bs-nav-link-color: white;
+    --bs-navbar-active-color: var(--bs-active);
+  }
+
   a.nav-link {
-    color: white;
     font-weight: 500;
     padding-left: 1rem !important;
     padding-right: 1rem !important;

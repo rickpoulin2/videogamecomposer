@@ -16,7 +16,7 @@ const MyLink = ({ obj, addClasses }) => {
     }
     if (obj.hideText && obj.icon) {
         linkTitle = obj.text;
-        const faLib = obj.icon == "envelope" ? "fas" : "fab";
+        const faLib = obj.icon === "envelope" ? "fas" : "fab";
         linkContent = <i className={faLib + " fa-" + obj.icon}></i>;
     }
     return obj.isInternal ?
