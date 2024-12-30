@@ -5,19 +5,12 @@ exports.createSchemaCustomization = ({ actions }) => {
   type RichText {
     raw: String!
   }
-  union ContentfulLinkTypes = ContentfulInternalLink | ContentfulExternalLink
-    type ContentfulInternalLink implements Node {
+  type ContentfulLink implements Node {
     id: ID!
+    isInternal: Boolean!
     text: String!
-    target: ContentfulPage
-    icon: String
-    styles: String
-    hideText: Boolean
-  }
-  type ContentfulExternalLink implements Node {
-    id: ID!
-    text: String!
-    href: String!
+    targetPage: ContentfulPage @link(from: "targetPage___NODE")
+    targetLink: String
     icon: String
     styles: String
     hideText: Boolean
@@ -25,13 +18,20 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulSiteGlobals implements Node {
     id: ID!
     siteTitle: String!
-    headerNavigation: [ContentfulLinkTypes] @link(from: "headerNavigation___NODE")
-    footerNavigation: [ContentfulLinkTypes] @link(from: "footerNavigation___NODE")
+    siteHeadingStart: String
+    siteHeadingEnd: String!
+    headerNavigation: [ContentfulLink] @link(from: "headerNavigation___NODE")
+    headerButtonLink: ContentfulLink @link(from: "headerButtonLink___NODE")
+    footerNavigation: [ContentfulLink] @link(from: "footerNavigation___NODE")
     siteIcon: ContentfulAsset @link(from: "siteIcon___NODE")
     siteLogo: ContentfulAsset @link(from: "siteLogo___NODE")
     siteBackground: ContentfulAsset @link(from: "siteBackground___NODE")
     footerContent: RichText
     copyrightLine: String
+  }
+  type ContentfulPage implements Node {
+    title: String!
+    url: String!
   }
   `);
 }

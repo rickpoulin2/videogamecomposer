@@ -25,6 +25,11 @@ header {
     }
   }
 
+  .site-heading {
+    display: inline-flex;
+    text-decoration: none;
+  }
+
   .navbar {
     position: relative;
     z-index: 1000;
@@ -43,10 +48,17 @@ header {
   a.nav-link {
     color: white;
     font-weight: 500;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 
   a.link-secondary {
     color: var(--bs-light) !important;
+  }
+
+  .offcanvas {
+    --bs-offcanvas-color: white;
+    --bs-heading-color: white;
   }
 
   .offcanvas.show,
