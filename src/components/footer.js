@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import MyLink from './mylink'
 
@@ -31,3 +32,15 @@ const Footer = ({ copyrightLine, content, navItems = [] }) => {
 }
 
 export default Footer
+
+export const query = graphql`
+  fragment Footer on ContentfulSiteGlobals {
+    footerNavigation {
+      ... MyLink
+    }
+    footerContent {
+      raw
+    }
+    copyrightLine
+  }
+`

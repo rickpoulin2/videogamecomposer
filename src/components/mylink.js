@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 const MyLink = ({ obj, addClasses }) => {
     if (obj == null) {
@@ -8,16 +8,17 @@ const MyLink = ({ obj, addClasses }) => {
     let linkTitle = "";
     let linkContent = obj.text;
     let linkStyles = "";
+    let linkIcon = "";
     if (addClasses) {
         linkStyles += addClasses + " ";
     }
     if (obj.styles) {
         linkStyles += obj.styles;
     }
-    if (obj.hideText && obj.icon) {
-        linkTitle = obj.text;
+    if (obj.icon) {
         const faLib = obj.icon === "envelope" ? "fas" : "fab";
-        linkContent = <i className={faLib + " fa-" + obj.icon}></i>;
+        linkIcon = <i className={faLib + " fa-" + obj.icon}></i>;
+        linkContent = obj.hideText ? linkIcon : <>{linkContent} {linkIcon}</>
     }
     return obj.isInternal ?
         (<Link to={"/" + obj.targetPage?.url} className={linkStyles} activeClassName="active" title={linkTitle}>{linkContent}</Link>)
@@ -26,3 +27,19 @@ const MyLink = ({ obj, addClasses }) => {
 }
 
 export default MyLink
+
+export const query = graphql`
+  fragment MyLink on ContentfulLink {
+    isInternal
+    text
+    targetLink
+    targetPage {
+        id
+        title
+        url
+    }
+    styles
+    icon
+    hideText
+  }
+`

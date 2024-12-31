@@ -1,0 +1,75 @@
+.hero {
+  margin-bottom: -3em;
+}
+
+.herocaption {
+  position: relative;
+
+  & div {
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 75px 15px;
+
+    @media only screen and (min-width: 576px) {
+      padding: 40px 60px;
+      background-size: contain;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media only screen and (min-width: 992px) {
+      padding: 75px;
+      background-size: contain;
+      display: block;
+    }
+  }
+
+  .btn {
+    margin-right: 0.5em;
+    margin-bottom: 0.25em;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    bottom: -2px;
+    left: 2px;
+    right: -2px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: calc(100% - 2px);
+
+    @media only screen and (min-width: 576px) {
+      background-size: contain;
+    }
+  }
+}
+
+.portrait {
+  position: relative;
+
+  img {
+    mask-position: center center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    bottom: -2px;
+    left: 2px;
+    right: -2px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}

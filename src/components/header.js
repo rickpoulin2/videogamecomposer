@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image'
 import MyLink from './mylink'
 
@@ -49,3 +49,19 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
 }
 
 export default Header
+
+export const query = graphql`
+  fragment Header on ContentfulSiteGlobals {
+    headerNavigation {
+      ... MyLink
+    }
+    headerButtonLink {
+      ... MyLink
+    }
+    siteHeadingStart
+    siteHeadingEnd
+    siteLogo {
+      gatsbyImageData(width:50)
+    }
+  }
+`

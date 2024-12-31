@@ -5,18 +5,22 @@ import get from 'lodash/get'
 import Seo from '../components/seo'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
+import PageComponent from '../components/page-component'
 
 class PageTemplate extends React.Component {
-    render() {
-        const pageData = this.props.data.contentfulPage
-        const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} />
+  render() {
+    const pageData = this.props.data.contentfulPage
+    const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} />
 
-        return (
-            <Layout location={this.props.location}>
-                {titleBlock}
-            </Layout>
-        )
-    }
+    const introBlock = get(pageData, 'introContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
+
+    return (
+      <Layout location={this.props.location}>
+        {titleBlock}
+        {introBlock}
+      </Layout>
+    )
+  }
 }
 
 export default PageTemplate
@@ -31,10 +35,10 @@ export const pageQuery = graphql`
       title
       hideTitle
       introContent {
-        __typename
+        ...PageComponent
       }
       mainContent {
-        __typename
+        ...PageComponent
       }
     }
   }

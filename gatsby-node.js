@@ -87,7 +87,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     path.resolve('./src/templates/page.js'),
     (slug) => `/${slug}/`,
     `{
-      allContentfulPage {
+      items: allContentfulPage {
         nodes {
           title
           url
@@ -96,11 +96,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }`
   );
 
+  /*
   await createPageTypes(graphql, actions, reporter,
     path.resolve('./src/templates/blog-post.js'),
     (slug) => `/blog/${slug}/`,
     `{
-      allContentfulBlogPost {
+      items: allContentfulBlogPost {
         nodes {
           title
           slug
@@ -108,4 +109,5 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       }
     }`
   )
+    */
 }

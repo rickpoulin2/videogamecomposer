@@ -17,62 +17,8 @@ query SiteGlobalsQuery {
   allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
     edges {
       node {
-        siteHeadingStart
-        siteHeadingEnd
-        headerNavigation {
-          __typename
-          ... on ContentfulLink {
-            isInternal
-            text
-            targetLink
-            targetPage {
-              id
-              title
-              url
-            }
-            styles
-            icon
-            hideText
-          }
-        }
-        headerButtonLink {
-          ... on ContentfulLink {
-            isInternal
-            text
-            targetLink
-            targetPage {
-              id
-              title
-              url
-            }
-            styles
-            icon
-            hideText
-          }
-        }
-        footerNavigation {
-          __typename
-          ... on ContentfulLink {
-            isInternal
-            text
-            targetLink
-            targetPage {
-              id
-              title
-              url
-            }
-            styles
-            icon
-            hideText
-          }
-        }
-        footerContent {
-          raw
-        }
-        copyrightLine
-        siteLogo {
-          gatsbyImageData(width:50)
-        }
+        ... Header
+        ... Footer
       }
     }
   }
