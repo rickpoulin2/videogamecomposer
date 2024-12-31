@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import Hero from '../components/hero'
 import Text from '../components/text'
 import Video from '../components/video'
+import ButtonBanner from '../components/button-banner'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename;
@@ -13,6 +14,8 @@ const PageComponent = ({ obj }) => {
         return <Text obj={obj} />
     if (type === 'ContentfulComponentVideo')
         return <Video obj={obj} />
+    if (type === 'ContentfulComponentButtonBanner')
+        return <ButtonBanner obj={obj} />
 
     console.log("unknown component: " + type);
     return <></>
@@ -27,5 +30,6 @@ export const query = graphql`
         ...ContentfulComponentHero
         ...ContentfulComponentText
         ...ContentfulComponentVideo
+        ...ContentfulComponentButtonBanner
     }
 `

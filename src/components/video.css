@@ -1,5 +1,6 @@
 .videocard>div {
   background-size: cover;
+  margin-bottom: 2em;
 
   &.no-border {
     border-color: transparent !important;
