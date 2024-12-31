@@ -1,8 +1,8 @@
 import React from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './variables.css'
-import './global.css'
+import './variables.scss'
+import './global.scss'
 
 import { useStaticQuery, graphql } from 'gatsby'
 import Header from './header'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './page-title.css'
+import './page-title.scss'
 
 const PageTitle = ({ title }) => (
     <div className="container page-title">

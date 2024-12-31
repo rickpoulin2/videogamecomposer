@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import MyLink from './mylink'
 
-import './hero.css'
+import './hero.scss'
 
 const Hero = ({ obj }) => {
   if (obj == null)

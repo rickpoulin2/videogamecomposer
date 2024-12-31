@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { BLOCKS, MARKS } from '@contentful/rich-text-types'
 
-import './text.css'
+import './text.scss'
 
 const Text = ({ obj }) => {
   if (obj == null)

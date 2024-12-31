@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { getSrc } from 'gatsby-plugin-image'
 
-import './video.css'
+import './video.scss'
 
 const Video = ({ obj }) => {
   if (obj == null)
