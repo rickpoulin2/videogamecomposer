@@ -176,7 +176,6 @@ article {
   .container::before,
   .container::after {
     z-index: 99;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="42" height="63"><style>.navtop{fill:%23444;stroke:%23444;stroke-width:2;}.navbot{fill:%23444;}</style><g class="navtop"><rect x="0" y="0" width="6" height="6" /><rect x="0" y="7" width="6" height="6" /><rect x="0" y="14" width="6" height="6" /><rect x="0" y="21" width="6" height="6" /><rect x="7" y="14" width="6" height="6" /><rect x="7" y="21" width="6" height="6" /><rect x="7" y="28" width="6" height="6" /><rect x="14" y="7" width="6" height="6" /><rect x="14" y="14" width="6" height="6" /><rect x="21" y="14" width="6" height="6" /><rect x="21" y="21" width="6" height="6" /><rect x="28" y="21" width="6" height="6" /><rect x="28" y="28" width="6" height="6" /><rect x="28" y="35" width="6" height="6" /><rect x="35" y="7" width="6" height="6" /><rect x="35" y="14" width="6" height="6" /><rect x="35" y="21" width="6" height="6" /></g><g class="navbot" stroke="transparent"><rect x="0" y="28" width="6" height="6" /><rect x="0" y="35" width="6" height="6" /><rect x="0" y="42" width="6" height="6" /><rect x="7" y="35" width="6" height="6" /><rect x="7" y="42" width="6" height="6" /><rect x="7" y="49" width="6" height="6" /><rect x="7" y="56" width="6" height="6" /><rect x="14" y="21" width="6" height="6" /><rect x="14" y="28" width="6" height="6" /><rect x="21" y="28" width="6" height="6" /><rect x="21" y="35" width="6" height="6" /><rect x="28" y="42" width="6" height="6" /><rect x="28" y="49" width="6" height="6" /><rect x="35" y="28" width="6" height="6" /><rect x="35" y="35" width="6" height="6" /></g></svg>');
     left: 2px;
     width: calc(100% - 2px);
   }
@@ -184,7 +183,6 @@ article {
   .container>div::before,
   .container>div::after {
     z-index: 101;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="42" height="63"><style>.navtop{fill:%23e0e0e0;stroke:%23eee;stroke-width:2;}.navbot{fill:%23e0e0e0;}</style><g class="navtop"><rect x="0" y="0" width="6" height="6" /><rect x="0" y="7" width="6" height="6" /><rect x="0" y="14" width="6" height="6" /><rect x="0" y="21" width="6" height="6" /><rect x="7" y="14" width="6" height="6" /><rect x="7" y="21" width="6" height="6" /><rect x="7" y="28" width="6" height="6" /><rect x="14" y="7" width="6" height="6" /><rect x="14" y="14" width="6" height="6" /><rect x="21" y="14" width="6" height="6" /><rect x="21" y="21" width="6" height="6" /><rect x="28" y="21" width="6" height="6" /><rect x="28" y="28" width="6" height="6" /><rect x="28" y="35" width="6" height="6" /><rect x="35" y="7" width="6" height="6" /><rect x="35" y="14" width="6" height="6" /><rect x="35" y="21" width="6" height="6" /></g><g class="navbot" stroke="transparent"><rect x="0" y="28" width="6" height="6" /><rect x="0" y="35" width="6" height="6" /><rect x="0" y="42" width="6" height="6" /><rect x="7" y="35" width="6" height="6" /><rect x="7" y="42" width="6" height="6" /><rect x="7" y="49" width="6" height="6" /><rect x="7" y="56" width="6" height="6" /><rect x="14" y="21" width="6" height="6" /><rect x="14" y="28" width="6" height="6" /><rect x="21" y="28" width="6" height="6" /><rect x="21" y="35" width="6" height="6" /><rect x="28" y="42" width="6" height="6" /><rect x="28" y="49" width="6" height="6" /><rect x="35" y="28" width="6" height="6" /><rect x="35" y="35" width="6" height="6" /></g></svg>');
   }
 
   .container::before,
@@ -227,7 +225,6 @@ h2.pix {
     right: -40px;
     top: 35%;
     transform: translateY(-50%);
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23BBB" width="23" height="19"><rect x="0" y="0" width="3" height="3" /><rect x="0" y="4" width="3" height="3" /><rect x="0" y="8" width="3" height="3" /><rect x="0" y="12" width="3" height="3" /><rect x="0" y="16" width="3" height="3" /><rect x="4" y="4" width="3" height="3" /><rect x="4" y="8" width="3" height="3" /><rect x="4" y="12" width="3" height="3" /><rect x="8" y="4" width="3" height="3" /><rect x="8" y="8" width="3" height="3" /><rect x="8" y="12" width="3" height="3" /><rect x="12" y="8" width="3" height="3" /><rect x="16" y="8" width="3" height="3" /><rect x="20" y="8" width="3" height="3" /></svg>');
   }
 
   span::before {
