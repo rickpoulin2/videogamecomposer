@@ -1,5 +1,19 @@
 .hero {
-  margin-bottom: -3em;
+  .container {
+    --bs-gutter-x: 0;
+    padding-top: 3em;
+    padding-bottom: 3em;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .row>div {
+    padding-top: 3em;
+    padding-bottom: 3em;
+  }
 }
 
 .herocaption {
@@ -10,7 +24,7 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 75px 15px;
+    padding: 75px 25px;
 
     @media only screen and (min-width: 576px) {
       padding: 40px 60px;
@@ -52,7 +66,10 @@
 }
 
 .portrait {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*d-flex justify-content-center align-items-center p-2*/
 
   img {
     mask-position: center center;
@@ -60,7 +77,11 @@
     mask-size: contain;
   }
 
-  &::before {
+  >div {
+    position: relative;
+  }
+
+  >div::before {
     content: '';
     display: block;
     position: absolute;

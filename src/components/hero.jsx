@@ -20,10 +20,10 @@ const Hero = ({ obj }) => {
 
   return (
     <section className="hero nobg">
-      <div className="container g-0 gx-sm-4">
-        <div className="row g-0 g-sm-4 py-5 d-flex align-items-center">
+      <div className="container">
+        <div className="row">
           <div className="col-12 col-sm-8 col-md-6 col-lg-8 col-xl-7 col-xxl-6">
-            <div className="herocaption my-5">
+            <div className="herocaption">
               <div>
                 {heading}
                 {renderRichText(obj.body)}
@@ -31,9 +31,9 @@ const Hero = ({ obj }) => {
               </div>
             </div>
           </div>
-          <div className="col-12 offset-sm-6 offset-md-0 col-sm-6 col-md-6 col-lg-4 col-xl-5 col-xxl-6">
-            <div className="my-5 d-flex justify-content-center align-items-center p-2">
-              <div className="portrait">
+          <div className="col">
+            <div className="portrait">
+              <div>
                 <GatsbyImage image={image} className="img-fluid" alt="composer portrait" />
               </div>
             </div>
