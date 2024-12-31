@@ -28,11 +28,25 @@ exports.createSchemaCustomization = ({ actions }) => {
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
     portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
   }
+  type ContentfulComponentVideo implements Node {
+    title: String!
+    styles: String
+    cardType: String
+    videoId: String!
+    backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
+  }
+  type ContentfulComponentButtonBanner implements Node {
+    title: String!
+    subtext: String
+    styles: String
+    cardType: String
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+  }
   type ContentfulComponentGroup implements Node {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String

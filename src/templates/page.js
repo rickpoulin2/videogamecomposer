@@ -26,6 +26,7 @@ class PageTemplate extends React.Component {
           </div>
         </section>
     }
+    //console.log(pageData.id);
 
     return (
       <Layout location={this.props.location}>
@@ -46,6 +47,7 @@ export const pageQuery = graphql`
     $slug: String!
   ) {
     contentfulPage(url: { eq: $slug }) {
+      id
       title
       hideTitle
       introContent {
