@@ -13,11 +13,25 @@ class PageTemplate extends React.Component {
     const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} />
 
     const introBlock = get(pageData, 'introContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
+    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
+    if (pageData.mainContent?.length > 0) {
+      mainBlock =
+        <section>
+          <div class="container">
+            <div>
+              <div class="row">
+                {mainBlock}
+              </div>
+            </div>
+          </div>
+        </section>
+    }
 
     return (
       <Layout location={this.props.location}>
         {titleBlock}
         {introBlock}
+        {mainBlock}
       </Layout>
     )
   }

@@ -16,6 +16,9 @@ exports.createSchemaCustomization = ({ actions }) => {
   }
   type ContentfulComponentText implements Node {
     styles: String
+    fancyHeading: String
+    dateTag: Date @dateformat(formatString: "YYYY-MM-DD")
+    image: ContentfulAsset @link(from: "image___NODE")
     content: RichText!
   }
   type ContentfulComponentHero implements Node {
