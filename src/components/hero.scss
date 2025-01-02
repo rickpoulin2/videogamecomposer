@@ -8,6 +8,7 @@
   .row {
     display: flex;
     align-items: center;
+    --bs-gutter-x: 0;
   }
 
   .row>div {

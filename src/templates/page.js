@@ -27,7 +27,7 @@ class PageTemplate extends React.Component {
         </section>
     }
     //console.log(pageData.id);
-    console.log(pageData.mainContent);
+    //console.log(pageData.mainContent);
 
     return (
       <Layout location={this.props.location}>
