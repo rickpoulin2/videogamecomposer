@@ -19,12 +19,12 @@ const ButtonBanner = ({ obj }) => {
   return (
     <div className={styles}>
       <div className={cardClass}>
-        <div class="card-body">
-          <div class="col">
-            <h2 class="card-title">{obj.title}</h2>
+        <div className="card-body">
+          <div className="col">
+            <h2 className="card-title">{obj.title}</h2>
             {subtext}
           </div>
-          <div class="col">
+          <div className="col">
             {buttons}
           </div>
         </div>

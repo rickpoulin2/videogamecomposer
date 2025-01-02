@@ -43,11 +43,11 @@ const Text = ({ obj }) => {
     return (
       <div className={styles}>
         {heading}
-        <div class="row">
-          <div class="col-3 col-lg-2">
+        <div className="row">
+          <div className="col-3 col-lg-2">
             {image}
           </div>
-          <div class="col">
+          <div className="col">
             {body}
           </div>
         </div>
