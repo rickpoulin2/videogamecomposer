@@ -21,6 +21,14 @@ exports.createSchemaCustomization = ({ actions }) => {
     image: ContentfulAsset @link(from: "image___NODE")
     content: RichText!
   }
+  type ContentfulComponentContentCard implements Node {
+    styles: String
+    fancyHeading: String
+    cardType: String!
+    image: ContentfulAsset @link(from: "image___NODE")
+    content: RichText!
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+  }
   type ContentfulComponentHero implements Node {
     heading: String
     styles: String
@@ -31,7 +39,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulComponentVideo implements Node {
     title: String!
     styles: String
-    cardType: String
+    cardType: String!
     videoId: String!
     backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
   }
@@ -39,14 +47,14 @@ exports.createSchemaCustomization = ({ actions }) => {
     title: String!
     subtext: String
     styles: String
-    cardType: String
+    cardType: String!
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulComponentGroup implements Node {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String

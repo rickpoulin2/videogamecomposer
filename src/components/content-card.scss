@@ -1,0 +1,27 @@
+.content-card {
+  .row {
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (max-width: 479px) {
+      flex-direction: column;
+      gap: 2em;
+
+      div {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      div:last-child {
+        order: -1;
+        max-width: 250px;
+      }
+    }
+
+    div:first-child {}
+
+    div:last-child {
+      text-align: end;
+    }
+  }
+}

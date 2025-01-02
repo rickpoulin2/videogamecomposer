@@ -4,6 +4,7 @@ import Hero from '../components/hero'
 import Text from '../components/text'
 import Video from '../components/video'
 import ButtonBanner from '../components/button-banner'
+import ContentCard from '../components/content-card'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename;
@@ -16,6 +17,8 @@ const PageComponent = ({ obj }) => {
         return <Video obj={obj} />
     if (type === 'ContentfulComponentButtonBanner')
         return <ButtonBanner obj={obj} />
+    if (type === 'ContentfulComponentContentCard')
+        return <ContentCard obj={obj} />
 
     console.log("unknown component: " + type);
     return <></>
@@ -31,5 +34,6 @@ export const query = graphql`
         ...ContentfulComponentText
         ...ContentfulComponentVideo
         ...ContentfulComponentButtonBanner
+        ...ContentfulComponentContentCard
     }
 `
