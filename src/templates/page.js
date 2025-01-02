@@ -27,6 +27,7 @@ class PageTemplate extends React.Component {
         </section>
     }
     //console.log(pageData.id);
+    console.log(pageData.mainContent);
 
     return (
       <Layout location={this.props.location}>
@@ -52,9 +53,33 @@ export const pageQuery = graphql`
       hideTitle
       introContent {
         ...PageComponent
+        ... on ContentfulComponentGroup {
+          styles
+          components:content {
+            ...PageComponent
+            ... on ContentfulComponentGroup {
+              styles
+              components:content {
+                ...PageComponent
+              }
+            }
+          }
+        }
       }
       mainContent {
         ...PageComponent
+        ... on ContentfulComponentGroup {
+          styles
+          components:content {
+            ...PageComponent
+            ... on ContentfulComponentGroup {
+              styles
+              components:content {
+                ...PageComponent
+              }
+            }
+          }
+        }
       }
     }
   }

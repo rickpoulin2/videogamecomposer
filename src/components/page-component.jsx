@@ -5,10 +5,13 @@ import Text from '../components/text'
 import Video from '../components/video'
 import ButtonBanner from '../components/button-banner'
 import ContentCard from '../components/content-card'
+import ComponentGroup from './component-group'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename;
 
+    if (type === 'ContentfulComponentGroup')
+        return <ComponentGroup obj={obj} />
     if (type === 'ContentfulComponentHero')
         return <Hero obj={obj} />
     if (type === 'ContentfulComponentText')
