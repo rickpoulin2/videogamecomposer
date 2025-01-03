@@ -5,3 +5,9 @@
   CONTENTFUL_SPACE_ID = ""
   CONTENTFUL_ACCESS_TOKEN = ""
   CONTENTFUL_PREVIEW_ACCESS_TOKEN = ""
+
+[[redirects]]
+  from = "/"
+  to = "/home/"
+  status = 301
+  force = true
