@@ -31,7 +31,7 @@ const Hero = ({ obj }) => {
               </div>
             </div>
           </div>
-          <div className="col-12">
+          <div className="col-12 col-sm">
             <div className="portrait">
               <div>
                 <GatsbyImage image={image} className="img-fluid" alt="composer portrait" />
