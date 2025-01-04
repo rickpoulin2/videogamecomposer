@@ -14,6 +14,21 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     hideText: Boolean
   }
+  type ContentfulAlbum implements Node {
+    title: String!
+    publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
+    trackCount: Int!
+    collaboratorName: String
+    collaboratorLink: String
+    coverImage: ContentfulAsset @link(from: "coverImage___NODE")
+    videoId: String!
+    linkYouTube: String
+    linkSpotify: String
+    linkBandcamp: String
+    linkItchio: String
+    linkItunes: String
+    albumDescription: RichText!
+  }
   type ContentfulComponentText implements Node {
     styles: String
     fancyHeading: String
@@ -50,11 +65,14 @@ exports.createSchemaCustomization = ({ actions }) => {
     cardType: String!
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
+  type ContentfulComponentAlbumList implements Node {
+    id: ID!
+  }
   type ContentfulComponentGroup implements Node {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String

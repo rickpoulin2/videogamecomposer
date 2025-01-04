@@ -1,0 +1,183 @@
+.album-card {
+    margin-bottom: 2em;
+
+    .card-header {
+        background-color: var(--bs-light);
+        border-radius: var(--bs-card-inner-border-radius) 0 0 0;
+        display: grid;
+        align-items: center;
+        grid-template-columns: min-content 1fr;
+        grid-template-rows: 1fr min-content min-content;
+        column-gap: 1em;
+
+        .gatsby-image-wrapper {
+            grid-row: 1 / span 2;
+            border-radius: var(--bs-border-radius);
+            max-width: 10em;
+            box-shadow: 0 0 5px 1px white;
+        }
+
+        .card-subtitle {
+            margin-bottom: 0.5em;
+
+            span:nth-child(2)::before {
+                content: '\25A0';
+                padding: 0 0.5em;
+            }
+
+            span:nth-child(3) {
+                display: block;
+            }
+        }
+
+        .album-channels {
+            grid-column: 1 / span 2;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 0.3em;
+            background-color: white;
+            border-radius: var(--bs-border-radius);
+            padding: 0.3em;
+            box-shadow: 0 0 5px 1px white;
+            margin-top: 0.5em;
+
+            span {
+                font-size: 0.8em;
+                font-weight: bold;
+            }
+
+            i {
+                padding: 0 0.5em;
+            }
+
+            ul {
+                display: inline-flex;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                font-size: 1.2em;
+            }
+
+            li {
+                color: var(--bs-light);
+
+                span {
+                    visibility: hidden;
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    clip: rect(0, 0, 0, 0);
+                    overflow: hidden;
+                }
+            }
+        }
+
+        a {
+            color: var(--bs-secondary);
+        }
+
+        a:hover {
+            color: var(--bs-hover);
+        }
+    }
+
+    .card-aside {
+        align-content: center;
+        background-color: #000;
+        border: 3px solid white;
+    }
+
+    iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        display: block;
+    }
+
+    .card-body p:last-child {
+        margin-bottom: 0;
+    }
+
+    @media only screen and (min-width: 360px) {
+        .card-header {
+            .album-channels {
+                gap: 1em;
+                padding: 0.3em 1em;
+
+                ul {
+                    font-size: 1.5em;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr 33%;
+        grid-template-rows: min-content 1fr;
+
+        .card-aside {
+            grid-column: 2;
+            grid-row: 1 / span 1;
+            border-color: var(--bs-light);
+        }
+
+        .card-body {
+            grid-column: 1 / span 2;
+        }
+
+        iframe {
+            aspect-ratio: 1;
+            border-radius: 0 var(--bs-card-inner-border-radius) 0 0;
+        }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .card-aside {
+            border-radius: 0 var(--bs-card-inner-border-radius) 0 0;
+            border-bottom: 1px solid var(--bs-card-border-color);
+            background-color: var(--bs-light);
+        }
+    }
+
+    @media only screen and (min-width: 992px) {
+        grid-template-columns: 1fr 25%;
+
+        .card-header {
+            .gatsby-image-wrapper {
+                grid-row: 1 / span 4;
+            }
+
+            .card-subtitle {
+                span {
+                    display: inline !important;
+                }
+
+                span+span::before {
+                    content: '\25A0';
+                    padding: 0 0.5em;
+                }
+            }
+
+            .album-channels {
+                grid-column: auto;
+                width: fit-content;
+            }
+        }
+
+        .card-aside {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            background-color: black;
+            border-radius: 0 var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0;
+        }
+
+        iframe {
+            border-radius: 0 var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0;
+        }
+
+        .card-body {
+            grid-column: auto;
+        }
+    }
+}

@@ -13,18 +13,16 @@ const Layout = (props) => {
   const { children } = props
   const { allContentfulSiteGlobals } = useStaticQuery(
     graphql`
-query SiteGlobalsQuery {
-  allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
-    edges {
-      node {
-        ... Header
-        ... Footer
-      }
-    }
-  }
-}
-    `
-  )
+      query SiteGlobalsQuery {
+        allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
+          edges {
+            node {
+              ... Header
+              ... Footer
+            }
+          }
+        }
+      }`)
   const siteData = allContentfulSiteGlobals?.edges[0]?.node;
 
   return (
