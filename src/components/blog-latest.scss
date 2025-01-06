@@ -1,36 +1,47 @@
-.date-list {
-    padding-left: 0;
-    list-style-type: none;
+.blog-latest {
 
-    a {
-        display: grid;
-        align-items: start;
-        gap: 5px;
-        margin-bottom: 0.5em;
-        grid-template-columns: 7.5em auto;
-        text-decoration: none;
+    .date-list {
+        padding-left: 0;
+        list-style-type: none;
+
+        a {
+            display: grid;
+            align-items: start;
+            gap: 5px;
+            margin-bottom: 0.5em;
+            grid-template-columns: 7.5em auto;
+            text-decoration: none;
+        }
+
+        a,
+        a span {
+            transition: color .15s ease-in-out,
+                background-color .15s ease-in-out,
+                border-color .15s ease-in-out,
+                box-shadow .15s ease-in-out;
+        }
+
+        a span:not(.badge) {
+            text-decoration: underline;
+        }
+
+        a:hover span.badge {
+            background-color: var(--bs-hover) !important;
+        }
+
+        span.badge {
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            text-align: left;
+            text-indent: 0.5em;
+        }
     }
 
-    a,
-    a span {
-        transition: color .15s ease-in-out,
-            background-color .15s ease-in-out,
-            border-color .15s ease-in-out,
-            box-shadow .15s ease-in-out;
-    }
+    .cta {
+        text-align: center;
 
-    a span:not(.badge) {
-        text-decoration: underline;
-    }
-
-    a:hover span.badge {
-        background-color: var(--bs-hover) !important;
-    }
-
-    span.badge {
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
-        text-align: left;
-        text-indent: 0.5em;
+        .btn {
+            margin: 0.25em;
+        }
     }
 }

@@ -32,6 +32,13 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulBlogEntry implements Node {
     title: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
+    bannerImage: ContentfulAsset @link(from: "bannerImage___NODE")
+    bodyContent: RichText!
+  }
+  type ContentfulNewsletter implements Node {
+    heading: String!
+    publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
+    tagLine: String
     content: RichText!
   }
   type ContentfulComponentText implements Node {
@@ -79,13 +86,19 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulComponentBlogLatest implements Node {
     heading: String
     styles: String
-    linkToAll: ContentfulLink @link(from: "linkToAll___NODE")
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
+  }
+  type ContentfulComponentNewsletterLatest implements Node {
+    heading: String
+    styles: String
+    trailingBlurb: RichText
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulComponentGroup implements Node {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String

@@ -22,21 +22,24 @@ const BlogLatest = ({ obj }) => {
   let entries = blogData.data?.nodes?.map((i) =>
     <BlogLink key={i.id} obj={i} />
   );
-  let cta = obj.linkToAll ? <MyLink obj={obj.linkToAll} addClasses="btn btn-primary" /> : "";
+  let buttons = obj.buttons?.map((btn, i, arr) => {
+    const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
+    return <MyLink obj={btn} addClasses={cl} />
+  });
   if (!(blogData.data?.nodes?.length > 0)) {
     entries = <li>Nothing here yet! Check back soon.</li>
-    cta = ""
+    buttons = ""
   }
   return (
-    <>
+    <div className={"blog-latest " + obj.styles}>
       <h2 class="pix"><span>{blogTitle}</span></h2>
       <ul class="date-list">
         {entries}
       </ul>
-      <div class="text-center">
-        {cta}
+      <div class="cta">
+        {buttons}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -58,7 +61,7 @@ export const query = graphql`
     __typename
     heading
     styles
-    linkToAll {
+    buttons {
       ...MyLink
     }
   }
