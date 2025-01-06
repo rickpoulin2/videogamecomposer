@@ -29,6 +29,11 @@ exports.createSchemaCustomization = ({ actions }) => {
     linkItunes: String
     albumDescription: RichText!
   }
+  type ContentfulBlogEntry implements Node {
+    title: String!
+    publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
+    content: RichText!
+  }
   type ContentfulComponentText implements Node {
     styles: String
     fancyHeading: String
@@ -68,11 +73,19 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulComponentAlbumList implements Node {
     id: ID!
   }
+  type ContentfulComponentBlogEntries implements Node {
+    id: ID!
+  }
+  type ContentfulComponentBlogLatest implements Node {
+    heading: String
+    styles: String
+    linkToAll: ContentfulLink @link(from: "linkToAll___NODE")
+  }
   type ContentfulComponentGroup implements Node {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String

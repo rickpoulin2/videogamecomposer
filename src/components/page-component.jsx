@@ -6,6 +6,8 @@ import Video from '../components/video'
 import ButtonBanner from '../components/button-banner'
 import ContentCard from '../components/content-card'
 import AlbumList from './album-list'
+import BlogEntries from './blog-entry'
+import BlogLatest from './blog-latest'
 import ComponentGroup from './component-group'
 
 const PageComponent = ({ obj }) => {
@@ -25,6 +27,10 @@ const PageComponent = ({ obj }) => {
         return <ContentCard obj={obj} />
     if (type === 'ContentfulComponentAlbumList')
         return <AlbumList obj={obj} />
+    if (type === 'ContentfulComponentBlogEntries')
+        return <BlogEntries obj={obj} />
+    if (type === 'ContentfulComponentBlogLatest')
+        return <BlogLatest obj={obj} />
 
     console.log("unknown component: " + type);
     return <></>
@@ -42,5 +48,7 @@ export const query = graphql`
         ...ContentfulComponentButtonBanner
         ...ContentfulComponentContentCard
         ...ContentfulComponentAlbumList
+        ...ContentfulComponentBlogEntries
+        ...ContentfulComponentBlogLatest
     }
 `

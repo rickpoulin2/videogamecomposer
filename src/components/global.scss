@@ -126,14 +126,13 @@ body {
 }
 
 main {
-  padding: 3em 0;
+  padding: 3em 0 6em;
   min-height: calc(100vh - 200px);
 }
 
 section:not(.nobg),
 article {
   padding: 5em 0;
-  margin-bottom: 3em;
 
   .container {
     position: relative;
@@ -146,7 +145,6 @@ article {
     background-color: white;
     z-index: 100;
     padding: 2em 1em;
-    min-height: 200px;
 
     @media only screen and (min-width: 576px) {
       padding: 4em 4em;
