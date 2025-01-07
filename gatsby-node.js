@@ -80,6 +80,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   }
   type ContentfulComponentAlbumList implements Node {
     id: ID!
+    styles: String
   }
   type ContentfulComponentBlogEntries implements Node {
     id: ID!
@@ -177,18 +178,4 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }`
   );
 
-  /*
-  await createPageTypes(graphql, actions, reporter,
-    path.resolve('./src/templates/blog-post.js'),
-    (slug) => `/blog/${slug}/`,
-    `{
-      items: allContentfulBlogPost {
-        nodes {
-          title
-          slug
-        }
-      }
-    }`
-  )
-    */
 }
