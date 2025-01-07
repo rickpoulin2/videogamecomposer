@@ -10,7 +10,7 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
     <li className="nav-item" key={i.url}><MyLink obj={i} addClasses="nav-link" /></li>
   );
   return (
-    <header>
+    <header id="top-of-page">
       <nav className="navbar navbar-dark navbar-expand-lg">
         <div className="container-lg">
           <div className="navbar-brand">

@@ -71,11 +71,14 @@ const BlogEntry = ({ obj }) => {
                 <span class="badge text-bg-secondary">{obj.publishedDate}</span>
               </div>
               {body}
+              <div className="top-link">
+                <a href="#top-of-page">Back to top <i className="fas fa-caret-up"></i></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </article>)
+    </article >)
 }
 
 export const query = graphql`
