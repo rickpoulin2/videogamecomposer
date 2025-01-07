@@ -10,7 +10,16 @@ module.exports = {
   },
   plugins: [
     "gatsby-transformer-sharp",
-    "gatsby-plugin-sharp",
+    {
+      resolve: "gatsby-plugin-sharp",
+      options: {
+        defaults: {
+          placeholder: "blurred",
+          quality: "80",
+          backgroundColor: "transparent"
+        }
+      }
+    },
     "gatsby-plugin-image",
     "gatsby-plugin-sass",
     "gatsby-plugin-schema-export",
