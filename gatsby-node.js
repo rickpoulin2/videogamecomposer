@@ -82,6 +82,10 @@ exports.createSchemaCustomization = ({ actions }) => {
     id: ID!
     styles: String
   }
+  type ContentfulComponentNewsletterList implements Node {
+    id: ID!
+    styles: String
+  }
   type ContentfulComponentBlogEntries implements Node {
     id: ID!
   }
@@ -100,7 +104,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String

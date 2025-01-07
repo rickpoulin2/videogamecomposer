@@ -10,6 +10,7 @@ import BlogEntries from './blog-entry'
 import BlogLatest from './blog-latest'
 import NewsletterLatest from './newsletter-latest'
 import ComponentGroup from './component-group'
+import NewsletterList from './newsletter-list'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename;
@@ -34,6 +35,8 @@ const PageComponent = ({ obj }) => {
         return <BlogLatest obj={obj} />
     if (type === 'ContentfulComponentNewsletterLatest')
         return <NewsletterLatest obj={obj} />
+    if (type === 'ContentfulComponentNewsletterList')
+        return <NewsletterList obj={obj} />
 
     console.log("unknown component: " + type);
     return <></>
@@ -54,5 +57,6 @@ export const query = graphql`
         ...ContentfulComponentBlogEntries
         ...ContentfulComponentBlogLatest
         ...ContentfulComponentNewsletterLatest
+        ...ContentfulComponentNewsletterList
     }
 `

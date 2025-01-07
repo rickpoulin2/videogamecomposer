@@ -46,11 +46,9 @@ const NewsletterLatest = ({ obj }) => {
       <h2 className="pix"><span>{obj.heading}</span></h2>
       {entries}
       {blurb}
-      {buttons}
       <div className="cta">
-        <p>FIX THESE LINKS</p>
-        <a href="#" class="btn btn-outline-primary">View archives</a>
-        <a href="#" class="btn btn-primary">Sign up!</a>
+        {buttons}
+        <p className="badge text-bg-danger">Add mailing sign up</p>
       </div>
     </div>
   )
