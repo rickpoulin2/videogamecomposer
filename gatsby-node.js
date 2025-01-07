@@ -100,11 +100,23 @@ exports.createSchemaCustomization = ({ actions }) => {
     trailingBlurb: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
+  type ContentfulComponentNewsletterSignup implements Node {
+    heading: String
+    styles: String
+    introContent: RichText
+    submitButtonLabel: String
+  }
+  type ContentfulComponentContactForm implements Node {
+    heading: String
+    styles: String
+    introContent: RichText
+    submitButtonLabel: String
+  }
   type ContentfulComponentGroup implements Node {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String

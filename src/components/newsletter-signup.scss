@@ -1,0 +1,15 @@
+.newsletter-signup {
+    .card-header h2 {
+        margin: 0;
+    }
+
+    .intro {
+        color: var(--bs-secondary-color);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}

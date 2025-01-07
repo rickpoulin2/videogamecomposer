@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import NewsletterCard from './newsletter-card';
 
 const NewsletterList = ({ obj }) => {
-  const albumData = useStaticQuery(
+  const newsData = useStaticQuery(
     graphql`
       query AllNewsletters {
         data: allContentfulNewsletter(sort: {publishedDate: DESC}) {
@@ -13,15 +13,13 @@ const NewsletterList = ({ obj }) => {
           }
         }
       }`);
-  const items = albumData.data?.nodes?.map((i) =>
+  const items = newsData.data?.nodes?.map((i) =>
     <NewsletterCard key={i.id} obj={i} imageSizing="col-3" />
   );
-  const clz = "newsletter-list col " + (obj.styles ? obj.styles : "")
+  const clz = "newsletter-list " + (obj.styles ? obj.styles : "col-12 col-md-9 col-lg-6")
   return (
     <div className={clz}>
-      <div className="col-12 col-md-9 col-lg-6">
-        {items}
-      </div>
+      {items}
     </div>
   )
 }

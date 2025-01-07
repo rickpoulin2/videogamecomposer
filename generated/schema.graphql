@@ -2385,12 +2385,144 @@ type ContentfulComponentNewsletterListSysContentTypeSys {
   id: String
 }
 
+type ContentfulComponentNewsletterSignup implements ContentfulReference & ContentfulEntry & Node {
+  contentful_id: String!
+  id: ID!
+  node_locale: String!
+  heading: String
+  styles: String
+  introContent: RichText
+  submitButtonLabel: String
+  page: [ContentfulPage]
+  spaceId: String
+  createdAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  updatedAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  sys: ContentfulComponentNewsletterSignupSys
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+
+type ContentfulComponentNewsletterSignupSys {
+  type: String
+  revision: Int
+  contentType: ContentfulComponentNewsletterSignupSysContentType
+}
+
+type ContentfulComponentNewsletterSignupSysContentType {
+  sys: ContentfulComponentNewsletterSignupSysContentTypeSys
+}
+
+type ContentfulComponentNewsletterSignupSysContentTypeSys {
+  type: String
+  linkType: String
+  id: String
+}
+
+type ContentfulComponentContactForm implements ContentfulReference & ContentfulEntry & Node {
+  contentful_id: String!
+  id: ID!
+  node_locale: String!
+  heading: String
+  styles: String
+  introContent: RichText
+  submitButtonLabel: String
+  page: [ContentfulPage]
+  spaceId: String
+  createdAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  updatedAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  sys: ContentfulComponentContactFormSys
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+
+type ContentfulComponentContactFormSys {
+  type: String
+  revision: Int
+  contentType: ContentfulComponentContactFormSysContentType
+}
+
+type ContentfulComponentContactFormSysContentType {
+  sys: ContentfulComponentContactFormSysContentTypeSys
+}
+
+type ContentfulComponentContactFormSysContentTypeSys {
+  type: String
+  linkType: String
+  id: String
+}
+
 type RichText {
   raw: String!
   references: [ContentfulPage]
 }
 
-union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList
+union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm
 
 type ContentfulContentType implements Node {
   id: ID!
@@ -2462,6 +2594,10 @@ type Query {
   allContentfulComponentNewsletterLatest(filter: ContentfulComponentNewsletterLatestFilterInput, sort: [ContentfulComponentNewsletterLatestSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterLatestConnection!
   contentfulComponentNewsletterList(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, internalTitle: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterListSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterList
   allContentfulComponentNewsletterList(filter: ContentfulComponentNewsletterListFilterInput, sort: [ContentfulComponentNewsletterListSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterListConnection!
+  contentfulComponentNewsletterSignup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterSignupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterSignup
+  allContentfulComponentNewsletterSignup(filter: ContentfulComponentNewsletterSignupFilterInput, sort: [ContentfulComponentNewsletterSignupSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterSignupConnection!
+  contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
+  allContentfulComponentContactForm(filter: ContentfulComponentContactFormFilterInput, sort: [ContentfulComponentContactFormSortInput], skip: Int, limit: Int): ContentfulComponentContactFormConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
 }
@@ -6144,6 +6280,274 @@ input ContentfulComponentNewsletterListSysContentTypeSortInput {
 }
 
 input ContentfulComponentNewsletterListSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
+}
+
+input ContentfulComponentNewsletterSignupSysFilterInput {
+  type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
+  contentType: ContentfulComponentNewsletterSignupSysContentTypeFilterInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeFilterInput {
+  sys: ContentfulComponentNewsletterSignupSysContentTypeSysFilterInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+type ContentfulComponentNewsletterSignupConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentNewsletterSignupEdge!]!
+  nodes: [ContentfulComponentNewsletterSignup!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentNewsletterSignupFieldSelector!): [String!]!
+  max(field: ContentfulComponentNewsletterSignupFieldSelector!): Float
+  min(field: ContentfulComponentNewsletterSignupFieldSelector!): Float
+  sum(field: ContentfulComponentNewsletterSignupFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentNewsletterSignupFieldSelector!): [ContentfulComponentNewsletterSignupGroupConnection!]!
+}
+
+type ContentfulComponentNewsletterSignupEdge {
+  next: ContentfulComponentNewsletterSignup
+  node: ContentfulComponentNewsletterSignup!
+  previous: ContentfulComponentNewsletterSignup
+}
+
+input ContentfulComponentNewsletterSignupFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  heading: FieldSelectorEnum
+  styles: FieldSelectorEnum
+  introContent: RichTextFieldSelector
+  submitButtonLabel: FieldSelectorEnum
+  page: ContentfulPageFieldSelector
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulComponentNewsletterSignupSysFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulComponentNewsletterSignupSysFieldSelector {
+  type: FieldSelectorEnum
+  revision: FieldSelectorEnum
+  contentType: ContentfulComponentNewsletterSignupSysContentTypeFieldSelector
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeFieldSelector {
+  sys: ContentfulComponentNewsletterSignupSysContentTypeSysFieldSelector
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
+}
+
+type ContentfulComponentNewsletterSignupGroupConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentNewsletterSignupEdge!]!
+  nodes: [ContentfulComponentNewsletterSignup!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentNewsletterSignupFieldSelector!): [String!]!
+  max(field: ContentfulComponentNewsletterSignupFieldSelector!): Float
+  min(field: ContentfulComponentNewsletterSignupFieldSelector!): Float
+  sum(field: ContentfulComponentNewsletterSignupFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentNewsletterSignupFieldSelector!): [ContentfulComponentNewsletterSignupGroupConnection!]!
+  field: String!
+  fieldValue: String
+}
+
+input ContentfulComponentNewsletterSignupFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  heading: StringQueryOperatorInput
+  styles: StringQueryOperatorInput
+  introContent: RichTextFilterInput
+  submitButtonLabel: StringQueryOperatorInput
+  page: ContentfulPageFilterListInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulComponentNewsletterSignupSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulComponentNewsletterSignupSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  heading: SortOrderEnum
+  styles: SortOrderEnum
+  introContent: RichTextSortInput
+  submitButtonLabel: SortOrderEnum
+  page: ContentfulPageSortInput
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulComponentNewsletterSignupSysSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulComponentNewsletterSignupSysSortInput {
+  type: SortOrderEnum
+  revision: SortOrderEnum
+  contentType: ContentfulComponentNewsletterSignupSysContentTypeSortInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSortInput {
+  sys: ContentfulComponentNewsletterSignupSysContentTypeSysSortInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
+}
+
+input ContentfulComponentContactFormSysFilterInput {
+  type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
+  contentType: ContentfulComponentContactFormSysContentTypeFilterInput
+}
+
+input ContentfulComponentContactFormSysContentTypeFilterInput {
+  sys: ContentfulComponentContactFormSysContentTypeSysFilterInput
+}
+
+input ContentfulComponentContactFormSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+type ContentfulComponentContactFormConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentContactFormEdge!]!
+  nodes: [ContentfulComponentContactForm!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentContactFormFieldSelector!): [String!]!
+  max(field: ContentfulComponentContactFormFieldSelector!): Float
+  min(field: ContentfulComponentContactFormFieldSelector!): Float
+  sum(field: ContentfulComponentContactFormFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentContactFormFieldSelector!): [ContentfulComponentContactFormGroupConnection!]!
+}
+
+type ContentfulComponentContactFormEdge {
+  next: ContentfulComponentContactForm
+  node: ContentfulComponentContactForm!
+  previous: ContentfulComponentContactForm
+}
+
+input ContentfulComponentContactFormFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  heading: FieldSelectorEnum
+  styles: FieldSelectorEnum
+  introContent: RichTextFieldSelector
+  submitButtonLabel: FieldSelectorEnum
+  page: ContentfulPageFieldSelector
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulComponentContactFormSysFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulComponentContactFormSysFieldSelector {
+  type: FieldSelectorEnum
+  revision: FieldSelectorEnum
+  contentType: ContentfulComponentContactFormSysContentTypeFieldSelector
+}
+
+input ContentfulComponentContactFormSysContentTypeFieldSelector {
+  sys: ContentfulComponentContactFormSysContentTypeSysFieldSelector
+}
+
+input ContentfulComponentContactFormSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
+}
+
+type ContentfulComponentContactFormGroupConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentContactFormEdge!]!
+  nodes: [ContentfulComponentContactForm!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentContactFormFieldSelector!): [String!]!
+  max(field: ContentfulComponentContactFormFieldSelector!): Float
+  min(field: ContentfulComponentContactFormFieldSelector!): Float
+  sum(field: ContentfulComponentContactFormFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentContactFormFieldSelector!): [ContentfulComponentContactFormGroupConnection!]!
+  field: String!
+  fieldValue: String
+}
+
+input ContentfulComponentContactFormFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  heading: StringQueryOperatorInput
+  styles: StringQueryOperatorInput
+  introContent: RichTextFilterInput
+  submitButtonLabel: StringQueryOperatorInput
+  page: ContentfulPageFilterListInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulComponentContactFormSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulComponentContactFormSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  heading: SortOrderEnum
+  styles: SortOrderEnum
+  introContent: RichTextSortInput
+  submitButtonLabel: SortOrderEnum
+  page: ContentfulPageSortInput
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulComponentContactFormSysSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulComponentContactFormSysSortInput {
+  type: SortOrderEnum
+  revision: SortOrderEnum
+  contentType: ContentfulComponentContactFormSysContentTypeSortInput
+}
+
+input ContentfulComponentContactFormSysContentTypeSortInput {
+  sys: ContentfulComponentContactFormSysContentTypeSysSortInput
+}
+
+input ContentfulComponentContactFormSysContentTypeSysSortInput {
   type: SortOrderEnum
   linkType: SortOrderEnum
   id: SortOrderEnum
