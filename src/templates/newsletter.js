@@ -11,10 +11,12 @@ import './newsletter.scss'
 import Seo from '../components/seo'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
+import NewsletterCard from '../components/newsletter-card'
 
 class NewsletterTemplate extends React.Component {
   render() {
     const pageData = this.props.data.contentfulNewsletter
+    console.log(this.props.data);
 
     const rtOptions = {
       renderMark: {
@@ -27,6 +29,10 @@ class NewsletterTemplate extends React.Component {
       }
     }
     let body = renderRichText(pageData.bodyContent, rtOptions);
+
+    const cardClasses = "col-3 col-md-2 col-lg-3"
+    const prev = !this.props.data.previous ? "" : <><h3>Later issue</h3><NewsletterCard obj={this.props.data.previous} imageSizing={cardClasses} /></>
+    const next = !this.props.data.next ? "" : <><h3>Earlier issue</h3><NewsletterCard obj={this.props.data.next} imageSizing={cardClasses} /></>
 
     return (
       <Layout location={this.props.location}>
@@ -41,6 +47,17 @@ class NewsletterTemplate extends React.Component {
                 <div className="col-12 newsletter-body">
                   <h1>{pageData.heading} / {pageData.publishedDate}</h1>
                   {body}
+                </div>
+                <div className="col-12 newsletter-links">
+                  <h2 className="visually-hidden">Navigation</h2>
+                  <div className="row">
+                    <div className="col-12 col-lg-6">
+                      {prev}
+                    </div>
+                    <div className="col-12 col-lg-6">
+                      {next}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -75,9 +92,21 @@ export const pageQuery = graphql`
     }
     previous: contentfulNewsletter(url: { eq: $previousPostSlug }) {
       heading
+      url
+      publishedDate(formatString: "MMMM YYYY")
+      tagLine
+      bannerImage {
+          gatsbyImageData(layout:CONSTRAINED, height:400, aspectRatio:1, quality:95, placeholder:BLURRED, resizingBehavior:FILL, cropFocus:LEFT)
+      }
     }
     next: contentfulNewsletter(url: { eq: $nextPostSlug }) {
       heading
+      url
+      publishedDate(formatString: "MMMM YYYY")
+      tagLine
+      bannerImage {
+          gatsbyImageData(layout:CONSTRAINED, height:400, aspectRatio:1, quality:95, placeholder:BLURRED, resizingBehavior:FILL, cropFocus:LEFT)
+      }
     }
   }
 `

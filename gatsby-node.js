@@ -169,7 +169,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     path.resolve('./src/templates/newsletter.js'),
     (slug) => `/newsletter/${slug}/`,
     `{
-      items: allContentfulNewsletter {
+      items: allContentfulNewsletter(sort: {publishedDate: DESC}) {
         nodes {
           url
         }

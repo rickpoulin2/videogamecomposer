@@ -1,51 +1,9 @@
 .newsletter-latest {
-    .row {
-        --bs-gutter-x: 0;
-        --bs-gutter-y: 0;
-    }
-
-    a.card {
-        text-decoration: none;
-        line-height: 1.35;
-        margin-bottom: 1em;
-    }
-
-    a.card:hover,
-    a.card:focus {
-        box-shadow: 2px 2px 5px var(--bs-light);
-
-        .card-title {
-            text-decoration: underline;
-        }
-    }
-
     .cta {
         text-align: center;
 
         .btn {
             margin: 0.25em;
-        }
-    }
-
-    .gatsby-image-wrapper {
-        width: 100%;
-        border-bottom-left-radius: var(--bs-border-radius);
-        border-top-left-radius: var(--bs-border-radius);
-    }
-
-    @media only screen and (max-width: 400px) {
-        .row {
-            flex-direction: column;
-        }
-
-        .row div:first-child {
-            width: 100%;
-        }
-
-        .gatsby-image-wrapper {
-            width: 100%;
-            border-bottom-left-radius: 0;
-            border-top-right-radius: var(--bs-border-radius);
         }
     }
 }

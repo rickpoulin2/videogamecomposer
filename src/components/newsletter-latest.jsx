@@ -4,6 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { MARKS } from '@contentful/rich-text-types'
 import MyLink from './mylink'
+import NewsletterCard from './newsletter-card'
 
 import './newsletter-latest.scss';
 
@@ -13,20 +14,13 @@ const NewsletterLatest = ({ obj }) => {
       query LatestNewsletterEntries {
         data: allContentfulNewsletter(limit: 1, sort: {publishedDate: DESC}) {
           nodes {
-            id
-            heading
-            url
-            publishedDate(formatString: "MMMM YYYY")
-            tagLine
-            bannerImage {
-                gatsbyImageData(layout:CONSTRAINED, height:400, aspectRatio:1, quality:95, placeholder:BLURRED, resizingBehavior:FILL, cropFocus:LEFT)
-            }
+            ...NewsletterCard
           }
         }
       }`);
 
   let entries = blogData.data?.nodes?.map((i) =>
-    <NewsletterLink key={i.id} obj={i} />
+    <NewsletterCard key={i.id} obj={i} />
   );
   if (!(blogData.data?.nodes?.length > 0)) {
     entries = <li>Nothing here yet! Check back soon.</li>
@@ -63,24 +57,6 @@ const NewsletterLatest = ({ obj }) => {
 }
 
 export default NewsletterLatest
-
-const NewsletterLink = ({ obj }) => {
-  const tagLine = obj.tagLine ? <p className="card-text">{obj.tagLine}</p> : ""
-  return (
-    <Link to={"/newsletter/" + obj.url} className="card">
-      <div className="row">
-        <div className="col-4 col-sm-3 col-md-2 col-lg-3 col-xl-6 col-xxl-3">
-          <GatsbyImage image={obj.bannerImage.gatsbyImageData} />
-        </div>
-        <div className="col">
-          <div className="card-body">
-            <p className="card-title"><strong>{obj.heading} / {obj.publishedDate}</strong></p>
-            {tagLine}
-          </div>
-        </div>
-      </div>
-    </Link>)
-}
 
 export const query = graphql`
   fragment ContentfulComponentNewsletterLatest on ContentfulComponentNewsletterLatest {

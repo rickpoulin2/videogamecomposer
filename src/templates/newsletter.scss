@@ -1,10 +1,6 @@
 section.newsletter:not(.nobg) {
     padding-top: 4em;
 
-    .row {
-        justify-content: center;
-    }
-
     .newsletter-banner {
         padding: 0;
         position: absolute;
@@ -13,9 +9,13 @@ section.newsletter:not(.nobg) {
         top: 0;
     }
 
-    .newsletter-body {
+    .newsletter-body,
+    .newsletter-links {
         max-width: 900px;
+        margin: 0 auto;
+    }
 
+    .newsletter-body {
         @media only screen and (min-width: 1200px) {
             padding-top: 2.5em;
         }
@@ -31,5 +31,11 @@ section.newsletter:not(.nobg) {
         width: 100%;
         display: block;
         aspect-ratio: 5/1;
+    }
+
+    .newsletter-links {
+        margin-top: 2em;
+        padding-top: 2em;
+        border-top: 1px solid var(--bs-light);
     }
 }
