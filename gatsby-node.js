@@ -32,14 +32,15 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulBlogEntry implements Node {
     title: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
-    bannerImage: ContentfulAsset @link(from: "bannerImage___NODE")
-    bodyContent: RichText!
+    content: RichText!
   }
   type ContentfulNewsletter implements Node {
     heading: String!
+    url: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
+    bannerImage: ContentfulAsset @link(from: "bannerImage___NODE")
     tagLine: String
-    content: RichText!
+    bodyContent: RichText!
   }
   type ContentfulComponentText implements Node {
     styles: String
@@ -158,7 +159,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     `{
       items: allContentfulPage {
         nodes {
-          title
+          url
+        }
+      }
+    }`
+  );
+
+  await createPageTypes(graphql, actions, reporter,
+    path.resolve('./src/templates/newsletter.js'),
+    (slug) => `/newsletter/${slug}/`,
+    `{
+      items: allContentfulNewsletter {
+        nodes {
           url
         }
       }

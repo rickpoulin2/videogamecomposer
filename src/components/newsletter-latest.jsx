@@ -15,8 +15,8 @@ const NewsletterLatest = ({ obj }) => {
           nodes {
             id
             heading
+            url
             publishedDate(formatString: "MMMM YYYY")
-            tag: publishedDate(formatString: "YYYYMM")
             tagLine
             bannerImage {
                 gatsbyImageData(layout:CONSTRAINED, height:400, aspectRatio:1, quality:95, placeholder:BLURRED, resizingBehavior:FILL, cropFocus:LEFT)
@@ -26,8 +26,12 @@ const NewsletterLatest = ({ obj }) => {
       }`);
 
   let entries = blogData.data?.nodes?.map((i) =>
-    <BlogLink key={i.id} obj={i} />
+    <NewsletterLink key={i.id} obj={i} />
   );
+  if (!(blogData.data?.nodes?.length > 0)) {
+    entries = <li>Nothing here yet! Check back soon.</li>
+    buttons = ""
+  }
   const rtOptions = {
     renderMark: {
       [MARKS.ITALIC]: (text) => {
@@ -43,10 +47,6 @@ const NewsletterLatest = ({ obj }) => {
     const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
     return <MyLink obj={btn} addClasses={cl} />
   });
-  if (!(blogData.data?.nodes?.length > 0)) {
-    entries = <li>Nothing here yet! Check back soon.</li>
-    buttons = ""
-  }
   return (
     <div className="newsletter-latest">
       <h2 className="pix"><span>{obj.heading}</span></h2>
@@ -64,10 +64,10 @@ const NewsletterLatest = ({ obj }) => {
 
 export default NewsletterLatest
 
-const BlogLink = ({ obj }) => {
+const NewsletterLink = ({ obj }) => {
   const tagLine = obj.tagLine ? <p className="card-text">{obj.tagLine}</p> : ""
   return (
-    <Link to={"/newsletters/" + obj.tag} className="card">
+    <Link to={"/newsletter/" + obj.url} className="card">
       <div className="row">
         <div className="col-4 col-sm-3 col-md-2 col-lg-3 col-xl-6 col-xxl-3">
           <GatsbyImage image={obj.bannerImage.gatsbyImageData} />

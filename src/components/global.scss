@@ -196,6 +196,16 @@ article {
     top: -42px;
   }
 
+  &.newsletter .container::before {
+    top: -6px;
+    height: 7px;
+  }
+
+  &.newsletter .container>div::before {
+    top: -8px;
+    height: 7px;
+  }
+
   .container::after {
     bottom: -42px;
   }

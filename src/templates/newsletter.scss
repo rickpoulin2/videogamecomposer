@@ -1,0 +1,35 @@
+section.newsletter:not(.nobg) {
+    padding-top: 4em;
+
+    .row {
+        justify-content: center;
+    }
+
+    .newsletter-banner {
+        padding: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+
+    .newsletter-body {
+        max-width: 900px;
+
+        @media only screen and (min-width: 1200px) {
+            padding-top: 2.5em;
+        }
+
+        @media only screen and (min-width: 1400px) {
+            padding-top: 5em;
+        }
+    }
+
+    .newsletter-body::before {
+        /* Shadow spacing for the banner area */
+        content: "";
+        width: 100%;
+        display: block;
+        aspect-ratio: 5/1;
+    }
+}
