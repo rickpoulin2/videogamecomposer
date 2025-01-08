@@ -13,6 +13,7 @@ import ComponentGroup from './component-group'
 import NewsletterList from './newsletter-list'
 import NewsletterSignup from './newsletter-signup'
 import ContactForm from './contact-form'
+import CommissionCard from './commission-card'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename;
@@ -41,9 +42,10 @@ const PageComponent = ({ obj }) => {
         return <NewsletterList obj={obj} />
     if (type === 'ContentfulComponentNewsletterSignup')
         return <NewsletterSignup obj={obj} />
-    if (type === 'ContentfulComponentContactForm') {
+    if (type === 'ContentfulComponentContactForm')
         return <ContactForm obj={obj} />
-    }
+    if (type === 'ContentfulComponentCommissionCard')
+        return <CommissionCard obj={obj} />
 
     console.log("unknown component: " + type);
     return <></>
@@ -67,5 +69,6 @@ export const query = graphql`
         ...ContentfulComponentNewsletterList
         ...ContentfulComponentNewsletterSignup
         ...ContentfulComponentContactForm
+        ...ContentfulComponentCommissionCard
     }
 `

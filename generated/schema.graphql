@@ -2517,12 +2517,84 @@ type ContentfulComponentContactFormSysContentTypeSys {
   id: String
 }
 
+type ContentfulComponentCommissionCard implements ContentfulReference & ContentfulEntry & Node {
+  contentful_id: String!
+  id: ID!
+  node_locale: String!
+  title: String!
+  coverImage: ContentfulAsset
+  developer: String
+  publisher: String
+  releaseYear: String
+  steamLink: String
+  itchioLink: String
+  youTubeLink: String
+  otherLink: String
+  spaceId: String
+  createdAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  updatedAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  sys: ContentfulComponentCommissionCardSys
+  page: [ContentfulPage]
+  component_group: [ContentfulComponentGroup]
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+
+type ContentfulComponentCommissionCardSys {
+  type: String
+  revision: Int
+  contentType: ContentfulComponentCommissionCardSysContentType
+}
+
+type ContentfulComponentCommissionCardSysContentType {
+  sys: ContentfulComponentCommissionCardSysContentTypeSys
+}
+
+type ContentfulComponentCommissionCardSysContentTypeSys {
+  type: String
+  linkType: String
+  id: String
+}
+
 type RichText {
   raw: String!
   references: [ContentfulPage]
 }
 
-union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm
+union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard
 
 type ContentfulContentType implements Node {
   id: ID!
@@ -2598,6 +2670,8 @@ type Query {
   allContentfulComponentNewsletterSignup(filter: ContentfulComponentNewsletterSignupFilterInput, sort: [ContentfulComponentNewsletterSignupSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterSignupConnection!
   contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
   allContentfulComponentContactForm(filter: ContentfulComponentContactFormFilterInput, sort: [ContentfulComponentContactFormSortInput], skip: Int, limit: Int): ContentfulComponentContactFormConnection!
+  contentfulComponentCommissionCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, developer: StringQueryOperatorInput, publisher: StringQueryOperatorInput, releaseYear: StringQueryOperatorInput, steamLink: StringQueryOperatorInput, itchioLink: StringQueryOperatorInput, youTubeLink: StringQueryOperatorInput, otherLink: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentCommissionCardSysFilterInput, page: ContentfulPageFilterListInput, component_group: ContentfulComponentGroupFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentCommissionCard
+  allContentfulComponentCommissionCard(filter: ContentfulComponentCommissionCardFilterInput, sort: [ContentfulComponentCommissionCardSortInput], skip: Int, limit: Int): ContentfulComponentCommissionCardConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
 }
@@ -6548,6 +6622,158 @@ input ContentfulComponentContactFormSysContentTypeSortInput {
 }
 
 input ContentfulComponentContactFormSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
+}
+
+input ContentfulComponentCommissionCardSysFilterInput {
+  type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
+  contentType: ContentfulComponentCommissionCardSysContentTypeFilterInput
+}
+
+input ContentfulComponentCommissionCardSysContentTypeFilterInput {
+  sys: ContentfulComponentCommissionCardSysContentTypeSysFilterInput
+}
+
+input ContentfulComponentCommissionCardSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+type ContentfulComponentCommissionCardConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentCommissionCardEdge!]!
+  nodes: [ContentfulComponentCommissionCard!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentCommissionCardFieldSelector!): [String!]!
+  max(field: ContentfulComponentCommissionCardFieldSelector!): Float
+  min(field: ContentfulComponentCommissionCardFieldSelector!): Float
+  sum(field: ContentfulComponentCommissionCardFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentCommissionCardFieldSelector!): [ContentfulComponentCommissionCardGroupConnection!]!
+}
+
+type ContentfulComponentCommissionCardEdge {
+  next: ContentfulComponentCommissionCard
+  node: ContentfulComponentCommissionCard!
+  previous: ContentfulComponentCommissionCard
+}
+
+input ContentfulComponentCommissionCardFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  title: FieldSelectorEnum
+  coverImage: ContentfulAssetFieldSelector
+  developer: FieldSelectorEnum
+  publisher: FieldSelectorEnum
+  releaseYear: FieldSelectorEnum
+  steamLink: FieldSelectorEnum
+  itchioLink: FieldSelectorEnum
+  youTubeLink: FieldSelectorEnum
+  otherLink: FieldSelectorEnum
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulComponentCommissionCardSysFieldSelector
+  page: ContentfulPageFieldSelector
+  component_group: ContentfulComponentGroupFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulComponentCommissionCardSysFieldSelector {
+  type: FieldSelectorEnum
+  revision: FieldSelectorEnum
+  contentType: ContentfulComponentCommissionCardSysContentTypeFieldSelector
+}
+
+input ContentfulComponentCommissionCardSysContentTypeFieldSelector {
+  sys: ContentfulComponentCommissionCardSysContentTypeSysFieldSelector
+}
+
+input ContentfulComponentCommissionCardSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
+}
+
+type ContentfulComponentCommissionCardGroupConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentCommissionCardEdge!]!
+  nodes: [ContentfulComponentCommissionCard!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentCommissionCardFieldSelector!): [String!]!
+  max(field: ContentfulComponentCommissionCardFieldSelector!): Float
+  min(field: ContentfulComponentCommissionCardFieldSelector!): Float
+  sum(field: ContentfulComponentCommissionCardFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentCommissionCardFieldSelector!): [ContentfulComponentCommissionCardGroupConnection!]!
+  field: String!
+  fieldValue: String
+}
+
+input ContentfulComponentCommissionCardFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  title: StringQueryOperatorInput
+  coverImage: ContentfulAssetFilterInput
+  developer: StringQueryOperatorInput
+  publisher: StringQueryOperatorInput
+  releaseYear: StringQueryOperatorInput
+  steamLink: StringQueryOperatorInput
+  itchioLink: StringQueryOperatorInput
+  youTubeLink: StringQueryOperatorInput
+  otherLink: StringQueryOperatorInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulComponentCommissionCardSysFilterInput
+  page: ContentfulPageFilterListInput
+  component_group: ContentfulComponentGroupFilterListInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulComponentCommissionCardSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  title: SortOrderEnum
+  coverImage: ContentfulAssetSortInput
+  developer: SortOrderEnum
+  publisher: SortOrderEnum
+  releaseYear: SortOrderEnum
+  steamLink: SortOrderEnum
+  itchioLink: SortOrderEnum
+  youTubeLink: SortOrderEnum
+  otherLink: SortOrderEnum
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulComponentCommissionCardSysSortInput
+  page: ContentfulPageSortInput
+  component_group: ContentfulComponentGroupSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulComponentCommissionCardSysSortInput {
+  type: SortOrderEnum
+  revision: SortOrderEnum
+  contentType: ContentfulComponentCommissionCardSysContentTypeSortInput
+}
+
+input ContentfulComponentCommissionCardSysContentTypeSortInput {
+  sys: ContentfulComponentCommissionCardSysContentTypeSysSortInput
+}
+
+input ContentfulComponentCommissionCardSysContentTypeSysSortInput {
   type: SortOrderEnum
   linkType: SortOrderEnum
   id: SortOrderEnum

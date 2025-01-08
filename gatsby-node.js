@@ -112,11 +112,22 @@ exports.createSchemaCustomization = ({ actions }) => {
     introContent: RichText
     submitButtonLabel: String
   }
+  type ContentfulComponentCommissionCard implements Node {
+    title: String!
+    coverImage: ContentfulAsset @link(from: "coverImage___NODE")
+    developer: String
+    publisher: String
+    releaseYear: String
+    steamLink: String
+    itchioLink: String
+    youTubeLink: String
+    otherLink: String
+  }
   type ContentfulComponentGroup implements Node {
     styles: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard
   type ContentfulSiteGlobals implements Node {
     siteTitle: String!
     siteHeadingStart: String
