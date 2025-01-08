@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import MyLink from './mylink'
+import RichText from './richtext'
 
 import './footer.scss'
 
@@ -16,7 +16,7 @@ const Footer = ({ copyrightLine, content, navItems = [] }) => {
           <div className="row">
             <div className="col-12 col-md-8">
               <p className="footer-copyright">{copyrightLine}</p>
-              {renderRichText(content)}
+              <RichText data={content} />
             </div>
 
             <nav className="col-12 col-md-4">
@@ -39,7 +39,7 @@ export const query = graphql`
       ... MyLink
     }
     footerContent {
-      raw
+      ...RichText
     }
     copyrightLine
   }

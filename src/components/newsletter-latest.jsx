@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { MARKS } from '@contentful/rich-text-types'
+import { useStaticQuery, graphql } from 'gatsby'
 import MyLink from './mylink'
 import NewsletterCard from './newsletter-card'
+import RichText from './richtext'
 
 import './newsletter-latest.scss';
 
@@ -26,17 +24,6 @@ const NewsletterLatest = ({ obj }) => {
     entries = <li>Nothing here yet! Check back soon.</li>
     buttons = ""
   }
-  const rtOptions = {
-    renderMark: {
-      [MARKS.ITALIC]: (text) => {
-        return <em>{text}</em>
-      },
-      [MARKS.BOLD]: (text) => {
-        return <strong>{text}</strong>
-      }
-    }
-  }
-  let blurb = renderRichText(obj.trailingBlurb, rtOptions);
   let buttons = obj.buttons?.map((btn, i, arr) => {
     const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
     return <MyLink obj={btn} addClasses={cl} />
@@ -45,7 +32,7 @@ const NewsletterLatest = ({ obj }) => {
     <div className="newsletter-latest">
       <h2 className="pix"><span>{obj.heading}</span></h2>
       {entries}
-      {blurb}
+      <RichText data={obj.trailingBlurb} />
       <div className="cta">
         {buttons}
         <p className="badge text-bg-danger">Add mailing sign up</p>
@@ -62,7 +49,7 @@ export const query = graphql`
     heading
     styles
     trailingBlurb {
-        raw
+      ...RichText
     }
     buttons {
       ...MyLink

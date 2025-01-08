@@ -1,7 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { MARKS } from '@contentful/rich-text-types'
+import RichText from './richtext'
 
 import './blog-entry.scss';
 
@@ -16,7 +15,7 @@ const BlogEntries = () => {
             publishedDate(formatString: "YYYY MMM DD")
             tag: publishedDate(formatString: "YYYYMMDD")
             content {
-              raw
+              ...RichText
             }
           }
         }
@@ -49,17 +48,6 @@ export default BlogEntries
 
 const BlogEntry = ({ obj }) => {
   const htmlid = `entry${obj.tag}`;
-  const rtOptions = {
-    renderMark: {
-      [MARKS.ITALIC]: (text) => {
-        return <em>{text}</em>
-      },
-      [MARKS.BOLD]: (text) => {
-        return <strong>{text}</strong>
-      }
-    },
-  }
-  let body = renderRichText(obj.content, rtOptions);
   return (
     <article id={htmlid} className="blog">
       <div className="container">
@@ -70,7 +58,7 @@ const BlogEntry = ({ obj }) => {
                 <h2>{obj.title}</h2>
                 <span class="badge text-bg-secondary">{obj.publishedDate}</span>
               </div>
-              {body}
+              <RichText data={obj.content} />
               <div className="top-link">
                 <a href="#top-of-page">Back to top <i className="fas fa-caret-up"></i></a>
               </div>

@@ -1,23 +1,11 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { MARKS } from '@contentful/rich-text-types'
+import RichText from './richtext'
 
 import './contact-form.scss'
 
 const ContactForm = ({ obj }) => {
   const clz = "contact-form " + (obj.styles ? obj.styles : "col")
-  const rtOptions = {
-    renderMark: {
-      [MARKS.ITALIC]: (text) => {
-        return <em>{text}</em>
-      },
-      [MARKS.BOLD]: (text) => {
-        return <strong>{text}</strong>
-      }
-    }
-  }
-  let introContent = obj.introContent ? renderRichText(obj.introContent, rtOptions) : ""
   return (
     <>
       <div className={clz}>
@@ -27,7 +15,7 @@ const ContactForm = ({ obj }) => {
           </div>
           <div className="card-body">
             <div className="intro">
-              {introContent}
+              <RichText data={obj.introContent} />
             </div>
             <form>
               <div className="field">
@@ -78,7 +66,7 @@ export const query = graphql`
     heading
     styles
     introContent {
-      raw
+      ...RichText
     }
     submitButtonLabel
   }

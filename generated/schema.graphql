@@ -2530,6 +2530,7 @@ type ContentfulComponentCommissionCard implements ContentfulReference & Contentf
   itchioLink: String
   youTubeLink: String
   otherLink: String
+  component_group: [ContentfulComponentGroup]
   spaceId: String
   createdAt(
     """
@@ -2566,8 +2567,6 @@ type ContentfulComponentCommissionCard implements ContentfulReference & Contentf
     locale: String
   ): Date
   sys: ContentfulComponentCommissionCardSys
-  page: [ContentfulPage]
-  component_group: [ContentfulComponentGroup]
   parent: Node
   children: [Node!]!
   internal: Internal!
@@ -2670,7 +2669,7 @@ type Query {
   allContentfulComponentNewsletterSignup(filter: ContentfulComponentNewsletterSignupFilterInput, sort: [ContentfulComponentNewsletterSignupSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterSignupConnection!
   contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
   allContentfulComponentContactForm(filter: ContentfulComponentContactFormFilterInput, sort: [ContentfulComponentContactFormSortInput], skip: Int, limit: Int): ContentfulComponentContactFormConnection!
-  contentfulComponentCommissionCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, developer: StringQueryOperatorInput, publisher: StringQueryOperatorInput, releaseYear: StringQueryOperatorInput, steamLink: StringQueryOperatorInput, itchioLink: StringQueryOperatorInput, youTubeLink: StringQueryOperatorInput, otherLink: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentCommissionCardSysFilterInput, page: ContentfulPageFilterListInput, component_group: ContentfulComponentGroupFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentCommissionCard
+  contentfulComponentCommissionCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, developer: StringQueryOperatorInput, publisher: StringQueryOperatorInput, releaseYear: StringQueryOperatorInput, steamLink: StringQueryOperatorInput, itchioLink: StringQueryOperatorInput, youTubeLink: StringQueryOperatorInput, otherLink: StringQueryOperatorInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentCommissionCardSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentCommissionCard
   allContentfulComponentCommissionCard(filter: ContentfulComponentCommissionCardFilterInput, sort: [ContentfulComponentCommissionCardSortInput], skip: Int, limit: Int): ContentfulComponentCommissionCardConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
@@ -6674,12 +6673,11 @@ input ContentfulComponentCommissionCardFieldSelector {
   itchioLink: FieldSelectorEnum
   youTubeLink: FieldSelectorEnum
   otherLink: FieldSelectorEnum
+  component_group: ContentfulComponentGroupFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
   sys: ContentfulComponentCommissionCardSysFieldSelector
-  page: ContentfulPageFieldSelector
-  component_group: ContentfulComponentGroupFieldSelector
   parent: NodeFieldSelector
   children: NodeFieldSelector
   internal: InternalFieldSelector
@@ -6728,12 +6726,11 @@ input ContentfulComponentCommissionCardFilterInput {
   itchioLink: StringQueryOperatorInput
   youTubeLink: StringQueryOperatorInput
   otherLink: StringQueryOperatorInput
+  component_group: ContentfulComponentGroupFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
   sys: ContentfulComponentCommissionCardSysFilterInput
-  page: ContentfulPageFilterListInput
-  component_group: ContentfulComponentGroupFilterListInput
   parent: NodeFilterInput
   children: NodeFilterListInput
   internal: InternalFilterInput
@@ -6752,12 +6749,11 @@ input ContentfulComponentCommissionCardSortInput {
   itchioLink: SortOrderEnum
   youTubeLink: SortOrderEnum
   otherLink: SortOrderEnum
+  component_group: ContentfulComponentGroupSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
   sys: ContentfulComponentCommissionCardSysSortInput
-  page: ContentfulPageSortInput
-  component_group: ContentfulComponentGroupSortInput
   parent: NodeSortInput
   children: NodeSortInput
   internal: InternalSortInput

@@ -4,6 +4,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
   type RichText {
     raw: String!
+    references: [ContentfulPage] @link(from: "references___NODE")
   }
   type ContentfulLink implements Node {
     isInternal: Boolean!

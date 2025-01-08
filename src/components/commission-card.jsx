@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { MARKS } from '@contentful/rich-text-types'
 
 import './commission-card.scss'
 

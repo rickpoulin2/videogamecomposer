@@ -1,8 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { MARKS } from '@contentful/rich-text-types'
+import RichText from './richtext'
 
 import './album-card.scss'
 
@@ -17,18 +16,6 @@ const CHANNELS = [
 const AlbumCard = ({ obj }) => {
   if (obj == null)
     return
-
-  const rtOptions = {
-    renderMark: {
-      [MARKS.ITALIC]: (text) => {
-        return <em>{text}</em>
-      },
-      [MARKS.BOLD]: (text) => {
-        return <strong>{text}</strong>
-      }
-    },
-  }
-  let body = renderRichText(obj.albumDescription, rtOptions);
 
   let collab = "";
   if (obj.collaboratorName) {
@@ -72,7 +59,9 @@ const AlbumCard = ({ obj }) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
-      <div className="card-body">{body}</div>
+      <div className="card-body">
+        <RichText data={obj.albumDescription} />
+      </div>
     </div>
   )
 }
@@ -96,7 +85,7 @@ export const query = graphql`
     linkItchio
     linkItunes
     albumDescription {
-      raw
+      ...RichText
     }
   }
 `

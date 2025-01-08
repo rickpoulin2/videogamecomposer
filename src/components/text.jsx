@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { BLOCKS, MARKS } from '@contentful/rich-text-types'
+import { BLOCKS } from '@contentful/rich-text-types'
+import RichText from './richtext'
 
 import './text.scss'
 
@@ -16,14 +16,6 @@ const Text = ({ obj }) => {
   const dateTag = obj.dateTag ? <span className="badge text-bg-secondary">{obj.dateTag}</span> : ""
   let sawParagraph = false;
   const rtOptions = {
-    renderMark: {
-      [MARKS.ITALIC]: (text) => {
-        return <em>{text}</em>
-      },
-      [MARKS.BOLD]: (text) => {
-        return <strong>{text}</strong>
-      }
-    },
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => {
         if (!sawParagraph) {
@@ -34,10 +26,7 @@ const Text = ({ obj }) => {
       },
     }
   }
-  let body = renderRichText(obj.content, rtOptions);
-  if (dateTag && !sawParagraph) {
-    body = <>{dateTag} {body}</>
-  }
+  let body = <RichText data={obj.content} addOptions={rtOptions} />
 
   if (image) {
     return (
@@ -74,7 +63,7 @@ export const query = graphql`
       gatsbyImageData
     }
     content {
-      raw
+      ...RichText
     }
   }
 `

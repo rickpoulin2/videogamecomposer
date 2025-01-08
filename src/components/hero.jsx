@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import MyLink from './mylink'
+import RichText from './richtext'
 
 import './hero.scss'
 
@@ -26,7 +26,7 @@ const Hero = ({ obj }) => {
             <div className="herocaption">
               <div>
                 {heading}
-                {renderRichText(obj.body)}
+                <RichText data={obj.body} />
                 {buttons}
               </div>
             </div>
@@ -51,7 +51,7 @@ export const query = graphql`
     heading
     styles
     body {
-      raw
+      ...RichText
     }
     buttons {
       ... MyLink
