@@ -1,6 +1,10 @@
 .content-card {
   margin-bottom: 2em;
 
+  .card-body>p:last-child {
+    margin-bottom: 0;
+  }
+
   .row {
     justify-content: center;
     align-items: center;
