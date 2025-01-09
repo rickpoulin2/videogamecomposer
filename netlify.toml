@@ -6,6 +6,11 @@
   CONTENTFUL_ACCESS_TOKEN = ""
   CONTENTFUL_PREVIEW_ACCESS_TOKEN = ""
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy "frame-ancestors https://app.contentful.com"
+
 [[redirects]]
   from = "/"
   to = "/home/"
