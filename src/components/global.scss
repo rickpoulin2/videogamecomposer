@@ -212,6 +212,10 @@ article {
   .container>div::after {
     bottom: -40px;
   }
+
+  .container>div>.row {
+    margin-bottom: -2em;
+  }
 }
 
 h2.pix {

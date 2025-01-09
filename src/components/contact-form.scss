@@ -1,4 +1,6 @@
 .contact-form {
+    margin-bottom: 2em;
+
     .card-header h2 {
         margin: 0;
     }
@@ -10,6 +12,11 @@
     form {
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        gap: 2em;
+
+        input,
+        select {
+            max-width: 400px;
+        }
     }
 }
