@@ -32,6 +32,13 @@ footer {
     font-size: 1em;
   }
 
+  .last-built {
+    font-size: 0.4em;
+    text-align: center;
+    padding: 0 1em;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
 
   nav {
     font-size: 1.4em;
@@ -50,6 +57,11 @@ footer {
       li .nav-link {
         padding-left: 0.5em;
         padding-right: 0.5em;
+      }
+
+      .last-built {
+        font-size: 0.5em;
+        text-align: right;
       }
     }
   }
