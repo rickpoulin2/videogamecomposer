@@ -7,14 +7,14 @@ import './header.scss'
 
 const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems = [], buttonLink }) => {
   const navData = navItems?.map((i) =>
-    <li className="nav-item" key={i.url}><MyLink obj={i} addClasses="nav-link" /></li>
+    <li className="nav-item" key={i.url}><MyLink obj={i} addClasses="nav-link" activeClass="active" /></li>
   );
   return (
-    <header id="top-of-page">
+    <header>
       <nav className="navbar navbar-dark navbar-expand-lg">
         <div className="container-lg">
           <div className="navbar-brand">
-            <Link to="/" className="site-heading">
+            <Link to="/" className="site-heading" id="top-of-page">
               <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
               <p className="h1"><span>{siteHeadingStart}</span> {siteHeadingEnd}</p>
             </Link>
