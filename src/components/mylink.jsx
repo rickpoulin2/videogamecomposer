@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 
-const MyLink = ({ obj, addClasses }) => {
+const MyLink = ({ obj, addClasses, activeClass }) => {
     if (obj == null) {
         return '';
     }
@@ -19,9 +19,12 @@ const MyLink = ({ obj, addClasses }) => {
         const faLib = obj.icon === "envelope" ? "fas" : "fab";
         linkIcon = <i className={faLib + " fa-" + obj.icon}></i>;
         linkContent = obj.hideText ? linkIcon : <>{linkContent} {linkIcon}</>
+        if (obj.hideText) {
+            linkTitle = obj.text;
+        }
     }
     return obj.isInternal ?
-        (<Link to={"/" + obj.targetPage?.url} className={linkStyles} activeClassName="active" title={linkTitle}>{linkContent}</Link>)
+        (<Link to={"/" + obj.targetPage?.url} className={linkStyles} activeClassName={activeClass} title={linkTitle}>{linkContent}</Link>)
         :
         (<a href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle}>{linkContent}</a>);
 }
