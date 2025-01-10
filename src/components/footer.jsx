@@ -14,15 +14,18 @@ const Footer = ({ copyrightLine, content, navItems = [] }) => {
       <div>
         <div className="container">
           <div className="row">
-            <div className="col-12 col-md-8">
+            <div className="col-12 col-md-7">
               <p className="footer-copyright">{copyrightLine}</p>
               <RichText data={content} />
             </div>
 
-            <nav className="col-12 col-md-4">
+            <nav className="col-12 col-md-5">
               <ul className="nav">
                 {navData}
               </ul>
+              <div className="last-built">
+                Last built: {new Date().toLocaleString('en-CA', { timeZone: 'America/Toronto' })} ET
+              </div>
             </nav>
           </div>
         </div>
