@@ -1796,8 +1796,8 @@ type ContentfulComponentContentCard implements ContentfulReference & ContentfulE
 
 type ContentfulComponentContentCardSys {
   type: String
-  revision: Int
   contentType: ContentfulComponentContentCardSysContentType
+  revision: Int
 }
 
 type ContentfulComponentContentCardSysContentType {
@@ -4320,8 +4320,8 @@ input ContentfulComponentContentCardFilterInput {
 
 input ContentfulComponentContentCardSysFilterInput {
   type: StringQueryOperatorInput
-  revision: IntQueryOperatorInput
   contentType: ContentfulComponentContentCardSysContentTypeFilterInput
+  revision: IntQueryOperatorInput
 }
 
 input ContentfulComponentContentCardSysContentTypeFilterInput {
@@ -4648,8 +4648,8 @@ input ContentfulComponentContentCardFieldSelector {
 
 input ContentfulComponentContentCardSysFieldSelector {
   type: FieldSelectorEnum
-  revision: FieldSelectorEnum
   contentType: ContentfulComponentContentCardSysContentTypeFieldSelector
+  revision: FieldSelectorEnum
 }
 
 input ContentfulComponentContentCardSysContentTypeFieldSelector {
@@ -4988,8 +4988,8 @@ input ContentfulComponentContentCardSortInput {
 
 input ContentfulComponentContentCardSysSortInput {
   type: SortOrderEnum
-  revision: SortOrderEnum
   contentType: ContentfulComponentContentCardSysContentTypeSortInput
+  revision: SortOrderEnum
 }
 
 input ContentfulComponentContentCardSysContentTypeSortInput {
