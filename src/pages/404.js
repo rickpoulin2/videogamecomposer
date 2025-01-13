@@ -30,11 +30,11 @@ class PageTemplate extends React.Component {
     //console.log(pageData.mainContent);
 
     return (
-      <Layout location={this.props.location}>
+      <>
         {titleBlock}
         {introBlock}
         {mainBlock}
-      </Layout>
+      </>
     )
   }
 }

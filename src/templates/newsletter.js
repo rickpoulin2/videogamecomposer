@@ -33,7 +33,7 @@ class NewsletterTemplate extends React.Component {
     const next = !this.props.data.next ? "" : <><h3>Earlier issue</h3><NewsletterCard obj={this.props.data.next} imageSizing={cardClasses} /></>
 
     return (
-      <Layout location={this.props.location}>
+      <>
         <PageTitle title="Newsletters" asText={true} />
         <section className="newsletter">
           <div className="container">
@@ -61,7 +61,7 @@ class NewsletterTemplate extends React.Component {
             </div>
           </div>
         </section>
-      </Layout>
+      </>
     )
   }
 }
