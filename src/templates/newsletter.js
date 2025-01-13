@@ -44,7 +44,7 @@ class NewsletterTemplate extends React.Component {
                 </div>
                 <div className="col-12 newsletter-body">
                   <h1>{pageData.heading} / {pageData.publishedDate}</h1>
-                  <RichText data={body} />
+                  <RichText data={pageData.bodyContent} />
                 </div>
                 <div className="col-12 newsletter-links">
                   <h2 className="visually-hidden">Navigation</h2>
