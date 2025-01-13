@@ -53,11 +53,15 @@ export const pageQuery = graphql`
       introContent {
         ...PageComponent
         ... on ContentfulComponentGroup {
+          id
           styles
+          structureType
           components:content {
             ...PageComponent
             ... on ContentfulComponentGroup {
+              id
               styles
+              structureType
               components:content {
                 ...PageComponent
               }
@@ -68,11 +72,15 @@ export const pageQuery = graphql`
       mainContent {
         ...PageComponent
         ... on ContentfulComponentGroup {
-          styles
-          components:content {
+            id
+            styles
+            structureType
+            components:content {
             ...PageComponent
             ... on ContentfulComponentGroup {
+              id
               styles
+              structureType
               components:content {
                 ...PageComponent
               }

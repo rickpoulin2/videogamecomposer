@@ -127,6 +127,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   }
   type ContentfulComponentGroup implements Node {
     styles: String
+    structureType: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
   union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard
