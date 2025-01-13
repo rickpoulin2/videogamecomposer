@@ -8,7 +8,6 @@
   .row {
     display: flex;
     align-items: center;
-    --bs-gutter-x: 0;
   }
 
   .row>div {
@@ -70,7 +69,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /*d-flex justify-content-center align-items-center p-2*/
 
   img {
     mask-position: center center;
@@ -93,5 +91,9 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
+  }
+
+  @media only screen and ((min-width: 560px) and (max-width: 768px)) {
+    justify-content: right;
   }
 }
