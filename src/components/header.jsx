@@ -61,7 +61,7 @@ export const query = graphql`
     siteHeadingStart
     siteHeadingEnd
     siteLogo {
-      gatsbyImageData(width:50)
+      gatsbyImageData(layout:FIXED,width:100)
     }
   }
 `
