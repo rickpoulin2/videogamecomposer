@@ -28,6 +28,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     linkBandcamp: String
     linkItchio: String
     linkItunes: String
+    linkAmazon: String
     albumDescription: RichText!
   }
   type ContentfulBlogEntry implements Node {
