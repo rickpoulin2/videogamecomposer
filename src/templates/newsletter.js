@@ -1,52 +1,36 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { MARKS } from '@contentful/rich-text-types'
-import readingTime from 'reading-time'
+import { graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
+//import readingTime from 'reading-time'
 import get from 'lodash/get'
 
 import './newsletter.scss'
 
 import Seo from '../components/seo'
-import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import NewsletterCard from '../components/newsletter-card'
+import RichText from '../components/richtext'
 
 class NewsletterTemplate extends React.Component {
   render() {
     const pageData = this.props.data.contentfulNewsletter
-    console.log(this.props.data);
-
-    const rtOptions = {
-      renderMark: {
-        [MARKS.ITALIC]: (text) => {
-          return <em>{text}</em>
-        },
-        [MARKS.BOLD]: (text) => {
-          return <strong>{text}</strong>
-        }
-      }
-    }
-    let body = renderRichText(pageData.bodyContent, rtOptions);
-
     const cardClasses = "col-3 col-md-2 col-lg-3"
     const prev = !this.props.data.previous ? "" : <><h3>Later issue</h3><NewsletterCard obj={this.props.data.previous} imageSizing={cardClasses} /></>
     const next = !this.props.data.next ? "" : <><h3>Earlier issue</h3><NewsletterCard obj={this.props.data.next} imageSizing={cardClasses} /></>
 
     return (
-      <Layout location={this.props.location}>
+      <>
         <PageTitle title="Newsletters" asText={true} />
         <section className="newsletter">
           <div className="container">
             <div>
               <div className="row">
                 <div className="col-12 newsletter-banner">
-                  <GatsbyImage image={pageData.bannerImage.gatsbyImageData} />
+                  <GatsbyImage image={pageData.bannerImage.gatsbyImageData} alt={pageData.bannerImage.description} />
                 </div>
                 <div className="col-12 newsletter-body">
                   <h1>{pageData.heading} / {pageData.publishedDate}</h1>
-                  {body}
+                  <RichText data={pageData.bodyContent} />
                 </div>
                 <div className="col-12 newsletter-links">
                   <h2 className="visually-hidden">Navigation</h2>
@@ -63,7 +47,7 @@ class NewsletterTemplate extends React.Component {
             </div>
           </div>
         </section>
-      </Layout>
+      </>
     )
   }
 }
@@ -84,6 +68,7 @@ export const pageQuery = graphql`
       url
       publishedDate(formatString: "MMMM YYYY")
       bannerImage {
+        description
         gatsbyImageData(placeholder:BLURRED)
       }
       bodyContent {

@@ -13,7 +13,7 @@ const ButtonBanner = ({ obj }) => {
   const cardClass = "card text-bg-" + obj.cardType
   const buttonClass = "btn btn-lg btn-outline-" + (obj.cardType === "tertiary" || obj.cardType === "light" ? "dark" : "light")
   const buttons = obj.buttons?.map((btn, i, arr) => {
-    return <MyLink obj={btn} addClasses={buttonClass} />
+    return <MyLink key={btn.id} obj={btn} addClasses={buttonClass} />
   });
 
   return (

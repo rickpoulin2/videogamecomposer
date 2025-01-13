@@ -33,6 +33,7 @@ export default MyLink
 
 export const query = graphql`
   fragment MyLink on ContentfulLink {
+    id
     isInternal
     text
     targetLink

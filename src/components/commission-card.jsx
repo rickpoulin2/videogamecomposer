@@ -23,10 +23,10 @@ const CommissionCard = ({ obj }) => {
   const channelLinks = CHANNELS.map(({ title, icon, fieldname }) => {
     let href = obj[fieldname + "Link"];
     if (href == null || href === "")
-      return;
+      return "";
     let iconClz = (fieldname === "other" ? "fas " : "fab ") + "fa-" + icon;
     hasLinks = true;
-    return (<li><a href={href} title={title} target="_blank" rel="noreferrer"><i className={iconClz}></i></a></li>)
+    return (<li key={fieldname}><a href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={iconClz}></i></a></li>)
   })
   const footer = hasLinks ? <div className="card-footer"><ul>{channelLinks}</ul></div> : ""
 
@@ -34,7 +34,7 @@ const CommissionCard = ({ obj }) => {
     <div className="commission-card col-12 col-sm-6 col-lg-4">
       <div className="card">
         <div className="card-top">
-          <GatsbyImage image={obj.coverImage.gatsbyImageData} />
+          <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
         </div>
         <div className="card-body">
           <h3>{obj.title}</h3>
@@ -56,6 +56,7 @@ export const query = graphql`
   fragment ContentfulComponentCommissionCard on ContentfulComponentCommissionCard {
     title
     coverImage {
+      description
       gatsbyImageData(layout:CONSTRAINED, aspectRatio:1.778)
     }
     developer

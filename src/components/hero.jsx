@@ -14,7 +14,7 @@ const Hero = ({ obj }) => {
   const image = obj.portraitImage?.gatsbyImageData
   const buttons = obj.buttons?.map((btn, i, arr) => {
     const cl = 'btn btn-lg ' + (i === arr.length - 1 ? 'btn-secondary' : 'btn-outline-secondary');
-    return <MyLink obj={btn} addClasses={cl} />
+    return <MyLink key={btn.id} obj={btn} addClasses={cl} />
   });
   const styles = "hero nobg " + (obj.styles ? obj.styles : "");
 
@@ -22,7 +22,7 @@ const Hero = ({ obj }) => {
     <section className={styles}>
       <div className="container">
         <div className="row">
-          <div className="col-12 col-sm-8 col-md-6 col-lg-8 col-xl-7 col-xxl-6">
+          <div className="col-12 col-sm-9 col-md-7 col-lg-8 col-xl-7 col-xxl-6">
             <div className="herocaption">
               <div>
                 {heading}
@@ -31,7 +31,7 @@ const Hero = ({ obj }) => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-sm">
+          <div className="col-12 col-md">
             <div className="portrait">
               <div>
                 <GatsbyImage image={image} className="img-fluid" alt="composer portrait" />

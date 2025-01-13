@@ -11,6 +11,7 @@ const CHANNELS = [
   { title: "Bandcamp", icon: "bandcamp", fieldname: "Bandcamp" },
   { title: "itch.io", icon: "itch-io", fieldname: "Itchio" },
   { title: "iTunes", icon: "apple", fieldname: "Itunes" },
+  { title: "Amazon Music", icon: "amazon", fieldname: "Amazon" },
 ]
 
 const AlbumCard = ({ obj }) => {
@@ -32,16 +33,16 @@ const AlbumCard = ({ obj }) => {
       href = "https://youtube.com/watch?v=" + obj.videoId;
     }
     return (href == null || href === "") ?
-      (<li><span>Not available on {title}</span><i className={"fab fa-" + icon}></i></li>)
+      (<li key={fieldname}><span>Not available on {title}</span><i className={"fab fa-" + icon}></i></li>)
       :
-      (<li><a href={href} title={title} target="_blank" rel="noreferrer"><i className={"fab fa-" + icon}></i></a></li>)
+      (<li key={fieldname}><a href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={"fab fa-" + icon}></i></a></li>)
   })
 
   return (
     <div className="card album-card">
       <div className="card-header">
         <h2 className="card-title">{obj.title}</h2>
-        <GatsbyImage image={obj.coverImage.gatsbyImageData} />
+        <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
         <div className="card-subtitle">
           <span className="badge text-bg-secondary">{obj.publishedDate}</span>
           <span>{obj.trackCount} tracks</span>
@@ -55,9 +56,9 @@ const AlbumCard = ({ obj }) => {
         </div>
       </div>
       <div className="card-aside">
-        <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube" frameborder="0"
+        <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
       </div>
       <div className="card-body">
         <RichText data={obj.albumDescription} />
@@ -76,7 +77,8 @@ export const query = graphql`
     collaboratorName
     collaboratorLink
     coverImage {
-      gatsbyImageData(layout:FIXED,width:150)
+      description
+      gatsbyImageData(width:300)
     }
     videoId
     linkYouTube
@@ -84,6 +86,7 @@ export const query = graphql`
     linkBandcamp
     linkItchio
     linkItunes
+    linkAmazon
     albumDescription {
       ...RichText
     }

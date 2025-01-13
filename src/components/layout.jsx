@@ -9,21 +9,21 @@ import Header from './header'
 import Footer from './footer'
 
 const Layout = (props) => {
-
   const { children } = props
-  const { allContentfulSiteGlobals } = useStaticQuery(
+  const { allContentfulSiteGlobals, siteBuildMetadata } = useStaticQuery(
     graphql`
       query SiteGlobalsQuery {
         allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
-          edges {
-            node {
-              ... Header
-              ... Footer
-            }
+          nodes {
+            ... Header
+            ... Footer
           }
         }
+        siteBuildMetadata {
+          buildTime
+        }
       }`)
-  const siteData = allContentfulSiteGlobals?.edges[0]?.node;
+  const siteData = allContentfulSiteGlobals?.nodes[0];
 
   return (
     <>
@@ -35,7 +35,9 @@ const Layout = (props) => {
       <main>{children}</main>
       <Footer copyrightLine={siteData?.copyrightLine}
         content={siteData?.footerContent}
-        navItems={siteData?.footerNavigation} />
+        navItems={siteData?.footerNavigation}
+        buildTime={siteBuildMetadata.buildTime} />
+      <script src="/js/bootstrap.min.js"></script>
     </>
   )
 }

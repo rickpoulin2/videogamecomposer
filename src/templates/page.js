@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 
 import Seo from '../components/seo'
-import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import PageComponent from '../components/page-component'
 
@@ -17,9 +16,9 @@ class PageTemplate extends React.Component {
     if (pageData.mainContent?.length > 0) {
       mainBlock =
         <section>
-          <div class="container">
+          <div className="container">
             <div>
-              <div class="row">
+              <div className="row">
                 {mainBlock}
               </div>
             </div>
@@ -30,11 +29,11 @@ class PageTemplate extends React.Component {
     //console.log(pageData.mainContent);
 
     return (
-      <Layout location={this.props.location}>
+      <>
         {titleBlock}
         {introBlock}
         {mainBlock}
-      </Layout>
+      </>
     )
   }
 }
@@ -54,11 +53,15 @@ export const pageQuery = graphql`
       introContent {
         ...PageComponent
         ... on ContentfulComponentGroup {
+          id
           styles
+          structureType
           components:content {
             ...PageComponent
             ... on ContentfulComponentGroup {
+              id
               styles
+              structureType
               components:content {
                 ...PageComponent
               }
@@ -69,11 +72,15 @@ export const pageQuery = graphql`
       mainContent {
         ...PageComponent
         ... on ContentfulComponentGroup {
-          styles
-          components:content {
+            id
+            styles
+            structureType
+            components:content {
             ...PageComponent
             ... on ContentfulComponentGroup {
+              id
               styles
+              structureType
               components:content {
                 ...PageComponent
               }

@@ -7,7 +7,7 @@ import './header.scss'
 
 const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems = [], buttonLink }) => {
   const navData = navItems?.map((i) =>
-    <li className="nav-item" key={i.url}><MyLink obj={i} addClasses="nav-link" activeClass="active" /></li>
+    <li className="nav-item" key={i.id}><MyLink obj={i} addClasses="nav-link" activeClass="active" /></li>
   );
   return (
     <header>
@@ -61,7 +61,7 @@ export const query = graphql`
     siteHeadingStart
     siteHeadingEnd
     siteLogo {
-      gatsbyImageData(width:50)
+      gatsbyImageData(layout:FIXED,width:100)
     }
   }
 `

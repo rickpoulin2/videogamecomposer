@@ -24,7 +24,7 @@ const BlogLatest = ({ obj }) => {
   );
   let buttons = obj.buttons?.map((btn, i, arr) => {
     const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
-    return <MyLink obj={btn} addClasses={cl} />
+    return <MyLink key={btn.id} obj={btn} addClasses={cl} />
   });
   if (!(blogData.data?.nodes?.length > 0)) {
     entries = <li>Nothing here yet! Check back soon.</li>
@@ -32,11 +32,11 @@ const BlogLatest = ({ obj }) => {
   }
   return (
     <div className={"blog-latest " + obj.styles}>
-      <h2 class="pix"><span>{blogTitle}</span></h2>
-      <ul class="date-list">
+      <h2 className="pix"><span>{blogTitle}</span></h2>
+      <ul className="date-list">
         {entries}
       </ul>
-      <div class="cta">
+      <div className="cta">
         {buttons}
       </div>
     </div>
@@ -50,7 +50,7 @@ const BlogLink = ({ obj }) => {
   return (
     <li>
       <Link to={"/reflections/#" + htmlid}>
-        <span class="badge text-bg-secondary">{obj.publishedDate}</span>
+        <span className="badge text-bg-secondary">{obj.publishedDate}</span>
         <span>{obj.title}</span>
       </Link>
     </li>)

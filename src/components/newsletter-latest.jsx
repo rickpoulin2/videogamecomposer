@@ -20,16 +20,17 @@ const NewsletterLatest = ({ obj }) => {
   let entries = blogData.data?.nodes?.map((i) =>
     <NewsletterCard key={i.id} obj={i} />
   );
+  let buttons = ""
   if (!(blogData.data?.nodes?.length > 0)) {
     entries = <li>Nothing here yet! Check back soon.</li>
-    buttons = ""
+  } else {
+    buttons = obj.buttons?.map((btn, i, arr) => {
+      const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
+      return <MyLink key={btn.id} obj={btn} addClasses={cl} />
+    });
   }
-  let buttons = obj.buttons?.map((btn, i, arr) => {
-    const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
-    return <MyLink obj={btn} addClasses={cl} />
-  });
   return (
-    <div className="newsletter-latest">
+    <div className={"newsletter-latest " + obj.styles}>
       <h2 className="pix"><span>{obj.heading}</span></h2>
       {entries}
       <RichText data={obj.trailingBlurb} />

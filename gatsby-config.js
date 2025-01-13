@@ -15,7 +15,7 @@ module.exports = {
       options: {
         defaults: {
           placeholder: "blurred",
-          quality: "80",
+          quality: "90",
           backgroundColor: "transparent"
         }
       }

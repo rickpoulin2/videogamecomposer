@@ -5,9 +5,9 @@ import RichText from './richtext'
 
 import './footer.scss'
 
-const Footer = ({ copyrightLine, content, navItems = [] }) => {
+const Footer = ({ copyrightLine, content, navItems = [], buildTime }) => {
   const navData = navItems?.map((i) =>
-    <li key={i.url}><MyLink obj={i} addClasses="nav-link" /></li>
+    <li key={i.id}><MyLink obj={i} addClasses="nav-link" /></li>
   );
   return (
     <footer>
@@ -24,7 +24,7 @@ const Footer = ({ copyrightLine, content, navItems = [] }) => {
                 {navData}
               </ul>
               <div className="last-built">
-                Last built: {new Date().toLocaleString('en-CA', { timeZone: 'America/Toronto' })} ET
+                Last built: {new Date(buildTime).toLocaleString('en-CA', { timeZone: 'America/Toronto' })} ET
               </div>
             </nav>
           </div>
