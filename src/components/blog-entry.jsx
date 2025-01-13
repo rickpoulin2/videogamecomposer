@@ -56,7 +56,7 @@ const BlogEntry = ({ obj }) => {
             <div className="col blog-entry">
               <div className="blog-heading">
                 <h2>{obj.title}</h2>
-                <span class="badge text-bg-secondary">{obj.publishedDate}</span>
+                <span className="badge text-bg-secondary">{obj.publishedDate}</span>
               </div>
               <RichText data={obj.content} />
               <div className="top-link">

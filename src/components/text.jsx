@@ -12,7 +12,7 @@ const Text = ({ obj }) => {
 
   const styles = "textblock " + (obj.styles ? obj.styles : "")
   const heading = obj.fancyHeading ? <h2 className="pix"><span>{obj.fancyHeading}</span></h2> : ""
-  const image = obj.image?.gatsbyImageData ? <GatsbyImage image={obj.image.gatsbyImageData} /> : ""
+  const image = obj.image?.gatsbyImageData ? <GatsbyImage image={obj.image.gatsbyImageData} alt={obj.image.description} /> : ""
   const dateTag = obj.dateTag ? <span className="badge text-bg-secondary">{obj.dateTag}</span> : ""
   let sawParagraph = false;
   const rtOptions = {
@@ -60,6 +60,7 @@ export const query = graphql`
     fancyHeading
     dateTag(formatString: "MMM YYYY")
     image {
+      description
       gatsbyImageData
     }
     content {

@@ -7,7 +7,7 @@ import './footer.scss'
 
 const Footer = ({ copyrightLine, content, navItems = [], buildTime }) => {
   const navData = navItems?.map((i) =>
-    <li key={i.url}><MyLink obj={i} addClasses="nav-link" /></li>
+    <li key={i.id}><MyLink obj={i} addClasses="nav-link" /></li>
   );
   return (
     <footer>

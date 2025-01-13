@@ -14,7 +14,7 @@ const Hero = ({ obj }) => {
   const image = obj.portraitImage?.gatsbyImageData
   const buttons = obj.buttons?.map((btn, i, arr) => {
     const cl = 'btn btn-lg ' + (i === arr.length - 1 ? 'btn-secondary' : 'btn-outline-secondary');
-    return <MyLink obj={btn} addClasses={cl} />
+    return <MyLink key={btn.id} obj={btn} addClasses={cl} />
   });
   const styles = "hero nobg " + (obj.styles ? obj.styles : "");
 

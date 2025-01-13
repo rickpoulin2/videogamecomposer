@@ -16,9 +16,9 @@ class PageTemplate extends React.Component {
     if (pageData.mainContent?.length > 0) {
       mainBlock =
         <section>
-          <div class="container">
+          <div className="container">
             <div>
-              <div class="row">
+              <div className="row">
                 {mainBlock}
               </div>
             </div>

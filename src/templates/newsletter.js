@@ -26,7 +26,7 @@ class NewsletterTemplate extends React.Component {
             <div>
               <div className="row">
                 <div className="col-12 newsletter-banner">
-                  <GatsbyImage image={pageData.bannerImage.gatsbyImageData} />
+                  <GatsbyImage image={pageData.bannerImage.gatsbyImageData} alt={pageData.bannerImage.description} />
                 </div>
                 <div className="col-12 newsletter-body">
                   <h1>{pageData.heading} / {pageData.publishedDate}</h1>
@@ -68,6 +68,7 @@ export const pageQuery = graphql`
       url
       publishedDate(formatString: "MMMM YYYY")
       bannerImage {
+        description
         gatsbyImageData(placeholder:BLURRED)
       }
       bodyContent {

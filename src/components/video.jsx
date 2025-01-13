@@ -12,9 +12,9 @@ const Video = ({ obj }) => {
   const videoSrc = "https://www.youtube.com/embed/" + obj.videoId
   const cardStyles = obj.backgroundImage?.gatsbyImageData ? { backgroundImage: `url(${getSrc(obj.backgroundImage.gatsbyImageData)})` } : {}
   const cardClass = "card " + (obj.cardType === "no-border" ? "no-border" : "text-bg-" + obj.cardType)
-  const embed = (<iframe src={videoSrc} title={obj.title} frameborder="0"
+  const embed = (<iframe src={videoSrc} title={obj.title}
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>)
+    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>)
 
   if (obj.cardType === "none") {
     return (
