@@ -1,7 +1,6 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { MARKS } from '@contentful/rich-text-types'
 import readingTime from 'reading-time'
 import get from 'lodash/get'
@@ -12,11 +11,11 @@ import Seo from '../components/seo'
 import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import NewsletterCard from '../components/newsletter-card'
+import RichText from '../components/richtext'
 
 class NewsletterTemplate extends React.Component {
   render() {
     const pageData = this.props.data.contentfulNewsletter
-    console.log(this.props.data);
 
     const rtOptions = {
       renderMark: {
@@ -28,7 +27,6 @@ class NewsletterTemplate extends React.Component {
         }
       }
     }
-    let body = renderRichText(pageData.bodyContent, rtOptions);
 
     const cardClasses = "col-3 col-md-2 col-lg-3"
     const prev = !this.props.data.previous ? "" : <><h3>Later issue</h3><NewsletterCard obj={this.props.data.previous} imageSizing={cardClasses} /></>
@@ -46,7 +44,7 @@ class NewsletterTemplate extends React.Component {
                 </div>
                 <div className="col-12 newsletter-body">
                   <h1>{pageData.heading} / {pageData.publishedDate}</h1>
-                  {body}
+                  <RichText data={body} />
                 </div>
                 <div className="col-12 newsletter-links">
                   <h2 className="visually-hidden">Navigation</h2>
