@@ -1,14 +1,12 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { MARKS } from '@contentful/rich-text-types'
-import readingTime from 'reading-time'
+//import readingTime from 'reading-time'
 import get from 'lodash/get'
 
 import './newsletter.scss'
 
 import Seo from '../components/seo'
-import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import NewsletterCard from '../components/newsletter-card'
 import RichText from '../components/richtext'
@@ -16,18 +14,6 @@ import RichText from '../components/richtext'
 class NewsletterTemplate extends React.Component {
   render() {
     const pageData = this.props.data.contentfulNewsletter
-
-    const rtOptions = {
-      renderMark: {
-        [MARKS.ITALIC]: (text) => {
-          return <em>{text}</em>
-        },
-        [MARKS.BOLD]: (text) => {
-          return <strong>{text}</strong>
-        }
-      }
-    }
-
     const cardClasses = "col-3 col-md-2 col-lg-3"
     const prev = !this.props.data.previous ? "" : <><h3>Later issue</h3><NewsletterCard obj={this.props.data.previous} imageSizing={cardClasses} /></>
     const next = !this.props.data.next ? "" : <><h3>Earlier issue</h3><NewsletterCard obj={this.props.data.next} imageSizing={cardClasses} /></>

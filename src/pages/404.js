@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 
 import Seo from '../components/seo'
-import Layout from '../components/layout'
 import PageTitle from '../components/page-title'
 import PageComponent from '../components/page-component'
 
