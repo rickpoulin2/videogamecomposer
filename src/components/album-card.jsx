@@ -77,7 +77,7 @@ export const query = graphql`
     collaboratorName
     collaboratorLink
     coverImage {
-      gatsbyImageData(layout:FIXED,width:150)
+      gatsbyImageData(width:300)
     }
     videoId
     linkYouTube
