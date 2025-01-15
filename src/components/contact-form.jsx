@@ -17,7 +17,7 @@ const ContactForm = ({ obj }) => {
             <div className="intro">
               <RichText data={obj.introContent} />
             </div>
-            <form>
+            <form name="contact" method="POST" data-netlify="true">
               <div className="field">
                 <label htmlFor="email" className="form-label">Email address*</label>
                 <input id="email" className="form-control" type="email" aria-describedby="emailHelp" required />
