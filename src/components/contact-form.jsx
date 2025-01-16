@@ -20,7 +20,7 @@ const ContactForm = ({ obj }) => {
     const formData = new FormData(form);
     const result = document.querySelector(".result");
 
-    fetch("/", {
+    fetch(form.action ? form.action : window.location.pathname, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(formData).toString()
