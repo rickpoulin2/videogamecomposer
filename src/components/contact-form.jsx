@@ -53,16 +53,16 @@ const ContactForm = ({ obj }) => {
             <form name="contact" data-netlify="true" onSubmit={handleSubmit} noValidate>
               <div className="field">
                 <label htmlFor="email" className="form-label">Email address*</label>
-                <input id="email" className="form-control" type="email" aria-describedby="emailHelp" required />
+                <input id="email" name="email" className="form-control" type="email" aria-describedby="emailHelp" required />
                 <div id="emailHelp" className="form-text">I'll never share your email with anyone else.</div>
               </div>
               <div className="field">
                 <label htmlFor="name" className="form-label">Your name</label>
-                <input id="name" className="form-control" type="text" />
+                <input id="name" name="name" className="form-control" type="text" />
               </div>
               <div className="field">
                 <label htmlFor="topic" className="form-label">Topic*</label>
-                <select id="topic" className="form-select" required>
+                <select id="topic" name="topic" className="form-select" required>
                   <option selected disabled>- Please select an option -</option>
                   <option value="1">I need music for my project!</option>
                   <option value="2">I want to collaborate with you!</option>
@@ -72,12 +72,12 @@ const ContactForm = ({ obj }) => {
               </div>
               <div className="field">
                 <label htmlFor="message" className="form-label">Message</label>
-                <textarea id="message" className="form-control" rows="5"></textarea>
+                <textarea id="message" name="message" className="form-control" rows="5"></textarea>
               </div>
               <div className="field">
                 <div className="form-check">
-                  <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                  <label className="form-check-label" htmlFor="flexCheckDefault">Sign up for mailing list</label>
+                  <input className="form-check-input" type="checkbox" value="" id="newsletterSignup" name="newsletterSignup" />
+                  <label className="form-check-label" htmlFor="newsletterSignup">Sign up for mailing list</label>
                 </div>
               </div>
               <div>
