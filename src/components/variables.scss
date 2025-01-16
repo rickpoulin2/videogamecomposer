@@ -2,8 +2,12 @@
 
 :root,
 [data-bs-theme="light"] {
+
   --bs-primary: #416788;
   --bs-primary-rgb: 65, 103, 136;
+  --bs-primary-active: #2E4960;
+  --bs-primary-disabled: #6891B6;
+
   --bs-hover: #4EABBC;
   --bs-secondary: #815673;
   --bs-tertiary: #cad5ca;

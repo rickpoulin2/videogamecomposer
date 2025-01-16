@@ -19,4 +19,21 @@
             max-width: 400px;
         }
     }
+
+    .label-required:after {
+        content: '*';
+    }
+
+    .alert {
+        margin-bottom: 0;
+    }
+
+    .alert p:last-child {
+        margin-bottom: 0;
+    }
+
+    .alert-danger {
+        margin-top: 2em;
+    }
+
 }

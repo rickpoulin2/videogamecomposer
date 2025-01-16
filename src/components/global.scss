@@ -55,6 +55,10 @@ li::marker {
   --bs-btn-border-color: var(--bs-primary);
   --bs-btn-hover-bg: var(--bs-hover);
   --bs-btn-hover-border-color: var(--bs-hover);
+  --bs-btn-active-bg: var(--bs-primary-active);
+  --bs-btn-active-border-color: var(--bs-primary-active);
+  --bs-btn-disabled-bg: var(--bs-primary-disabled);
+  --bs-btn-disabled-border-color: var(--bs-primary-disabled);
 }
 
 .btn-outline-primary {
