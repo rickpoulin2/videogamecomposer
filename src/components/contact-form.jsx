@@ -126,8 +126,10 @@ const ContactForm = ({ obj }) => {
                 <fieldset>
                   <legend className="form-label">Sign up for mailing list?</legend>
                   <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="Yes" id="newsletterSignup" name="newsletterSignup" />
-                    <label className="form-check-label" htmlFor="newsletterSignup">Yes!</label>
+                    <label className="form-check-label">
+                      <input className="form-check-input" type="checkbox" value="Yes" id="newsletterSignup" name="newsletterSignup" />
+                      Yes!
+                    </label>
                   </div>
                 </fieldset>
               </div>
