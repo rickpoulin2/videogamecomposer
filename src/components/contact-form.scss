@@ -20,6 +20,10 @@
         }
     }
 
+    legend {
+        font-size: 1em;
+    }
+
     .label-required:after {
         content: '*';
     }

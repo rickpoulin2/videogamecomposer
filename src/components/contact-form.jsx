@@ -28,8 +28,8 @@ const ContactForm = ({ obj }) => {
     const origSubmitText = form.querySelector(".btn").innerHTML;
     updateResult(form);
     const formData = new FormData(form);
-    if (formData.get("newsletterSignup") !== "yes") {
-      formData.append("newsletterSignup", "no");
+    if (formData.get("newsletterSignup") !== "Yes") {
+      formData.append("newsletterSignup", "No");
     }
 
     fetch(form.action ? form.action : window.location.pathname, {
@@ -54,7 +54,7 @@ const ContactForm = ({ obj }) => {
     const topic = event.target;
     if (topic.value == null || topic.value === "") {
       //isValid = false;
-      topic.setCustomValidity("requied field");
+      topic.setCustomValidity("required field");
     } else {
       topic.setCustomValidity("")
     }
@@ -123,11 +123,13 @@ const ContactForm = ({ obj }) => {
                 </select>
               </div>
               <div className="field">
-                <p className="form-label">Sign up for mailing list?</p>
-                <div className="form-check">
-                  <input className="form-check-input" type="checkbox" value="yes" id="newsletterSignup" name="newsletterSignup" />
-                  <label className="form-check-label" htmlFor="newsletterSignup">Yes!</label>
-                </div>
+                <fieldset>
+                  <legend className="form-label">Sign up for mailing list?</legend>
+                  <div className="form-check">
+                    <input className="form-check-input" type="checkbox" value="Yes" id="newsletterSignup" name="newsletterSignup" />
+                    <label className="form-check-label" htmlFor="newsletterSignup">Yes!</label>
+                  </div>
+                </fieldset>
               </div>
               <div className="field">
                 <label htmlFor="message" className="form-label label-required">Message</label>
