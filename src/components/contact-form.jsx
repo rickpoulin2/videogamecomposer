@@ -51,6 +51,7 @@ const ContactForm = ({ obj }) => {
               <RichText data={obj.introContent} />
             </div>
             <form name="contact" data-netlify="true" onSubmit={handleSubmit} noValidate>
+              <input type="hidden" name="form-name" value="contact" />
               <div className="field">
                 <label htmlFor="email" className="form-label">Email address*</label>
                 <input id="email" name="email" className="form-control" type="email" aria-describedby="emailHelp" required />
