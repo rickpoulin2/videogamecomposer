@@ -2,6 +2,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "@popperjs/core/dist/umd/popper.min.js";
 import React from 'react'
 import Layout from './src/components/layout'
+import { Offcanvas } from "bootstrap";
 
 export const wrapPageElement = ({ element, props }) => {
     // props provide same data to Layout as Page element will get
@@ -34,6 +35,15 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
             })
         }
     }, 0)
+
+    const mobileNavbar = Offcanvas.getOrCreateInstance("#offcanvasDarkNavbar");
+    console.log("meow", mobileNavbar);
+    if (mobileNavbar) {
+        setTimeout(() => {
+            mobileNavbar.hide();
+            document.querySelectorAll('.offcanvas-backdrop').forEach(e => e.remove());
+        }, 10);
+    }
 
     // do not let gatsby do anything more
     return false
