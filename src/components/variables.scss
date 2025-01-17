@@ -7,9 +7,14 @@
   --bs-primary-rgb: 65, 103, 136;
   --bs-primary-active: #2E4960;
   --bs-primary-disabled: #6891B6;
+  --bs-primary-hover: #4eabbc;
+  --bs-hover: var(--bs-primary-hover);
 
-  --bs-hover: #4EABBC;
   --bs-secondary: #815673;
+  --bs-secondary-active: #71475e;
+  --bs-secondary-disabled: #b0829b;
+  --bs-secondary-hover: #a16887;
+
   --bs-tertiary: #cad5ca;
   --bs-light: #cad5ca;
   --bs-dark: #1f271b;
