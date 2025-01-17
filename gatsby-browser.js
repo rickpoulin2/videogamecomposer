@@ -37,7 +37,6 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
     }, 0)
 
     const mobileNavbar = Offcanvas.getOrCreateInstance("#offcanvasDarkNavbar");
-    console.log("meow", mobileNavbar);
     if (mobileNavbar) {
         setTimeout(() => {
             mobileNavbar.hide();

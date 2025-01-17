@@ -65,7 +65,7 @@ const ContactForm = ({ obj }) => {
       .then((r) => {
         if (r == null || !r.ok || r.status !== 200) {
           setTimeout(updateResult, 500, form, origSubmitText, false, `Request failed: ${r.status}`);
-          console.log(r);
+          console.error(r);
           return;
         }
         setTimeout(updateResult, 500, form, origSubmitText, true);
@@ -101,13 +101,7 @@ const ContactForm = ({ obj }) => {
     const clz = isSuccess ? "success" : "danger";
     const heading = isSuccess ? successHead : errorHead;
     const text = isSuccess ? successBody : errorBody;
-    console.log(successBody);
-    resultDiv.innerHTML = `
-      <div class="alert alert-${clz}" role="alert">
-        ${heading}
-        ${text}
-      </div>
-    `;
+    resultDiv.innerHTML = `<div class="alert alert-${clz}" role="alert">${heading}${text}</div>`;
     if (isSuccess) {
       form.classList.add("visually-hidden");
     }
@@ -127,8 +121,12 @@ const ContactForm = ({ obj }) => {
             <div className="intro">
               <RichText data={obj.introContent} />
             </div>
-            <form name="contact" data-netlify="true" onSubmit={handleSubmit} noValidate>
+            <form name="contact" data-netlify="true" onSubmit={handleSubmit} noValidate netlify-honeypot="winnie" data-netlify-recaptcha="true">
               <input type="hidden" name="form-name" value="contact" />
+              <div style={{ display: "none" }}>
+                <label htmlFor="winnie">Skip this field if you're human</label>
+                <input id="winnie" name="winnie" type="text" />
+              </div>
               <div className="field">
                 <label htmlFor="email" className="form-label label-required">Email address</label>
                 <input id="email" name="email" className="form-control" type="email" aria-describedby="emailHelp" required />
@@ -150,6 +148,7 @@ const ContactForm = ({ obj }) => {
                 <label htmlFor="message" className="form-label label-required">Message</label>
                 <textarea id="message" name="message" className="form-control" rows="5" required></textarea>
               </div>
+              <div data-netlify-recaptcha="true"></div>
               <div>
                 <button type="submit" className="btn btn-primary">{obj.submitButtonLabel}</button>
               </div>
