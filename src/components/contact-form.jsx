@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOMServer from 'react-dom/server';
 import { graphql } from 'gatsby'
 import RichText from './richtext'
 
@@ -6,6 +7,30 @@ import './contact-form.scss'
 
 const ContactForm = ({ obj }) => {
   const clz = "contact-form " + (obj.styles ? obj.styles : "col")
+  const newsletterFragment = obj.showNewsletterSignup ? (
+    <div className="field">
+      <fieldset>
+        <legend className="form-label">Sign up for mailing list?</legend>
+        <div className="form-check">
+          <label className="form-check-label">
+            <input className="form-check-input" type="checkbox" value="Yes" id="newsletterSignup" name="newsletterSignup" />
+            Yes!
+          </label>
+        </div>
+      </fieldset>
+    </div>)
+    : "";
+  const topicOptions = obj.availableTopics.map((e) => <option value={e}>{e}</option>);
+  /*
+  <option value="Commission Request">I need music for my project!</option>
+  <option value="Collaboration Request">I want to collaborate with you!</option>
+  <option value="Music Used In Project">I used your free music in my project!</option>
+  <option value="General Feedback">I have general feedback!</option>
+  */
+  const successHead = obj.successHeading == null || obj.successHeading === "" ? "" : `<h4 class="alert-heading">${obj.successHeading}</h4>`
+  const errorHead = obj.errorHeading == null || obj.errorHeading === "" ? "" : `<h4 class="alert-heading">${obj.errorHeading}</h4>`
+  const successBody = ReactDOMServer.renderToStaticMarkup(<RichText data={obj.successBody} />)
+  const errorBody = ReactDOMServer.renderToStaticMarkup(<RichText data={obj.errorBody} />)
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -15,7 +40,7 @@ const ContactForm = ({ obj }) => {
     const topic = form.querySelector('select');
     if (topic.value == null || topic.value === "") {
       //isValid = false;
-      topic.setCustomValidity("requied field");
+      topic.setCustomValidity("required field");
     } else {
       topic.setCustomValidity("")
     }
@@ -74,12 +99,13 @@ const ContactForm = ({ obj }) => {
     submitBtn.innerHTML = submitText;
     submitBtn.disabled = false;
     const clz = isSuccess ? "success" : "danger";
-    const heading = isSuccess ? "Sent!" : "Error";
-    const text = isSuccess ? "Your message has been sent successfully." : "The form submission failed, please try again later.";
+    const heading = isSuccess ? successHead : errorHead;
+    const text = isSuccess ? successBody : errorBody;
+    console.log(successBody);
     resultDiv.innerHTML = `
       <div class="alert alert-${clz}" role="alert">
-        <h4 class="alert-heading">${heading}</h4>
-        <p>${text}</p>
+        ${heading}
+        ${text}
       </div>
     `;
     if (isSuccess) {
@@ -116,23 +142,10 @@ const ContactForm = ({ obj }) => {
                 <label htmlFor="topic" className="form-label label-required">Topic</label>
                 <select id="topic" name="topic" className="form-select" required onChange={handleTopicChange}>
                   <option value="" selected disabled>- Please select an option -</option>
-                  <option value="Commission Request">I need music for my project!</option>
-                  <option value="Collaboration Request">I want to collaborate with you!</option>
-                  <option value="Music Used In Project">I used your free music in my project!</option>
-                  <option value="General Feedback">I have general feedback!</option>
+                  {topicOptions}
                 </select>
               </div>
-              <div className="field">
-                <fieldset>
-                  <legend className="form-label">Sign up for mailing list?</legend>
-                  <div className="form-check">
-                    <label className="form-check-label">
-                      <input className="form-check-input" type="checkbox" value="Yes" id="newsletterSignup" name="newsletterSignup" />
-                      Yes!
-                    </label>
-                  </div>
-                </fieldset>
-              </div>
+              {newsletterFragment}
               <div className="field">
                 <label htmlFor="message" className="form-label label-required">Message</label>
                 <textarea id="message" name="message" className="form-control" rows="5" required></textarea>
@@ -159,6 +172,16 @@ export const query = graphql`
     introContent {
       ...RichText
     }
+    availableTopics
+    showNewsletterSignup
     submitButtonLabel
+    successHeading
+    successBody {
+      ...RichText
+    }
+    errorHeading
+    errorBody {
+      ...RichText
+    }
   }
 `

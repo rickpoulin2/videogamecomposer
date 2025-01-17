@@ -112,7 +112,13 @@ exports.createSchemaCustomization = ({ actions }) => {
     heading: String
     styles: String
     introContent: RichText
+    availableTopics: [String!]
+    showNewsletterSignup: Boolean
     submitButtonLabel: String
+    successHeading: String
+    successBody: RichText
+    errorHeading: String
+    errorBody: RichText
   }
   type ContentfulComponentCommissionCard implements Node {
     title: String!
