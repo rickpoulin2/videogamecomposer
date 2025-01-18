@@ -33,7 +33,7 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
             </div>
             <div className="offcanvas-body">
               <nav className="col-lg">
-                <ul className="navbar-nav justify-content-center">
+                <ul className="navbar-nav">
                   {navData}
                 </ul>
               </nav>

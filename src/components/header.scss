@@ -49,6 +49,7 @@ header {
   .navbar-nav {
     --bs-nav-link-color: white;
     --bs-navbar-active-color: var(--bs-active);
+    justify-content: center;
   }
 
   a.nav-link {
@@ -73,11 +74,29 @@ header {
     }
 
     .site-logo {
-      img {
-        max-height: 30px;
-      }
-
+      max-height: 30px;
+      max-width: 30px;
       margin-right: 1em;
+    }
+
+    .navbar-nav {
+      gap: 0.75em;
+    }
+
+    .navbar-nav li {
+      border-left: 3px solid var(--bs-border-color);
+      transition: color 0.15s ease-in-out,
+        background-color 0.15s ease-in-out;
+    }
+
+    .navbar-nav li:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav a.active {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--bs-light);
+      font-weight: bold;
     }
 
     .offcanvas-body>* {
@@ -105,7 +124,6 @@ header {
 
 
   .navbar-cta {
-
     .btn {
       color: white;
       border-color: white !important;
