@@ -15,6 +15,14 @@ export const onRouteUpdate = ({ location, prevLocation }) => {
         // do not restore scroll position on page refresh without hash
         setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }), 0)
     }
+
+    const mobileNavbar = Offcanvas.getOrCreateInstance("#offcanvasDarkNavbar");
+    if (mobileNavbar) {
+        setTimeout(() => {
+            mobileNavbar.hide();
+            document.querySelectorAll('.offcanvas-backdrop').forEach(e => e.remove());
+        }, 10);
+    }
 }
 
 export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPosition }) => {
@@ -35,14 +43,6 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
             })
         }
     }, 0)
-
-    const mobileNavbar = Offcanvas.getOrCreateInstance("#offcanvasDarkNavbar");
-    if (mobileNavbar) {
-        setTimeout(() => {
-            mobileNavbar.hide();
-            document.querySelectorAll('.offcanvas-backdrop').forEach(e => e.remove());
-        }, 10);
-    }
 
     // do not let gatsby do anything more
     return false
