@@ -18,6 +18,9 @@ const RichText = ({ data, addOptions }) => {
       ...addOptions?.renderMark
     },
     renderNode: {
+      [INLINES.HYPERLINK]: (node, children) => {
+        return <a href={node.data.uri} target="_blank" rel="noreferrer">{children}</a>
+      },
       [INLINES.ENTRY_HYPERLINK]: (node, children) => {
         //console.log(node.data)
         if (node.data?.target?.url) {
