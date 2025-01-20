@@ -14,7 +14,6 @@
       align-items: stretch;
       grid-template-columns: 7.5em auto;
       text-decoration: none;
-      border: 1px solid var(--bs-border-color);
       border-radius: var(--bs-border-radius);
     }
 
@@ -28,6 +27,7 @@
 
     a span:not(.badge) {
       text-decoration: underline;
+      border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
     }
 
     a:hover span.badge {

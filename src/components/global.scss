@@ -2,14 +2,23 @@ em {
   color: var(--bs-secondary);
 }
 
-.text-bg-primary em,
-.text-bg-secondary em,
-.text-bg-dark em {
-  color: white;
+.text-bg-primary,
+.text-bg-secondary,
+.text-bg-dark {
+
+  &,
+  em {
+    color: white;
+  }
 }
 
-.text-bg-tertiary em {
-  color: black;
+.text-bg-light,
+.text-bg-tertiary {
+
+  &,
+  em {
+    color: black;
+  }
 }
 
 .fa-amazon {
@@ -27,31 +36,6 @@ li::marker {
 .active>.page-link {
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
-}
-
-.badge.text-bg-primary {
-  background-color: var(--bs-primary) !important;
-}
-
-.badge.text-bg-secondary {
-  background-color: var(--bs-secondary) !important;
-}
-
-.text-bg-primary {
-  border-color: var(--bs-primary) !important;
-  background-color: var(--bs-primary) !important;
-  color: white;
-}
-
-.text-bg-secondary {
-  border-color: var(--bs-secondary) !important;
-  background-color: var(--bs-secondary) !important;
-  color: white;
-}
-
-.text-bg-tertiary {
-  border-color: var(--bs-tertiary) !important;
-  background-color: var(--bs-tertiary) !important;
 }
 
 .btn-primary {
@@ -121,14 +105,6 @@ h5,
   font-family: "Iceland", sans-serif;
   font-weight: 400;
   font-style: normal;
-}
-
-.card {
-  border-color: var(--bs-primary);
-}
-
-.card-text {
-  color: #000;
 }
 
 html,
