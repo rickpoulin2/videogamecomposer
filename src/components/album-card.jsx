@@ -10,7 +10,7 @@ const CHANNELS = [
   { title: "Spotify", icon: "spotify", fieldname: "Spotify" },
   { title: "Bandcamp", icon: "bandcamp", fieldname: "Bandcamp" },
   { title: "itch.io", icon: "itch-io", fieldname: "Itchio" },
-  { title: "iTunes", icon: "apple", fieldname: "Itunes" },
+  { title: "Apple Music", icon: "apple", fieldname: "Itunes" },
   { title: "Amazon Music", icon: "amazon", fieldname: "Amazon" },
 ]
 
