@@ -57,7 +57,7 @@ export const query = graphql`
     title
     coverImage {
       description
-      gatsbyImageData(layout:CONSTRAINED, aspectRatio:1.778)
+      gatsbyImageData(layout:CONSTRAINED, aspectRatio:1.778, width:600)
     }
     developer
     publisher

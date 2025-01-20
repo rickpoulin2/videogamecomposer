@@ -62,7 +62,7 @@ export const query = graphql`
     fancyHeading
     image {
       description
-      gatsbyImageData
+      gatsbyImageData(width:450)
     }
     content {
       ...RichText

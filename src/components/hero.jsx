@@ -57,7 +57,7 @@ export const query = graphql`
       ... MyLink
     }
     portraitImage {
-      gatsbyImageData
+      gatsbyImageData(width:850,aspectRatio:0.86)
     }
   }
 `
