@@ -26,7 +26,8 @@ module.exports = {
       resolve: "gatsby-plugin-recaptcha",
       options: {
         async: true,
-        defer: true
+        defer: true,
+        args: `?onload=onloadCallback&render=explicit`
       }
     },
     "gatsby-plugin-schema-export",

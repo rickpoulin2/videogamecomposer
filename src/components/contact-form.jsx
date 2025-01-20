@@ -23,11 +23,16 @@ const ContactForm = ({ obj }) => {
       </fieldset>
     </div>)
     : "";
-  const topicOptions = obj.availableTopics.map((e) => <option value={e}>{e}</option>);
+  const topicOptions = obj.availableTopics.map((e) => <option key={e} value={e}>{e}</option>);
   const successHead = obj.successHeading == null || obj.successHeading === "" ? "" : `<h4 class="alert-heading">${obj.successHeading}</h4>`
   const errorHead = obj.errorHeading == null || obj.errorHeading === "" ? "" : `<h4 class="alert-heading">${obj.errorHeading}</h4>`
   const successBody = ReactDOMServer.renderToStaticMarkup(<RichText data={obj.successBody} />)
   const errorBody = ReactDOMServer.renderToStaticMarkup(<RichText data={obj.errorBody} />)
+  const captcha = <Recaptcha sitekey={RECAPTCHA_KEY} render="explicit" onloadCallback={callback} />
+
+  function callback() {
+    console.log("captcha ready");
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -133,8 +138,8 @@ const ContactForm = ({ obj }) => {
               </div>
               <div className="field">
                 <label htmlFor="topic" className="form-label label-required">Topic</label>
-                <select id="topic" name="topic" className="form-select" required onChange={handleTopicChange}>
-                  <option value="" selected disabled>- Please select an option -</option>
+                <select id="topic" name="topic" className="form-select" required defaultValue="" onChange={handleTopicChange}>
+                  <option value="" disabled>- Please select an option -</option>
                   {topicOptions}
                 </select>
               </div>
@@ -143,9 +148,7 @@ const ContactForm = ({ obj }) => {
                 <label htmlFor="message" className="form-label label-required">Message</label>
                 <textarea id="message" name="message" className="form-control" rows="5" required></textarea>
               </div>
-              <Recaptcha
-                sitekey={RECAPTCHA_KEY}
-                render="explicit" />
+              <div>{captcha}</div>
               <div>
                 <button type="submit" className="btn btn-primary">{obj.submitButtonLabel}</button>
               </div>
