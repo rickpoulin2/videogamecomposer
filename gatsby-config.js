@@ -22,6 +22,13 @@ module.exports = {
     },
     "gatsby-plugin-image",
     "gatsby-plugin-sass",
+    {
+      resolve: "gatsby-plugin-recaptcha",
+      options: {
+        async: true,
+        defer: true
+      }
+    },
     "gatsby-plugin-schema-export",
     {
       resolve: "gatsby-source-contentful",

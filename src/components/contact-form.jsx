@@ -2,8 +2,11 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server';
 import { graphql } from 'gatsby'
 import RichText from './richtext'
+import Recaptcha from 'react-recaptcha';
 
 import './contact-form.scss'
+
+const RECAPTCHA_KEY = process.env.SITE_RECAPTCHA_KEY;
 
 const ContactForm = ({ obj }) => {
   const clz = "contact-form " + (obj.styles ? obj.styles : "col")
@@ -21,12 +24,6 @@ const ContactForm = ({ obj }) => {
     </div>)
     : "";
   const topicOptions = obj.availableTopics.map((e) => <option value={e}>{e}</option>);
-  /*
-  <option value="Commission Request">I need music for my project!</option>
-  <option value="Collaboration Request">I want to collaborate with you!</option>
-  <option value="Music Used In Project">I used your free music in my project!</option>
-  <option value="General Feedback">I have general feedback!</option>
-  */
   const successHead = obj.successHeading == null || obj.successHeading === "" ? "" : `<h4 class="alert-heading">${obj.successHeading}</h4>`
   const errorHead = obj.errorHeading == null || obj.errorHeading === "" ? "" : `<h4 class="alert-heading">${obj.errorHeading}</h4>`
   const successBody = ReactDOMServer.renderToStaticMarkup(<RichText data={obj.successBody} />)
@@ -39,7 +36,6 @@ const ContactForm = ({ obj }) => {
     const form = event.target;
     const topic = form.querySelector('select');
     if (topic.value == null || topic.value === "") {
-      //isValid = false;
       topic.setCustomValidity("required field");
     } else {
       topic.setCustomValidity("")
@@ -78,7 +74,6 @@ const ContactForm = ({ obj }) => {
   function handleTopicChange(event) {
     const topic = event.target;
     if (topic.value == null || topic.value === "") {
-      //isValid = false;
       topic.setCustomValidity("required field");
     } else {
       topic.setCustomValidity("")
@@ -148,7 +143,9 @@ const ContactForm = ({ obj }) => {
                 <label htmlFor="message" className="form-label label-required">Message</label>
                 <textarea id="message" name="message" className="form-control" rows="5" required></textarea>
               </div>
-              <div data-netlify-recaptcha="true"></div>
+              <Recaptcha
+                sitekey={RECAPTCHA_KEY}
+                render="explicit" />
               <div>
                 <button type="submit" className="btn btn-primary">{obj.submitButtonLabel}</button>
               </div>
