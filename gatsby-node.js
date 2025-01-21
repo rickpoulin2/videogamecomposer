@@ -101,12 +101,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     trailingBlurb: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
+    signupButtonLabel: String
+    signupForm: ContentfulComponentNewsletterSignup @link(from: "signupForm___NODE")
   }
   type ContentfulComponentNewsletterSignup implements Node {
     heading: String
     styles: String
     introContent: RichText
     submitButtonLabel: String
+    successHeading: String
+    successBody: RichText
+    errorHeading: String
+    errorBody: RichText
   }
   type ContentfulComponentContactForm implements Node {
     heading: String

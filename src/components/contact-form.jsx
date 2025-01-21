@@ -57,6 +57,7 @@ const ContactForm = ({ obj }) => {
     if (formData.get("newsletterSignup") !== "Yes") {
       formData.append("newsletterSignup", "No");
     }
+    formData.append("form-name", form.getAttribute("name"));
 
     fetch(form.action ? form.action : window.location.pathname, {
       method: "POST",
@@ -122,7 +123,6 @@ const ContactForm = ({ obj }) => {
               <RichText data={obj.introContent} />
             </div>
             <form name="contact" data-netlify="true" onSubmit={handleSubmit} noValidate netlify-honeypot="winnie" data-netlify-recaptcha="true">
-              <input type="hidden" name="form-name" value="contact" />
               <div style={{ display: "none" }}>
                 <label htmlFor="winnie">Skip this field if you're human</label>
                 <input id="winnie" name="winnie" type="text" />

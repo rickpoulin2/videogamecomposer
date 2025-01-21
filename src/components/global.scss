@@ -307,3 +307,37 @@ h2.pix {
     }
   }
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+
+  input,
+  select {
+    max-width: 400px;
+  }
+
+  legend {
+    font-size: 1em;
+  }
+
+  .label-required:after {
+    content: '*';
+  }
+
+}
+
+.result {
+  .alert {
+    margin-bottom: 0;
+  }
+
+  .alert p:last-child {
+    margin-bottom: 0;
+  }
+
+  .alert-danger {
+    margin-top: 2em;
+  }
+}

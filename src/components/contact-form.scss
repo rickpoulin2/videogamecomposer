@@ -9,35 +9,4 @@
         color: var(--bs-secondary-color);
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
-
-        input,
-        select {
-            max-width: 400px;
-        }
-    }
-
-    legend {
-        font-size: 1em;
-    }
-
-    .label-required:after {
-        content: '*';
-    }
-
-    .alert {
-        margin-bottom: 0;
-    }
-
-    .alert p:last-child {
-        margin-bottom: 0;
-    }
-
-    .alert-danger {
-        margin-top: 2em;
-    }
-
 }
