@@ -21,6 +21,11 @@ em {
   }
 }
 
+.text-bg-tertiary {
+  border-color: var(--bs-tertiary) !important;
+  background-color: var(--bs-tertiary) !important;
+}
+
 .fa-amazon {
   vertical-align: middle;
 }
