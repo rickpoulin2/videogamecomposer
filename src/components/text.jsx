@@ -61,7 +61,7 @@ export const query = graphql`
     dateTag(formatString: "MMM YYYY")
     image {
       description
-      gatsbyImageData
+      gatsbyImageData(width:400)
     }
     content {
       ...RichText

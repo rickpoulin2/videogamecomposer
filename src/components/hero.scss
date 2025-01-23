@@ -6,6 +6,7 @@
   }
 
   .row {
+    --bs-gutter-x: 0;
     display: flex;
     align-items: center;
   }
@@ -25,7 +26,7 @@
 .herocaption {
   position: relative;
 
-  & div {
+  >div {
     position: relative;
     background-position: center center;
     background-repeat: no-repeat;
@@ -43,7 +44,18 @@
     @media only screen and (min-width: 992px) {
       padding: 75px;
       background-size: contain;
-      display: block;
+    }
+  }
+
+  .ctas {
+    .btn {
+      width: 100%;
+    }
+
+    @media only screen and (min-width: 576px) {
+      .btn {
+        width: auto;
+      }
     }
   }
 
@@ -75,6 +87,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 5px;
 
   img {
     mask-position: center center;

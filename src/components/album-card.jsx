@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import RichText from './richtext'
+import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
 import './album-card.scss'
 
@@ -10,7 +11,7 @@ const CHANNELS = [
   { title: "Spotify", icon: "spotify", fieldname: "Spotify" },
   { title: "Bandcamp", icon: "bandcamp", fieldname: "Bandcamp" },
   { title: "itch.io", icon: "itch-io", fieldname: "Itchio" },
-  { title: "iTunes", icon: "apple", fieldname: "Itunes" },
+  { title: "Apple Music", icon: "apple", fieldname: "Itunes" },
   { title: "Amazon Music", icon: "amazon", fieldname: "Amazon" },
 ]
 
@@ -21,7 +22,7 @@ const AlbumCard = ({ obj }) => {
   let collab = "";
   if (obj.collaboratorName) {
     if (obj.collaboratorLink) {
-      collab = <span>with <a href={obj.collaboratorLink} target="_blank" rel="noreferrer">{obj.collaboratorName}</a></span>
+      collab = <span>with <OutboundLink href={obj.collaboratorLink} target="_blank" rel="noreferrer">{obj.collaboratorName}</OutboundLink></span>
     } else {
       collab = <span>with {obj.collaboratorName}</span>
     }
@@ -35,7 +36,7 @@ const AlbumCard = ({ obj }) => {
     return (href == null || href === "") ?
       (<li key={fieldname}><span>Not available on {title}</span><i className={"fab fa-" + icon}></i></li>)
       :
-      (<li key={fieldname}><a href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={"fab fa-" + icon}></i></a></li>)
+      (<li key={fieldname}><OutboundLink href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={"fab fa-" + icon}></i></OutboundLink></li>)
   })
 
   return (
@@ -58,7 +59,7 @@ const AlbumCard = ({ obj }) => {
       <div className="card-aside">
         <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>
       </div>
       <div className="card-body">
         <RichText data={obj.albumDescription} />

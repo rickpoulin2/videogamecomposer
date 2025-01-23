@@ -27,7 +27,9 @@ const Hero = ({ obj }) => {
               <div>
                 {heading}
                 <RichText data={obj.body} />
-                {buttons}
+                <div className="ctas">
+                  {buttons}
+                </div>
               </div>
             </div>
           </div>
@@ -57,7 +59,7 @@ export const query = graphql`
       ... MyLink
     }
     portraitImage {
-      gatsbyImageData
+      gatsbyImageData(width:850,aspectRatio:0.86)
     }
   }
 `

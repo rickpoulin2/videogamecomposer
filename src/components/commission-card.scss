@@ -2,6 +2,14 @@
     margin-bottom: 2em;
     display: inline-flex;
 
+    .card-top {
+        .gatsby-image-wrapper {
+            border-radius: var(--bs-card-border-radius) var(--bs-card-border-radius) 0 0;
+        }
+
+        border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    }
+
     .card-body {
         ul {
             margin: 0;

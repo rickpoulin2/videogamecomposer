@@ -22,6 +22,20 @@ module.exports = {
     },
     "gatsby-plugin-image",
     "gatsby-plugin-sass",
+    {
+      resolve: "gatsby-plugin-recaptcha",
+      options: {
+        async: true,
+        defer: true,
+        args: `?onload=onloadCallback&render=explicit`
+      }
+    },
+    {
+      resolve: "gatsby-plugin-google-gtag",
+      options: {
+        trackingIds: ["G-FBH76BETL3"],
+      },
+    },
     "gatsby-plugin-schema-export",
     {
       resolve: "gatsby-source-contentful",

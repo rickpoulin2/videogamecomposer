@@ -14,7 +14,7 @@ const Video = ({ obj }) => {
   const cardClass = "card " + (obj.cardType === "no-border" ? "no-border" : "text-bg-" + obj.cardType)
   const embed = (<iframe src={videoSrc} title={obj.title}
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>)
+    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>)
 
   if (obj.cardType === "none") {
     return (

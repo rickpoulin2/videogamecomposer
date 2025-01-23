@@ -42,21 +42,29 @@ footer {
 
   nav {
     font-size: 1.4em;
+    text-align: center;
 
-    ul {
-      justify-content: center;
+    ul.nav {
+      display: inline-flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    li .nav-link {
+      --bs-nav-link-padding-x: 0.3em;
     }
 
     @media only screen and (min-width: 768px) {
       font-size: 1.2em;
 
-      ul {
+      ul.nav {
+        max-width: none;
         justify-content: flex-end;
       }
 
       li .nav-link {
-        padding-left: 0.5em;
-        padding-right: 0.5em;
+        --bs-nav-link-padding-x: 0.5em;
       }
 
       .last-built {

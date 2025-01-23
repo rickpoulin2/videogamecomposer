@@ -1364,8 +1364,8 @@ type ContentfulLink implements ContentfulReference & ContentfulEntry & Node {
     locale: String
   ): Date
   sys: ContentfulLinkSys
-  site_globals: [ContentfulSiteGlobals]
   component__button_banner: [ContentfulComponentButtonBanner]
+  site_globals: [ContentfulSiteGlobals]
   component__newsletter_latest: [ContentfulComponentNewsletterLatest]
   component__hero: [ContentfulComponentHero]
   component__content_card: [ContentfulComponentContentCard]
@@ -1753,6 +1753,7 @@ type ContentfulComponentContentCard implements ContentfulReference & ContentfulE
   content: RichText!
   buttons: [ContentfulLink]
   name: String
+  page: [ContentfulPage]
   spaceId: String
   createdAt(
     """
@@ -1789,7 +1790,6 @@ type ContentfulComponentContentCard implements ContentfulReference & ContentfulE
     locale: String
   ): Date
   sys: ContentfulComponentContentCardSys
-  page: [ContentfulPage]
   parent: Node
   children: [Node!]!
   internal: Internal!
@@ -1797,8 +1797,8 @@ type ContentfulComponentContentCard implements ContentfulReference & ContentfulE
 
 type ContentfulComponentContentCardSys {
   type: String
-  contentType: ContentfulComponentContentCardSysContentType
   revision: Int
+  contentType: ContentfulComponentContentCardSysContentType
 }
 
 type ContentfulComponentContentCardSysContentType {
@@ -2265,6 +2265,8 @@ type ContentfulComponentNewsletterLatest implements ContentfulReference & Conten
   styles: String
   trailingBlurb: RichText
   buttons: [ContentfulLink]
+  signupButtonLabel: String
+  signupForm: ContentfulComponentNewsletterSignup
   component_group: [ContentfulComponentGroup]
   spaceId: String
   createdAt(
@@ -2395,6 +2397,10 @@ type ContentfulComponentNewsletterSignup implements ContentfulReference & Conten
   styles: String
   introContent: RichText
   submitButtonLabel: String
+  successHeading: String
+  successBody: RichText
+  errorHeading: String
+  errorBody: RichText
   page: [ContentfulPage]
   spaceId: String
   createdAt(
@@ -2460,7 +2466,13 @@ type ContentfulComponentContactForm implements ContentfulReference & ContentfulE
   heading: String
   styles: String
   introContent: RichText
+  availableTopics: [String!]
+  showNewsletterSignup: Boolean
   submitButtonLabel: String
+  successHeading: String
+  successBody: RichText
+  errorHeading: String
+  errorBody: RichText
   page: [ContentfulPage]
   spaceId: String
   createdAt(
@@ -2637,7 +2649,7 @@ type Query {
   allContentfulPage(filter: ContentfulPageFilterInput, sort: [ContentfulPageSortInput], skip: Int, limit: Int): ContentfulPageConnection!
   contentfulSiteGlobals(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, siteTitle: StringQueryOperatorInput, siteHeadingStart: StringQueryOperatorInput, siteHeadingEnd: StringQueryOperatorInput, headerNavigation: ContentfulLinkFilterListInput, headerButtonLink: ContentfulLinkFilterInput, footerNavigation: ContentfulLinkFilterListInput, siteIcon: ContentfulAssetFilterInput, siteLogo: ContentfulAssetFilterInput, siteBackground: ContentfulAssetFilterInput, footerContent: RichTextFilterInput, copyrightLine: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulSiteGlobalsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulSiteGlobals
   allContentfulSiteGlobals(filter: ContentfulSiteGlobalsFilterInput, sort: [ContentfulSiteGlobalsSortInput], skip: Int, limit: Int): ContentfulSiteGlobalsConnection!
-  contentfulLink(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, isInternal: BooleanQueryOperatorInput, text: StringQueryOperatorInput, targetPage: ContentfulPageFilterInput, targetLink: StringQueryOperatorInput, icon: StringQueryOperatorInput, styles: StringQueryOperatorInput, hideText: BooleanQueryOperatorInput, component__blog_latest: ContentfulComponentBlogLatestFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulLinkSysFilterInput, site_globals: ContentfulSiteGlobalsFilterListInput, component__button_banner: ContentfulComponentButtonBannerFilterListInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, component__hero: ContentfulComponentHeroFilterListInput, component__content_card: ContentfulComponentContentCardFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulLink
+  contentfulLink(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, isInternal: BooleanQueryOperatorInput, text: StringQueryOperatorInput, targetPage: ContentfulPageFilterInput, targetLink: StringQueryOperatorInput, icon: StringQueryOperatorInput, styles: StringQueryOperatorInput, hideText: BooleanQueryOperatorInput, component__blog_latest: ContentfulComponentBlogLatestFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulLinkSysFilterInput, component__button_banner: ContentfulComponentButtonBannerFilterListInput, site_globals: ContentfulSiteGlobalsFilterListInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, component__hero: ContentfulComponentHeroFilterListInput, component__content_card: ContentfulComponentContentCardFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulLink
   allContentfulLink(filter: ContentfulLinkFilterInput, sort: [ContentfulLinkSortInput], skip: Int, limit: Int): ContentfulLinkConnection!
   contentfulComponentGroup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, structureType: StringQueryOperatorInput, name: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentGroupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentGroup
   allContentfulComponentGroup(filter: ContentfulComponentGroupFilterInput, sort: [ContentfulComponentGroupSortInput], skip: Int, limit: Int): ContentfulComponentGroupConnection!
@@ -2649,7 +2661,7 @@ type Query {
   allContentfulComponentVideo(filter: ContentfulComponentVideoFilterInput, sort: [ContentfulComponentVideoSortInput], skip: Int, limit: Int): ContentfulComponentVideoConnection!
   contentfulComponentButtonBanner(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, subtext: StringQueryOperatorInput, styles: StringQueryOperatorInput, cardType: StringQueryOperatorInput, buttons: ContentfulLinkFilterListInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentButtonBannerSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentButtonBanner
   allContentfulComponentButtonBanner(filter: ContentfulComponentButtonBannerFilterInput, sort: [ContentfulComponentButtonBannerSortInput], skip: Int, limit: Int): ContentfulComponentButtonBannerConnection!
-  contentfulComponentContentCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, fancyHeading: StringQueryOperatorInput, cardType: StringQueryOperatorInput, image: ContentfulAssetFilterInput, content: RichTextFilterInput, buttons: ContentfulLinkFilterListInput, name: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContentCardSysFilterInput, page: ContentfulPageFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContentCard
+  contentfulComponentContentCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, fancyHeading: StringQueryOperatorInput, cardType: StringQueryOperatorInput, image: ContentfulAssetFilterInput, content: RichTextFilterInput, buttons: ContentfulLinkFilterListInput, name: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContentCardSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContentCard
   allContentfulComponentContentCard(filter: ContentfulComponentContentCardFilterInput, sort: [ContentfulComponentContentCardSortInput], skip: Int, limit: Int): ContentfulComponentContentCardConnection!
   contentfulAlbum(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, trackCount: IntQueryOperatorInput, collaboratorName: StringQueryOperatorInput, collaboratorLink: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkYouTube: StringQueryOperatorInput, linkSpotify: StringQueryOperatorInput, linkBandcamp: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkItunes: StringQueryOperatorInput, linkAmazon: StringQueryOperatorInput, albumDescription: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulAlbumSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAlbum
   allContentfulAlbum(filter: ContentfulAlbumFilterInput, sort: [ContentfulAlbumSortInput], skip: Int, limit: Int): ContentfulAlbumConnection!
@@ -2663,13 +2675,13 @@ type Query {
   allContentfulComponentBlogLatest(filter: ContentfulComponentBlogLatestFilterInput, sort: [ContentfulComponentBlogLatestSortInput], skip: Int, limit: Int): ContentfulComponentBlogLatestConnection!
   contentfulNewsletter(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, url: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, bannerImage: ContentfulAssetFilterInput, tagLine: StringQueryOperatorInput, bodyContent: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulNewsletterSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulNewsletter
   allContentfulNewsletter(filter: ContentfulNewsletterFilterInput, sort: [ContentfulNewsletterSortInput], skip: Int, limit: Int): ContentfulNewsletterConnection!
-  contentfulComponentNewsletterLatest(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, trailingBlurb: RichTextFilterInput, buttons: ContentfulLinkFilterListInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterLatestSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterLatest
+  contentfulComponentNewsletterLatest(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, trailingBlurb: RichTextFilterInput, buttons: ContentfulLinkFilterListInput, signupButtonLabel: StringQueryOperatorInput, signupForm: ContentfulComponentNewsletterSignupFilterInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterLatestSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterLatest
   allContentfulComponentNewsletterLatest(filter: ContentfulComponentNewsletterLatestFilterInput, sort: [ContentfulComponentNewsletterLatestSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterLatestConnection!
   contentfulComponentNewsletterList(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, internalTitle: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterListSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterList
   allContentfulComponentNewsletterList(filter: ContentfulComponentNewsletterListFilterInput, sort: [ContentfulComponentNewsletterListSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterListConnection!
-  contentfulComponentNewsletterSignup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterSignupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterSignup
+  contentfulComponentNewsletterSignup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterSignupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterSignup
   allContentfulComponentNewsletterSignup(filter: ContentfulComponentNewsletterSignupFilterInput, sort: [ContentfulComponentNewsletterSignupSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterSignupConnection!
-  contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
+  contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, availableTopics: StringQueryOperatorInput, showNewsletterSignup: BooleanQueryOperatorInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
   allContentfulComponentContactForm(filter: ContentfulComponentContactFormFilterInput, sort: [ContentfulComponentContactFormSortInput], skip: Int, limit: Int): ContentfulComponentContactFormConnection!
   contentfulComponentCommissionCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, developer: StringQueryOperatorInput, publisher: StringQueryOperatorInput, releaseYear: StringQueryOperatorInput, steamLink: StringQueryOperatorInput, itchioLink: StringQueryOperatorInput, youTubeLink: StringQueryOperatorInput, otherLink: StringQueryOperatorInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentCommissionCardSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentCommissionCard
   allContentfulComponentCommissionCard(filter: ContentfulComponentCommissionCardFilterInput, sort: [ContentfulComponentCommissionCardSortInput], skip: Int, limit: Int): ContentfulComponentCommissionCardConnection!
@@ -3994,8 +4006,8 @@ input ContentfulLinkFilterInput {
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
   sys: ContentfulLinkSysFilterInput
-  site_globals: ContentfulSiteGlobalsFilterListInput
   component__button_banner: ContentfulComponentButtonBannerFilterListInput
+  site_globals: ContentfulSiteGlobalsFilterListInput
   component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput
   component__hero: ContentfulComponentHeroFilterListInput
   component__content_card: ContentfulComponentContentCardFilterListInput
@@ -4131,6 +4143,45 @@ input ContentfulLinkSysContentTypeSysFilterInput {
   id: StringQueryOperatorInput
 }
 
+input ContentfulComponentButtonBannerFilterListInput {
+  elemMatch: ContentfulComponentButtonBannerFilterInput
+}
+
+input ContentfulComponentButtonBannerFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  title: StringQueryOperatorInput
+  subtext: StringQueryOperatorInput
+  styles: StringQueryOperatorInput
+  cardType: StringQueryOperatorInput
+  buttons: ContentfulLinkFilterListInput
+  page: ContentfulPageFilterListInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulComponentButtonBannerSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulComponentButtonBannerSysFilterInput {
+  type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
+  contentType: ContentfulComponentButtonBannerSysContentTypeFilterInput
+}
+
+input ContentfulComponentButtonBannerSysContentTypeFilterInput {
+  sys: ContentfulComponentButtonBannerSysContentTypeSysFilterInput
+}
+
+input ContentfulComponentButtonBannerSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
 input ContentfulSiteGlobalsFilterListInput {
   elemMatch: ContentfulSiteGlobalsFilterInput
 }
@@ -4180,45 +4231,6 @@ input ContentfulSiteGlobalsSysContentTypeSysFilterInput {
   id: StringQueryOperatorInput
 }
 
-input ContentfulComponentButtonBannerFilterListInput {
-  elemMatch: ContentfulComponentButtonBannerFilterInput
-}
-
-input ContentfulComponentButtonBannerFilterInput {
-  contentful_id: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-  node_locale: StringQueryOperatorInput
-  title: StringQueryOperatorInput
-  subtext: StringQueryOperatorInput
-  styles: StringQueryOperatorInput
-  cardType: StringQueryOperatorInput
-  buttons: ContentfulLinkFilterListInput
-  page: ContentfulPageFilterListInput
-  spaceId: StringQueryOperatorInput
-  createdAt: DateQueryOperatorInput
-  updatedAt: DateQueryOperatorInput
-  sys: ContentfulComponentButtonBannerSysFilterInput
-  parent: NodeFilterInput
-  children: NodeFilterListInput
-  internal: InternalFilterInput
-}
-
-input ContentfulComponentButtonBannerSysFilterInput {
-  type: StringQueryOperatorInput
-  revision: IntQueryOperatorInput
-  contentType: ContentfulComponentButtonBannerSysContentTypeFilterInput
-}
-
-input ContentfulComponentButtonBannerSysContentTypeFilterInput {
-  sys: ContentfulComponentButtonBannerSysContentTypeSysFilterInput
-}
-
-input ContentfulComponentButtonBannerSysContentTypeSysFilterInput {
-  type: StringQueryOperatorInput
-  linkType: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-}
-
 input ContentfulComponentNewsletterLatestFilterListInput {
   elemMatch: ContentfulComponentNewsletterLatestFilterInput
 }
@@ -4231,6 +4243,8 @@ input ContentfulComponentNewsletterLatestFilterInput {
   styles: StringQueryOperatorInput
   trailingBlurb: RichTextFilterInput
   buttons: ContentfulLinkFilterListInput
+  signupButtonLabel: StringQueryOperatorInput
+  signupForm: ContentfulComponentNewsletterSignupFilterInput
   component_group: ContentfulComponentGroupFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
@@ -4239,6 +4253,44 @@ input ContentfulComponentNewsletterLatestFilterInput {
   parent: NodeFilterInput
   children: NodeFilterListInput
   internal: InternalFilterInput
+}
+
+input ContentfulComponentNewsletterSignupFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  heading: StringQueryOperatorInput
+  styles: StringQueryOperatorInput
+  introContent: RichTextFilterInput
+  submitButtonLabel: StringQueryOperatorInput
+  successHeading: StringQueryOperatorInput
+  successBody: RichTextFilterInput
+  errorHeading: StringQueryOperatorInput
+  errorBody: RichTextFilterInput
+  page: ContentfulPageFilterListInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulComponentNewsletterSignupSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulComponentNewsletterSignupSysFilterInput {
+  type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
+  contentType: ContentfulComponentNewsletterSignupSysContentTypeFilterInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeFilterInput {
+  sys: ContentfulComponentNewsletterSignupSysContentTypeSysFilterInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
 }
 
 input ContentfulComponentNewsletterLatestSysFilterInput {
@@ -4311,11 +4363,11 @@ input ContentfulComponentContentCardFilterInput {
   content: RichTextFilterInput
   buttons: ContentfulLinkFilterListInput
   name: StringQueryOperatorInput
+  page: ContentfulPageFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
   sys: ContentfulComponentContentCardSysFilterInput
-  page: ContentfulPageFilterListInput
   parent: NodeFilterInput
   children: NodeFilterListInput
   internal: InternalFilterInput
@@ -4323,8 +4375,8 @@ input ContentfulComponentContentCardFilterInput {
 
 input ContentfulComponentContentCardSysFilterInput {
   type: StringQueryOperatorInput
-  contentType: ContentfulComponentContentCardSysContentTypeFilterInput
   revision: IntQueryOperatorInput
+  contentType: ContentfulComponentContentCardSysContentTypeFilterInput
 }
 
 input ContentfulComponentContentCardSysContentTypeFilterInput {
@@ -4388,8 +4440,8 @@ input ContentfulLinkFieldSelector {
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
   sys: ContentfulLinkSysFieldSelector
-  site_globals: ContentfulSiteGlobalsFieldSelector
   component__button_banner: ContentfulComponentButtonBannerFieldSelector
+  site_globals: ContentfulSiteGlobalsFieldSelector
   component__newsletter_latest: ContentfulComponentNewsletterLatestFieldSelector
   component__hero: ContentfulComponentHeroFieldSelector
   component__content_card: ContentfulComponentContentCardFieldSelector
@@ -4480,6 +4532,41 @@ input ContentfulLinkSysContentTypeSysFieldSelector {
   id: FieldSelectorEnum
 }
 
+input ContentfulComponentButtonBannerFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  title: FieldSelectorEnum
+  subtext: FieldSelectorEnum
+  styles: FieldSelectorEnum
+  cardType: FieldSelectorEnum
+  buttons: ContentfulLinkFieldSelector
+  page: ContentfulPageFieldSelector
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulComponentButtonBannerSysFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulComponentButtonBannerSysFieldSelector {
+  type: FieldSelectorEnum
+  revision: FieldSelectorEnum
+  contentType: ContentfulComponentButtonBannerSysContentTypeFieldSelector
+}
+
+input ContentfulComponentButtonBannerSysContentTypeFieldSelector {
+  sys: ContentfulComponentButtonBannerSysContentTypeSysFieldSelector
+}
+
+input ContentfulComponentButtonBannerSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
+}
+
 input ContentfulSiteGlobalsFieldSelector {
   contentful_id: FieldSelectorEnum
   id: FieldSelectorEnum
@@ -4525,41 +4612,6 @@ input ContentfulSiteGlobalsSysContentTypeSysFieldSelector {
   id: FieldSelectorEnum
 }
 
-input ContentfulComponentButtonBannerFieldSelector {
-  contentful_id: FieldSelectorEnum
-  id: FieldSelectorEnum
-  node_locale: FieldSelectorEnum
-  title: FieldSelectorEnum
-  subtext: FieldSelectorEnum
-  styles: FieldSelectorEnum
-  cardType: FieldSelectorEnum
-  buttons: ContentfulLinkFieldSelector
-  page: ContentfulPageFieldSelector
-  spaceId: FieldSelectorEnum
-  createdAt: FieldSelectorEnum
-  updatedAt: FieldSelectorEnum
-  sys: ContentfulComponentButtonBannerSysFieldSelector
-  parent: NodeFieldSelector
-  children: NodeFieldSelector
-  internal: InternalFieldSelector
-}
-
-input ContentfulComponentButtonBannerSysFieldSelector {
-  type: FieldSelectorEnum
-  revision: FieldSelectorEnum
-  contentType: ContentfulComponentButtonBannerSysContentTypeFieldSelector
-}
-
-input ContentfulComponentButtonBannerSysContentTypeFieldSelector {
-  sys: ContentfulComponentButtonBannerSysContentTypeSysFieldSelector
-}
-
-input ContentfulComponentButtonBannerSysContentTypeSysFieldSelector {
-  type: FieldSelectorEnum
-  linkType: FieldSelectorEnum
-  id: FieldSelectorEnum
-}
-
 input ContentfulComponentNewsletterLatestFieldSelector {
   contentful_id: FieldSelectorEnum
   id: FieldSelectorEnum
@@ -4568,6 +4620,8 @@ input ContentfulComponentNewsletterLatestFieldSelector {
   styles: FieldSelectorEnum
   trailingBlurb: RichTextFieldSelector
   buttons: ContentfulLinkFieldSelector
+  signupButtonLabel: FieldSelectorEnum
+  signupForm: ContentfulComponentNewsletterSignupFieldSelector
   component_group: ContentfulComponentGroupFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
@@ -4576,6 +4630,44 @@ input ContentfulComponentNewsletterLatestFieldSelector {
   parent: NodeFieldSelector
   children: NodeFieldSelector
   internal: InternalFieldSelector
+}
+
+input ContentfulComponentNewsletterSignupFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  heading: FieldSelectorEnum
+  styles: FieldSelectorEnum
+  introContent: RichTextFieldSelector
+  submitButtonLabel: FieldSelectorEnum
+  successHeading: FieldSelectorEnum
+  successBody: RichTextFieldSelector
+  errorHeading: FieldSelectorEnum
+  errorBody: RichTextFieldSelector
+  page: ContentfulPageFieldSelector
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulComponentNewsletterSignupSysFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulComponentNewsletterSignupSysFieldSelector {
+  type: FieldSelectorEnum
+  revision: FieldSelectorEnum
+  contentType: ContentfulComponentNewsletterSignupSysContentTypeFieldSelector
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeFieldSelector {
+  sys: ContentfulComponentNewsletterSignupSysContentTypeSysFieldSelector
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
 }
 
 input ContentfulComponentNewsletterLatestSysFieldSelector {
@@ -4640,11 +4732,11 @@ input ContentfulComponentContentCardFieldSelector {
   content: RichTextFieldSelector
   buttons: ContentfulLinkFieldSelector
   name: FieldSelectorEnum
+  page: ContentfulPageFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
   sys: ContentfulComponentContentCardSysFieldSelector
-  page: ContentfulPageFieldSelector
   parent: NodeFieldSelector
   children: NodeFieldSelector
   internal: InternalFieldSelector
@@ -4652,8 +4744,8 @@ input ContentfulComponentContentCardFieldSelector {
 
 input ContentfulComponentContentCardSysFieldSelector {
   type: FieldSelectorEnum
-  contentType: ContentfulComponentContentCardSysContentTypeFieldSelector
   revision: FieldSelectorEnum
+  contentType: ContentfulComponentContentCardSysContentTypeFieldSelector
 }
 
 input ContentfulComponentContentCardSysContentTypeFieldSelector {
@@ -4729,8 +4821,8 @@ input ContentfulLinkSortInput {
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
   sys: ContentfulLinkSysSortInput
-  site_globals: ContentfulSiteGlobalsSortInput
   component__button_banner: ContentfulComponentButtonBannerSortInput
+  site_globals: ContentfulSiteGlobalsSortInput
   component__newsletter_latest: ContentfulComponentNewsletterLatestSortInput
   component__hero: ContentfulComponentHeroSortInput
   component__content_card: ContentfulComponentContentCardSortInput
@@ -4821,6 +4913,41 @@ input ContentfulLinkSysContentTypeSysSortInput {
   id: SortOrderEnum
 }
 
+input ContentfulComponentButtonBannerSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  title: SortOrderEnum
+  subtext: SortOrderEnum
+  styles: SortOrderEnum
+  cardType: SortOrderEnum
+  buttons: ContentfulLinkSortInput
+  page: ContentfulPageSortInput
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulComponentButtonBannerSysSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulComponentButtonBannerSysSortInput {
+  type: SortOrderEnum
+  revision: SortOrderEnum
+  contentType: ContentfulComponentButtonBannerSysContentTypeSortInput
+}
+
+input ContentfulComponentButtonBannerSysContentTypeSortInput {
+  sys: ContentfulComponentButtonBannerSysContentTypeSysSortInput
+}
+
+input ContentfulComponentButtonBannerSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
+}
+
 input ContentfulSiteGlobalsSortInput {
   contentful_id: SortOrderEnum
   id: SortOrderEnum
@@ -4866,41 +4993,6 @@ input ContentfulSiteGlobalsSysContentTypeSysSortInput {
   id: SortOrderEnum
 }
 
-input ContentfulComponentButtonBannerSortInput {
-  contentful_id: SortOrderEnum
-  id: SortOrderEnum
-  node_locale: SortOrderEnum
-  title: SortOrderEnum
-  subtext: SortOrderEnum
-  styles: SortOrderEnum
-  cardType: SortOrderEnum
-  buttons: ContentfulLinkSortInput
-  page: ContentfulPageSortInput
-  spaceId: SortOrderEnum
-  createdAt: SortOrderEnum
-  updatedAt: SortOrderEnum
-  sys: ContentfulComponentButtonBannerSysSortInput
-  parent: NodeSortInput
-  children: NodeSortInput
-  internal: InternalSortInput
-}
-
-input ContentfulComponentButtonBannerSysSortInput {
-  type: SortOrderEnum
-  revision: SortOrderEnum
-  contentType: ContentfulComponentButtonBannerSysContentTypeSortInput
-}
-
-input ContentfulComponentButtonBannerSysContentTypeSortInput {
-  sys: ContentfulComponentButtonBannerSysContentTypeSysSortInput
-}
-
-input ContentfulComponentButtonBannerSysContentTypeSysSortInput {
-  type: SortOrderEnum
-  linkType: SortOrderEnum
-  id: SortOrderEnum
-}
-
 input ContentfulComponentNewsletterLatestSortInput {
   contentful_id: SortOrderEnum
   id: SortOrderEnum
@@ -4909,6 +5001,8 @@ input ContentfulComponentNewsletterLatestSortInput {
   styles: SortOrderEnum
   trailingBlurb: RichTextSortInput
   buttons: ContentfulLinkSortInput
+  signupButtonLabel: SortOrderEnum
+  signupForm: ContentfulComponentNewsletterSignupSortInput
   component_group: ContentfulComponentGroupSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
@@ -4917,6 +5011,44 @@ input ContentfulComponentNewsletterLatestSortInput {
   parent: NodeSortInput
   children: NodeSortInput
   internal: InternalSortInput
+}
+
+input ContentfulComponentNewsletterSignupSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  heading: SortOrderEnum
+  styles: SortOrderEnum
+  introContent: RichTextSortInput
+  submitButtonLabel: SortOrderEnum
+  successHeading: SortOrderEnum
+  successBody: RichTextSortInput
+  errorHeading: SortOrderEnum
+  errorBody: RichTextSortInput
+  page: ContentfulPageSortInput
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulComponentNewsletterSignupSysSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulComponentNewsletterSignupSysSortInput {
+  type: SortOrderEnum
+  revision: SortOrderEnum
+  contentType: ContentfulComponentNewsletterSignupSysContentTypeSortInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSortInput {
+  sys: ContentfulComponentNewsletterSignupSysContentTypeSysSortInput
+}
+
+input ContentfulComponentNewsletterSignupSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
 }
 
 input ContentfulComponentNewsletterLatestSysSortInput {
@@ -4981,11 +5113,11 @@ input ContentfulComponentContentCardSortInput {
   content: RichTextSortInput
   buttons: ContentfulLinkSortInput
   name: SortOrderEnum
+  page: ContentfulPageSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
   sys: ContentfulComponentContentCardSysSortInput
-  page: ContentfulPageSortInput
   parent: NodeSortInput
   children: NodeSortInput
   internal: InternalSortInput
@@ -4993,8 +5125,8 @@ input ContentfulComponentContentCardSortInput {
 
 input ContentfulComponentContentCardSysSortInput {
   type: SortOrderEnum
-  contentType: ContentfulComponentContentCardSysContentTypeSortInput
   revision: SortOrderEnum
+  contentType: ContentfulComponentContentCardSysContentTypeSortInput
 }
 
 input ContentfulComponentContentCardSysContentTypeSortInput {
@@ -6366,22 +6498,6 @@ input ContentfulComponentNewsletterListSysContentTypeSysSortInput {
   id: SortOrderEnum
 }
 
-input ContentfulComponentNewsletterSignupSysFilterInput {
-  type: StringQueryOperatorInput
-  revision: IntQueryOperatorInput
-  contentType: ContentfulComponentNewsletterSignupSysContentTypeFilterInput
-}
-
-input ContentfulComponentNewsletterSignupSysContentTypeFilterInput {
-  sys: ContentfulComponentNewsletterSignupSysContentTypeSysFilterInput
-}
-
-input ContentfulComponentNewsletterSignupSysContentTypeSysFilterInput {
-  type: StringQueryOperatorInput
-  linkType: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-}
-
 type ContentfulComponentNewsletterSignupConnection {
   totalCount: Int!
   edges: [ContentfulComponentNewsletterSignupEdge!]!
@@ -6400,40 +6516,6 @@ type ContentfulComponentNewsletterSignupEdge {
   previous: ContentfulComponentNewsletterSignup
 }
 
-input ContentfulComponentNewsletterSignupFieldSelector {
-  contentful_id: FieldSelectorEnum
-  id: FieldSelectorEnum
-  node_locale: FieldSelectorEnum
-  heading: FieldSelectorEnum
-  styles: FieldSelectorEnum
-  introContent: RichTextFieldSelector
-  submitButtonLabel: FieldSelectorEnum
-  page: ContentfulPageFieldSelector
-  spaceId: FieldSelectorEnum
-  createdAt: FieldSelectorEnum
-  updatedAt: FieldSelectorEnum
-  sys: ContentfulComponentNewsletterSignupSysFieldSelector
-  parent: NodeFieldSelector
-  children: NodeFieldSelector
-  internal: InternalFieldSelector
-}
-
-input ContentfulComponentNewsletterSignupSysFieldSelector {
-  type: FieldSelectorEnum
-  revision: FieldSelectorEnum
-  contentType: ContentfulComponentNewsletterSignupSysContentTypeFieldSelector
-}
-
-input ContentfulComponentNewsletterSignupSysContentTypeFieldSelector {
-  sys: ContentfulComponentNewsletterSignupSysContentTypeSysFieldSelector
-}
-
-input ContentfulComponentNewsletterSignupSysContentTypeSysFieldSelector {
-  type: FieldSelectorEnum
-  linkType: FieldSelectorEnum
-  id: FieldSelectorEnum
-}
-
 type ContentfulComponentNewsletterSignupGroupConnection {
   totalCount: Int!
   edges: [ContentfulComponentNewsletterSignupEdge!]!
@@ -6446,58 +6528,6 @@ type ContentfulComponentNewsletterSignupGroupConnection {
   group(skip: Int, limit: Int, field: ContentfulComponentNewsletterSignupFieldSelector!): [ContentfulComponentNewsletterSignupGroupConnection!]!
   field: String!
   fieldValue: String
-}
-
-input ContentfulComponentNewsletterSignupFilterInput {
-  contentful_id: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-  node_locale: StringQueryOperatorInput
-  heading: StringQueryOperatorInput
-  styles: StringQueryOperatorInput
-  introContent: RichTextFilterInput
-  submitButtonLabel: StringQueryOperatorInput
-  page: ContentfulPageFilterListInput
-  spaceId: StringQueryOperatorInput
-  createdAt: DateQueryOperatorInput
-  updatedAt: DateQueryOperatorInput
-  sys: ContentfulComponentNewsletterSignupSysFilterInput
-  parent: NodeFilterInput
-  children: NodeFilterListInput
-  internal: InternalFilterInput
-}
-
-input ContentfulComponentNewsletterSignupSortInput {
-  contentful_id: SortOrderEnum
-  id: SortOrderEnum
-  node_locale: SortOrderEnum
-  heading: SortOrderEnum
-  styles: SortOrderEnum
-  introContent: RichTextSortInput
-  submitButtonLabel: SortOrderEnum
-  page: ContentfulPageSortInput
-  spaceId: SortOrderEnum
-  createdAt: SortOrderEnum
-  updatedAt: SortOrderEnum
-  sys: ContentfulComponentNewsletterSignupSysSortInput
-  parent: NodeSortInput
-  children: NodeSortInput
-  internal: InternalSortInput
-}
-
-input ContentfulComponentNewsletterSignupSysSortInput {
-  type: SortOrderEnum
-  revision: SortOrderEnum
-  contentType: ContentfulComponentNewsletterSignupSysContentTypeSortInput
-}
-
-input ContentfulComponentNewsletterSignupSysContentTypeSortInput {
-  sys: ContentfulComponentNewsletterSignupSysContentTypeSysSortInput
-}
-
-input ContentfulComponentNewsletterSignupSysContentTypeSysSortInput {
-  type: SortOrderEnum
-  linkType: SortOrderEnum
-  id: SortOrderEnum
 }
 
 input ContentfulComponentContactFormSysFilterInput {
@@ -6541,7 +6571,13 @@ input ContentfulComponentContactFormFieldSelector {
   heading: FieldSelectorEnum
   styles: FieldSelectorEnum
   introContent: RichTextFieldSelector
+  availableTopics: FieldSelectorEnum
+  showNewsletterSignup: FieldSelectorEnum
   submitButtonLabel: FieldSelectorEnum
+  successHeading: FieldSelectorEnum
+  successBody: RichTextFieldSelector
+  errorHeading: FieldSelectorEnum
+  errorBody: RichTextFieldSelector
   page: ContentfulPageFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
@@ -6589,7 +6625,13 @@ input ContentfulComponentContactFormFilterInput {
   heading: StringQueryOperatorInput
   styles: StringQueryOperatorInput
   introContent: RichTextFilterInput
+  availableTopics: StringQueryOperatorInput
+  showNewsletterSignup: BooleanQueryOperatorInput
   submitButtonLabel: StringQueryOperatorInput
+  successHeading: StringQueryOperatorInput
+  successBody: RichTextFilterInput
+  errorHeading: StringQueryOperatorInput
+  errorBody: RichTextFilterInput
   page: ContentfulPageFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
@@ -6607,7 +6649,13 @@ input ContentfulComponentContactFormSortInput {
   heading: SortOrderEnum
   styles: SortOrderEnum
   introContent: RichTextSortInput
+  availableTopics: SortOrderEnum
+  showNewsletterSignup: SortOrderEnum
   submitButtonLabel: SortOrderEnum
+  successHeading: SortOrderEnum
+  successBody: RichTextSortInput
+  errorHeading: SortOrderEnum
+  errorBody: RichTextSortInput
   page: ContentfulPageSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
