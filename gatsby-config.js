@@ -30,6 +30,12 @@ module.exports = {
         args: `?onload=onloadCallback&render=explicit`
       }
     },
+    {
+      resolve: "gatsby-plugin-google-gtag",
+      options: {
+        trackingIds: ["G-FBH76BETL3"],
+      },
+    },
     "gatsby-plugin-schema-export",
     {
       resolve: "gatsby-source-contentful",

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
+import { OutboundLink } from 'gatsby-plugin-google-gtag';
 
 const MyLink = ({ obj, addClasses, activeClass, onClick }) => {
     if (obj == null) {
@@ -26,7 +27,7 @@ const MyLink = ({ obj, addClasses, activeClass, onClick }) => {
     return obj.isInternal ?
         (<Link to={"/" + obj.targetPage?.url} className={linkStyles} activeClassName={activeClass} title={linkTitle} onClick={onClick}>{linkContent}</Link>)
         :
-        (<a href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle} onClick={onClick}>{linkContent}</a>);
+        (<OutboundLink href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle} onClick={onClick}>{linkContent}</OutboundLink>);
 }
 
 export default MyLink

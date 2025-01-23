@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
 import './commission-card.scss'
 
@@ -26,7 +27,7 @@ const CommissionCard = ({ obj }) => {
       return "";
     let iconClz = (fieldname === "other" ? "fas " : "fab ") + "fa-" + icon;
     hasLinks = true;
-    return (<li key={fieldname}><a href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={iconClz}></i></a></li>)
+    return (<li key={fieldname}><OutboundLink href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={iconClz}></i></OutboundLink></li>)
   })
   const footer = hasLinks ? <div className="card-footer"><ul>{channelLinks}</ul></div> : ""
 
