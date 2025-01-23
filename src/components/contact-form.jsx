@@ -28,7 +28,7 @@ const ContactForm = ({ obj }) => {
   const errorHead = obj.errorHeading == null || obj.errorHeading === "" ? "" : `<h4 class="alert-heading">${obj.errorHeading}</h4>`
   const successBody = ReactDOMServer.renderToStaticMarkup(<RichText data={obj.successBody} />)
   const errorBody = ReactDOMServer.renderToStaticMarkup(<RichText data={obj.errorBody} />)
-  const captcha = <Recaptcha sitekey={RECAPTCHA_KEY} render="explicit" onloadCallback={callback} />
+  const captcha = <Recaptcha sitekey={RECAPTCHA_KEY} render="explicit" onloadCallback={callback} verifyCallback={updateCaptchaValidity} />
 
   function callback() {
     console.log("captcha ready");
@@ -39,19 +39,15 @@ const ContactForm = ({ obj }) => {
     event.stopPropagation();
 
     const form = event.target;
-    const topic = form.querySelector('select');
-    if (topic.value == null || topic.value === "") {
-      topic.setCustomValidity("required field");
-    } else {
-      topic.setCustomValidity("")
-    }
+    updateDropdownValidity(form.querySelector('#topic'));
+    updateCaptchaValidity();
     const isValid = form.checkValidity();
     form.classList.add('was-validated');
     if (!isValid) {
       return false;
     }
 
-    const origSubmitText = form.querySelector(".btn").innerHTML;
+    const origSubmitText = document.querySelector("#contact-submit").innerHTML;
     updateResult(form);
     const formData = new FormData(form);
     if (formData.get("newsletterSignup") !== "Yes") {
@@ -78,17 +74,34 @@ const ContactForm = ({ obj }) => {
   }
 
   function handleTopicChange(event) {
-    const topic = event.target;
-    if (topic.value == null || topic.value === "") {
-      topic.setCustomValidity("required field");
+    updateDropdownValidity(event.target);
+  }
+  function updateDropdownValidity(e) {
+    if (e.value == null || e.value === "") {
+      e.setCustomValidity("required field");
     } else {
-      topic.setCustomValidity("")
+      e.setCustomValidity("")
+    }
+  }
+
+  function updateCaptchaValidity() {
+    const captchaField = document.querySelector('#g-recaptcha > div');
+    captchaField.classList.add('form-control');
+    const captchaResponse = document.querySelector('[name="g-recaptcha-response"]');
+    if (captchaResponse.value == null || captchaResponse.value === "") {
+      captchaResponse.setCustomValidity("required field");
+      captchaField.classList.remove("is-valid");
+      captchaField.classList.add("is-invalid");
+    } else {
+      captchaResponse.setCustomValidity("");
+      captchaField.classList.remove("is-invalid");
+      captchaField.classList.add("is-valid");
     }
   }
 
   function updateResult(form, submitText, isSuccess, errorMsg) {
     const resultDiv = form.parentElement.querySelector(".result");
-    const submitBtn = form.querySelector(".btn");
+    const submitBtn = document.querySelector("#contact-submit");
 
     if (submitText == null) {
       resultDiv.innerHTML = '';
@@ -111,6 +124,10 @@ const ContactForm = ({ obj }) => {
     }
   }
 
+  function submitForm() {
+    document.querySelector('#contact-form').requestSubmit();
+  }
+
   return (
     <>
       <div className={clz}>
@@ -122,7 +139,7 @@ const ContactForm = ({ obj }) => {
             <div className="intro">
               <RichText data={obj.introContent} />
             </div>
-            <form name="contact" data-netlify="true" onSubmit={handleSubmit} noValidate netlify-honeypot="winnie" data-netlify-recaptcha="true">
+            <form id="contact-form" name="contact" data-netlify="true" onSubmit={handleSubmit} noValidate netlify-honeypot="winnie" data-netlify-recaptcha="true">
               <div style={{ display: "none" }}>
                 <label htmlFor="winnie">Skip this field if you're human</label>
                 <input id="winnie" name="winnie" type="text" />
@@ -149,11 +166,11 @@ const ContactForm = ({ obj }) => {
                 <textarea id="message" name="message" className="form-control" rows="5" required></textarea>
               </div>
               <div>{captcha}</div>
-              <div>
-                <button type="submit" className="btn btn-primary">{obj.submitButtonLabel}</button>
-              </div>
             </form>
             <div className="result"></div>
+            <div>
+              <button id="contact-submit" type="button" className="btn btn-primary" onClick={submitForm}>{obj.submitButtonLabel}</button>
+            </div>
           </div>
         </div>
       </div>
