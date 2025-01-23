@@ -58,7 +58,7 @@ const AlbumCard = ({ obj }) => {
       <div className="card-aside">
         <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>
       </div>
       <div className="card-body">
         <RichText data={obj.albumDescription} />
