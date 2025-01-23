@@ -20,6 +20,10 @@
         .card-subtitle {
             margin-bottom: 0.5em;
 
+            span {
+                display: inline-block;
+            }
+
             span:nth-child(2)::before {
                 content: '\25A0';
                 padding: 0 0.5em;
@@ -150,7 +154,7 @@
 
             .card-subtitle {
                 span {
-                    display: inline !important;
+                    display: inline-block !important;
                 }
 
                 span+span::before {
