@@ -23,7 +23,7 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
         </ul>
       </nav>
       <div className="navbar-cta">
-        <MyLink obj={buttonLink} addClasses="btn btn-outline-primary"></MyLink>
+        <MyLink obj={buttonLink} addClasses="btn btn-outline-primary" onClick={handleClose}></MyLink>
       </div>
     </>
   )
