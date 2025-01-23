@@ -27,7 +27,9 @@ const Hero = ({ obj }) => {
               <div>
                 {heading}
                 <RichText data={obj.body} />
-                {buttons}
+                <div className="ctas">
+                  {buttons}
+                </div>
               </div>
             </div>
           </div>
