@@ -38,7 +38,7 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
               <p className="h1"><span>{siteHeadingStart}</span> {siteHeadingEnd}</p>
             </Link>
           </div>
-          <div class="desktop-nav">
+          <div className="desktop-nav">
             {headerNav}
           </div>
           <Navbar.Toggle aria-controls="mobilenav" onClick={handleShow} />
