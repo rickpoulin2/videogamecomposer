@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Navbar, Offcanvas } from 'react-bootstrap';
@@ -10,7 +10,6 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  //useEffect(() => setShow(false))
 
   const navData = navItems?.map((i) =>
     <li className="nav-item" key={i.id}><MyLink obj={i} addClasses="nav-link" activeClass="active" onClick={handleClose} /></li>
