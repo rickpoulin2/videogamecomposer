@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 
-const MyLink = ({ obj, addClasses, activeClass }) => {
+const MyLink = ({ obj, addClasses, activeClass, onClick }) => {
     if (obj == null) {
         return '';
     }
@@ -24,9 +24,9 @@ const MyLink = ({ obj, addClasses, activeClass }) => {
         }
     }
     return obj.isInternal ?
-        (<Link to={"/" + obj.targetPage?.url} className={linkStyles} activeClassName={activeClass} title={linkTitle}>{linkContent}</Link>)
+        (<Link to={"/" + obj.targetPage?.url} className={linkStyles} activeClassName={activeClass} title={linkTitle} onClick={onClick}>{linkContent}</Link>)
         :
-        (<a href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle}>{linkContent}</a>);
+        (<a href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle} onClick={onClick}>{linkContent}</a>);
 }
 
 export default MyLink
