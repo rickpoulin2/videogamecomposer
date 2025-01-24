@@ -1,5 +1,7 @@
 .album-card {
     margin-bottom: 2em;
+    --bs-card-border-color: var(--bs-tertiary);
+    --bs-card-border-width: 2px;
 
     .card-header {
         background-color: var(--bs-light);
@@ -43,7 +45,6 @@
             background-color: white;
             border-radius: var(--bs-border-radius);
             padding: 0.3em;
-            box-shadow: 0 0 5px 1px white;
             margin-top: 0.5em;
 
             span {
