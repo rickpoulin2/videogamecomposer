@@ -14,7 +14,7 @@ const NewsletterLatest = ({ obj }) => {
   const [showModal, setShowModal] = useState(false);
   let signupFormRef = useRef(null)
 
-  const blogData = useStaticQuery(
+  const newsData = useStaticQuery(
     graphql`
       query LatestNewsletterEntries {
         data: allContentfulNewsletter(limit: 1, sort: {publishedDate: DESC}) {
@@ -24,7 +24,7 @@ const NewsletterLatest = ({ obj }) => {
         }
       }`);
 
-  let entries = blogData.data?.nodes?.map((i) =>
+  let entries = newsData.data?.nodes?.map((i) =>
     <NewsletterCard key={i.id} obj={i} />
   );
 
@@ -44,7 +44,7 @@ const NewsletterLatest = ({ obj }) => {
     </ModalDialog >
 
   let buttons = ""
-  if (!(blogData.data?.nodes?.length > 0)) {
+  if (!(newsData.data?.nodes?.length > 0)) {
     entries = <li>Nothing here yet! Check back soon.</li>
   } else {
     buttons = obj.buttons?.map((btn, i, arr) => {

@@ -2,18 +2,48 @@
     text-decoration: none;
     line-height: 1.35;
     margin-bottom: 1em;
+    transition: color .15s ease-in-out,
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
 
     .row {
         --bs-gutter-x: 0;
         --bs-gutter-y: 0;
     }
 
+    .col {
+        display: flex;
+        align-items: center;
+    }
+
+    .card-body {
+        --bs-card-spacer-y: 0.2em;
+        --bs-card-spacer-x: 0.75em;
+        --bs-card-title-spacer-y: 0.15rem;
+        font-size: 0.85em;
+    }
+
+    .card-text {
+        color: black;
+    }
+
+    .card-text,
+    .card-title {
+        transition: color .15s ease-in-out,
+            text-decoration .15s ease-in-out;
+    }
+
     &:hover,
     &:focus {
-        box-shadow: 2px 2px 5px var(--bs-light);
+        box-shadow: 0 0 5px 2px var(--bs-light);
 
         .card-title {
             text-decoration: underline;
+        }
+
+        .card-text {
+            color: var(--bs-primary-hover);
         }
     }
 
@@ -23,19 +53,27 @@
         border-top-left-radius: var(--bs-border-radius);
     }
 
-    @media only screen and (max-width: 400px) {
-        .row {
-            flex-direction: column;
+    @media only screen and (min-width: 360px) {
+        .card-body {
+            --bs-card-spacer-y: 0.3em;
+            --bs-card-spacer-x: 0.75em;
+            --bs-card-title-spacer-y: 0.15rem;
+            font-size: 0.95em;
         }
+    }
 
-        .row div:first-child {
-            width: 100%;
+    @media only screen and (min-width: 400px) {
+        .card-body {
+            --bs-card-spacer-y: 0.7em;
+            --bs-card-spacer-x: 1em;
+            --bs-card-title-spacer-y: 1rem;
+            font-size: 1em;
         }
+    }
 
-        .gatsby-image-wrapper {
-            width: 100%;
-            border-bottom-left-radius: 0;
-            border-top-right-radius: var(--bs-border-radius);
+    @media only screen and (min-width: 400px) and (max-width: 460px) {
+        .col-3 {
+            width: 30%;
         }
     }
 }

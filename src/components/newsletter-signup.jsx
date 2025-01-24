@@ -1,13 +1,15 @@
 import React, { useRef } from 'react'
 import { graphql } from 'gatsby'
 import RichText from './richtext'
+import { Button } from 'react-bootstrap'
 import NewsletterForm from './newsletter-form'
 
 import './newsletter-signup.scss'
 
 const NewsletterSignup = ({ obj }) => {
-  const clz = "newsletter-signup " + (obj.styles ? obj.styles : "col-12 col-lg-6 col-xl-4 offset-xl-2")
+  const clz = "newsletter-signup " + (obj.styles ? obj.styles : "col-12 col-lg-6 col-xxl-4")
   let signupFormRef = useRef(null)
+  const submitRef = useRef();
 
   return (
     <div className={clz}>
@@ -19,7 +21,8 @@ const NewsletterSignup = ({ obj }) => {
           <div className="intro">
             <RichText data={obj.introContent} />
           </div>
-          <NewsletterForm formRef={el => signupFormRef = el} obj={obj} />
+          <NewsletterForm submitRef={submitRef} formRef={el => signupFormRef = el} obj={obj} />
+          <Button variant="primary" ref={submitRef}>{obj.submitButtonLabel}</Button>
         </div>
       </div>
     </div>
