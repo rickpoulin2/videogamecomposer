@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 
-//import './newsletter-form.scss'
-
-const ModalDialog = ({ heading, children, footer, showModal = false, onClose = () => { } }) => {
+const ModalDialog = ({ id, heading, children, footer, showModal = false, onClose = () => { } }) => {
   const [show, setShow] = useState(showModal);
 
   React.useEffect(() => { setShow(showModal); }, [showModal]);
@@ -19,7 +17,7 @@ const ModalDialog = ({ heading, children, footer, showModal = false, onClose = (
   const footerContent = footer ? <Modal.Footer>{footer}</Modal.Footer> : null
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal id={id} show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         {headerContent}
       </Modal.Header>

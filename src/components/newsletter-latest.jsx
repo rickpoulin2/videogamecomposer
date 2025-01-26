@@ -11,8 +11,8 @@ import './newsletter-signup'
 import './newsletter-latest.scss';
 
 const NewsletterLatest = ({ obj }) => {
-  const [showModal, setShowModal] = useState(false);
-  let signupFormRef = useRef(null)
+  const [showModal, setShowModal] = useState(false)
+  const submitRef = useRef()
 
   const newsData = useStaticQuery(
     graphql`
@@ -30,18 +30,20 @@ const NewsletterLatest = ({ obj }) => {
 
   const showDialog = () => setShowModal(true)
   const hideDialog = () => setShowModal(false)
-  const submitForm = () => signupFormRef.requestSubmit()
   const showSignup = obj.signupButtonLabel != null && obj.signupButtonLabel !== "" && obj.signupForm != null;
   const signupButton = showSignup ? <button className="btn btn-primary" onClick={showDialog}>{obj.signupButtonLabel}</button> : null
   const modalFooter = !showSignup ? null :
     <>
       <Button variant="outline-primary" onClick={hideDialog}>Close</Button>
-      <Button variant="primary" onClick={submitForm}>{obj.signupForm.submitButtonLabel}</Button>
+      <Button variant="primary" ref={submitRef}>{obj.signupForm.submitButtonLabel}</Button>
     </>
   const modal = !showSignup ? null :
-    <ModalDialog heading={obj.signupForm.heading} footer={modalFooter} showModal={showModal} onClose={hideDialog}>
-      <NewsletterForm formRef={el => signupFormRef = el} obj={obj.signupForm} />
-    </ModalDialog >
+    <ModalDialog id="signupModal" heading={obj.signupForm.heading} footer={modalFooter} showModal={showModal} onClose={hideDialog}>
+      <div className="intro">
+        < RichText data={obj.signupForm.introContent} />
+      </div >
+      <NewsletterForm submitRef={submitRef} obj={obj.signupForm} />
+    </ModalDialog>
 
   let buttons = ""
   if (!(newsData.data?.nodes?.length > 0)) {

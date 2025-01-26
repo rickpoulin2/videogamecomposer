@@ -2438,6 +2438,7 @@ type ContentfulComponentNewsletterSignup implements ContentfulReference & Conten
     locale: String
   ): Date
   sys: ContentfulComponentNewsletterSignupSys
+  component__newsletter_latest: [ContentfulComponentNewsletterLatest]
   parent: Node
   children: [Node!]!
   internal: Internal!
@@ -2679,7 +2680,7 @@ type Query {
   allContentfulComponentNewsletterLatest(filter: ContentfulComponentNewsletterLatestFilterInput, sort: [ContentfulComponentNewsletterLatestSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterLatestConnection!
   contentfulComponentNewsletterList(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, internalTitle: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterListSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterList
   allContentfulComponentNewsletterList(filter: ContentfulComponentNewsletterListFilterInput, sort: [ContentfulComponentNewsletterListSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterListConnection!
-  contentfulComponentNewsletterSignup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterSignupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterSignup
+  contentfulComponentNewsletterSignup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterSignupSysFilterInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterSignup
   allContentfulComponentNewsletterSignup(filter: ContentfulComponentNewsletterSignupFilterInput, sort: [ContentfulComponentNewsletterSignupSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterSignupConnection!
   contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, availableTopics: StringQueryOperatorInput, showNewsletterSignup: BooleanQueryOperatorInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
   allContentfulComponentContactForm(filter: ContentfulComponentContactFormFilterInput, sort: [ContentfulComponentContactFormSortInput], skip: Int, limit: Int): ContentfulComponentContactFormConnection!
@@ -4099,6 +4100,7 @@ input ContentfulComponentNewsletterSignupFilterInput {
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
   sys: ContentfulComponentNewsletterSignupSysFilterInput
+  component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput
   parent: NodeFilterInput
   children: NodeFilterListInput
   internal: InternalFilterInput
@@ -4492,6 +4494,7 @@ input ContentfulComponentNewsletterSignupFieldSelector {
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
   sys: ContentfulComponentNewsletterSignupSysFieldSelector
+  component__newsletter_latest: ContentfulComponentNewsletterLatestFieldSelector
   parent: NodeFieldSelector
   children: NodeFieldSelector
   internal: InternalFieldSelector
@@ -4873,6 +4876,7 @@ input ContentfulComponentNewsletterSignupSortInput {
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
   sys: ContentfulComponentNewsletterSignupSysSortInput
+  component__newsletter_latest: ContentfulComponentNewsletterLatestSortInput
   parent: NodeSortInput
   children: NodeSortInput
   internal: InternalSortInput
