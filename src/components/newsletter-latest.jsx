@@ -31,7 +31,7 @@ const NewsletterLatest = ({ obj }) => {
   const showDialog = () => setShowModal(true)
   const hideDialog = () => setShowModal(false)
   const showSignup = obj.signupButtonLabel != null && obj.signupButtonLabel !== "" && obj.signupForm != null;
-  const signupButton = showSignup ? <button className="btn btn-primary" onClick={showDialog}>{obj.signupButtonLabel}</button> : null
+  const signupButton = showSignup ? <Button variant="primary" onClick={showDialog}>{obj.signupButtonLabel}</Button> : null
   const modalFooter = !showSignup ? null :
     <>
       <Button variant="outline-primary" onClick={hideDialog}>Close</Button>
@@ -40,7 +40,7 @@ const NewsletterLatest = ({ obj }) => {
   const modal = !showSignup ? null :
     <ModalDialog id="signupModal" heading={obj.signupForm.heading} footer={modalFooter} showModal={showModal} onClose={hideDialog}>
       <div className="intro">
-        < RichText data={obj.signupForm.introContent} />
+        <RichText data={obj.signupForm.introContent} />
       </div >
       <NewsletterForm submitRef={submitRef} obj={obj.signupForm} />
     </ModalDialog>

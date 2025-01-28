@@ -5,6 +5,7 @@ import get from 'lodash/get'
 import Seo from '../components/seo'
 import PageTitle from '../components/page-title'
 import PageComponent from '../components/page-component'
+import Section from '../components/section'
 
 class PageTemplate extends React.Component {
   render() {
@@ -15,15 +16,9 @@ class PageTemplate extends React.Component {
     let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
     if (pageData.mainContent?.length > 0) {
       mainBlock =
-        <section>
-          <div className="container">
-            <div>
-              <div className="row">
-                {mainBlock}
-              </div>
-            </div>
-          </div>
-        </section>
+        <Section>
+          {mainBlock}
+        </Section>
     }
     //console.log(pageData.id);
     //console.log(pageData.mainContent);

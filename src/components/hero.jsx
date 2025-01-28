@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import MyLink from './mylink'
 import RichText from './richtext'
+import Section from './section';
 
 import './hero.scss'
 
@@ -19,30 +20,26 @@ const Hero = ({ obj }) => {
   const styles = "hero nobg " + (obj.styles ? obj.styles : "");
 
   return (
-    <section className={styles}>
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-sm-9 col-md-7 col-lg-8 col-xl-7 col-xxl-6">
-            <div className="herocaption">
-              <div>
-                {heading}
-                <RichText data={obj.body} />
-                <div className="ctas">
-                  {buttons}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-md col-xl-4 col-xxl-4">
-            <div className="portrait">
-              <div>
-                <GatsbyImage image={image} className="img-fluid" alt="composer portrait" />
-              </div>
+    <Section styles={styles}>
+      <div className="col-12 col-sm-9 col-md-7 col-lg-8 col-xl-7 col-xxl-6">
+        <div className="herocaption">
+          <div>
+            {heading}
+            <RichText data={obj.body} />
+            <div className="ctas">
+              {buttons}
             </div>
           </div>
         </div>
       </div>
-    </section>
+      <div className="col-12 col-md col-xl-4 col-xxl-4">
+        <div className="portrait">
+          <div>
+            <GatsbyImage image={image} className="img-fluid" alt="composer portrait" />
+          </div>
+        </div>
+      </div>
+    </Section>
   )
 }
 
