@@ -1,27 +1,38 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useCallback, useRef } from 'react'
 import ReactDOMServer from 'react-dom/server';
 import RichText from './richtext'
 import Recaptcha from 'react-recaptcha';
 
 const RECAPTCHA_KEY = process.env.SITE_RECAPTCHA_KEY;
 
-const NetlifyForm = ({ name, submitRef, successHeading, successContent, errorHeading, errorContent, children }) => {
+const NetlifyForm = ({ name, submitRef, successHeading, successContent, errorHeading, errorContent, modSubmitData, children }) => {
   const successHead = successHeading == null || successHeading === "" ? "" : `<h4 class="alert-heading">${successHeading}</h4>`
   const errorHead = errorHeading == null || errorHeading === "" ? "" : `<h4 class="alert-heading">${errorHeading}</h4>`
   const successBody = ReactDOMServer.renderToStaticMarkup(<RichText data={successContent} />)
   const errorBody = ReactDOMServer.renderToStaticMarkup(<RichText data={errorContent} />)
   const captcha = <Recaptcha sitekey={RECAPTCHA_KEY} render="explicit" onloadCallback={callback} />
   const thisForm = useRef();
-  let origSubmitText = '';
+  const origSubmitText = useRef('');
+
+  const updateDropdownValidity = useCallback((e) => {
+    if (e.value == null || e.value === "") {
+      e.setCustomValidity("required field");
+    } else {
+      e.setCustomValidity("")
+    }
+  }, [])
+
+  const handleSelectChange = useCallback((e) => {
+    updateDropdownValidity(e.target);
+  }, [updateDropdownValidity])
 
   useEffect(() => {
     if (submitRef && submitRef.current) {
-      //console.log(submitRef.current, thisForm.current);
       submitRef.current.onclick = () => thisForm.current.requestSubmit()
-      origSubmitText = submitRef.current.innerHTML
+      origSubmitText.current = submitRef.current.innerHTML
     }
-    thisForm.current.querySelectorAll('select[required]').forEach(e => e.onChange = handleSelectChange)
-  });
+    thisForm.current.querySelectorAll('select[required]').forEach(e => e.onchange = handleSelectChange)
+  }, [submitRef, handleSelectChange]);
 
   function callback() {
     console.log("captcha ready");
@@ -43,11 +54,9 @@ const NetlifyForm = ({ name, submitRef, successHeading, successContent, errorHea
     console.log(submitRef.current, submitRef.current.innerHTML);
     updateResult(form);
     const formData = new FormData(form);
-    /*
-    if (formData.get("newsletterSignup") !== "Yes") {
-      formData.append("newsletterSignup", "No");
+    if (modSubmitData != null && typeof (modSubmitData) === 'function') {
+      modSubmitData(formData)
     }
-    */
     formData.append("form-name", form.getAttribute("name"));
 
     fetch(form.action ? form.action : window.location.pathname, {
@@ -66,17 +75,6 @@ const NetlifyForm = ({ name, submitRef, successHeading, successContent, errorHea
       .catch(error => {
         setTimeout(updateResult, 500, form, false, `Failed: ${error}`);
       });
-  }
-
-  function handleSelectChange(event) {
-    updateDropdownValidity(event.target);
-  }
-  function updateDropdownValidity(e) {
-    if (e.value == null || e.value === "") {
-      e.setCustomValidity("required field");
-    } else {
-      e.setCustomValidity("")
-    }
   }
 
   function updateCaptchaValidity() {
@@ -108,7 +106,7 @@ const NetlifyForm = ({ name, submitRef, successHeading, successContent, errorHea
     }
 
     if (submitBtn) {
-      submitBtn.innerHTML = origSubmitText;
+      submitBtn.innerHTML = origSubmitText.current;
       submitBtn.disabled = false;
     }
     const clz = isSuccess ? "success" : "danger";
