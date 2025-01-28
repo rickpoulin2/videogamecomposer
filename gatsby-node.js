@@ -94,6 +94,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulComponentBlogLatest implements Node {
     heading: String
     styles: String
+    blogPage: ContentfulPage @link(from: "blogPage___NODE")
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulComponentNewsletterLatest implements Node {

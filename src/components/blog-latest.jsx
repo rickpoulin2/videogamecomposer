@@ -20,7 +20,7 @@ const BlogLatest = ({ obj }) => {
 
   const blogTitle = obj.heading
   let entries = blogData.data?.nodes?.map((i) =>
-    <BlogLink key={i.id} obj={i} />
+    <BlogLink key={i.id} obj={i} base={obj.blogPage.url} />
   );
   let buttons = obj.buttons?.map((btn, i, arr) => {
     const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
@@ -45,11 +45,11 @@ const BlogLatest = ({ obj }) => {
 
 export default BlogLatest
 
-const BlogLink = ({ obj }) => {
+const BlogLink = ({ obj, base }) => {
   const htmlid = `entry${obj.tag}`;
   return (
     <li>
-      <Link to={"/reflections/#" + htmlid}>
+      <Link to={`/${base}/#${htmlid}`}>
         <span className="badge text-bg-secondary">{obj.publishedDate}</span>
         <span>{obj.title}</span>
       </Link>
@@ -61,6 +61,9 @@ export const query = graphql`
     __typename
     heading
     styles
+    blogPage {
+      url
+    }
     buttons {
       ...MyLink
     }
