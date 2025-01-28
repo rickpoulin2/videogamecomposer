@@ -13,8 +13,10 @@ const ComponentGroup = ({ obj }) => {
     return (
       <section className={styles}>
         <div className="container">
-          <div className="row">
-            {components}
+          <div>
+            <div className="row">
+              {components}
+            </div>
           </div>
         </div>
       </section>

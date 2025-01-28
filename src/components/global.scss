@@ -221,6 +221,23 @@ article {
   }
 }
 
+section.halfwidth {
+  @media only screen and (min-width:992px) {
+    .container {
+      background-color: transparent;
+    }
+
+    .container>div {
+      max-width: 542px;
+    }
+
+    .container::before,
+    .container::after {
+      width: 540px;
+    }
+  }
+}
+
 h2.pix {
   text-align: center;
   margin-top: 1em;
