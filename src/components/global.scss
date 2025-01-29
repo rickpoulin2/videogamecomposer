@@ -135,14 +135,16 @@ main {
 section:not(.nobg),
 article {
   padding: 5em 0;
+}
 
-  .container {
-    position: relative;
-    background-color: white;
-    padding: 0;
-  }
+section:not(.nobg) .container,
+article .container,
+.box-flair {
+  position: relative;
+  background-color: white;
+  padding: 0;
 
-  .container>div {
+  &>div {
     position: relative;
     background-color: white;
     z-index: 100;
@@ -153,15 +155,10 @@ article {
     }
   }
 
-  .newsletter .container>div {
-    background-color: #d9ead3 !important;
-    padding-bottom: 30px;
-  }
-
-  .container::before,
-  .container::after,
-  .container>div::before,
-  .container>div::after {
+  &::before,
+  &::after,
+  &>div::before,
+  &>div::after {
     content: '';
     display: block;
     height: 63px;
@@ -173,51 +170,53 @@ article {
     background-position: left bottom;
   }
 
-  .container::before,
-  .container::after {
+  &::before,
+  &::after {
     z-index: 99;
     left: 2px;
     width: calc(100% - 2px);
   }
 
-  .container>div::before,
-  .container>div::after {
+  &>div::before,
+  &>div::after {
     z-index: 101;
   }
 
-  .container::before,
-  .container>div::before {
+  &::before,
+  &>div::before {
     transform: rotateX(180deg);
   }
 
-  .container::before {
+  &::before {
     top: -40px;
   }
 
-  .container>div::before {
+  &>div::before {
     top: -42px;
   }
 
-  &.newsletter .container::before {
+  &::after {
+    bottom: -42px;
+  }
+
+  &>div::after {
+    bottom: -40px;
+  }
+
+  &>div>.row {
+    margin-bottom: -2em;
+  }
+}
+
+article.newsletter {
+  .container::before {
     top: -6px;
     height: 7px;
   }
 
-  &.newsletter .container>div::before {
+  .container>div::before {
     top: -8px;
     height: 7px;
-  }
-
-  .container::after {
-    bottom: -42px;
-  }
-
-  .container>div::after {
-    bottom: -40px;
-  }
-
-  .container>div>.row {
-    margin-bottom: -2em;
   }
 }
 

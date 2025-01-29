@@ -23,7 +23,7 @@ class NewsletterTemplate extends React.Component {
     return (
       <>
         <PageTitle title="Newsletters" asText={true} />
-        <Section styles="newsletter">
+        <Section as="article" styles="newsletter">
           <Col className="newsletter-banner" xs="12">
             <GatsbyImage image={pageData.bannerImage.gatsbyImageData} alt={pageData.bannerImage.description} />
           </Col>
