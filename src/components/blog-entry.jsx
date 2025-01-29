@@ -24,7 +24,7 @@ const BlogEntries = () => {
           }
         }
       }`);
-  const showNav = blogData.data?.nodes?.length > 3;
+  const showNav = blogData.data?.nodes?.length > 3
 
   let entries = blogData.data?.nodes?.map((i) =>
     <BlogEntry key={i.id} obj={i} showNav={showNav} />

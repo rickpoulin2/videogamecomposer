@@ -1,5 +1,9 @@
 article.blog {
 
+  .container .col {
+    max-width: 900px;
+  }
+
   &.blog-wnav {
     @media only screen and (min-width:768px) {
       .container {
