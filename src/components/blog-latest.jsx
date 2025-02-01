@@ -21,7 +21,7 @@ const BlogLatest = ({ obj }) => {
 
   const blogTitle = obj.heading
   let entries = blogData.data?.nodes?.map((i) =>
-    <BlogLink key={i.id} obj={i} base={obj.blogPage.url} />
+    <BlogLink key={i.id} obj={i} />
   );
   let buttons = obj.buttons?.map((btn, i, arr) => {
     const cl = 'btn ' + (i === arr.length - 1 ? 'btn-primary' : 'btn-outline-primary');
@@ -51,9 +51,6 @@ export const query = graphql`
     __typename
     heading
     styles
-    blogPage {
-      url
-    }
     buttons {
       ...MyLink
     }

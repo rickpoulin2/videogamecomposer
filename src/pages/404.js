@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
 
+import AppContext from '../components/app-context'
 import Seo from '../components/seo'
 import PageTitle from '../components/page-title'
 import PageComponent from '../components/page-component'
@@ -24,11 +25,11 @@ class PageTemplate extends React.Component {
     //console.log(pageData.mainContent);
 
     return (
-      <>
+      <AppContext.Provider value={this.props.pageContext}>
         {titleBlock}
         {introBlock}
         {mainBlock}
-      </>
+      </AppContext.Provider>
     )
   }
 }
@@ -73,6 +74,11 @@ export const pageQuery = graphql`
           }
         }
       }
+    }
+    links: contentfulSiteGlobals {
+      blogPage { url }
+      albumsPage { url }
+      newsletterPage { url }
     }
   }
 `

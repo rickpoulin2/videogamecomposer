@@ -1,6 +1,8 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { OutboundLink } from 'gatsby-plugin-google-gtag';
+
+import EntryLink from './entry-link';
 
 const MyLink = ({ obj, addClasses, activeClass, onClick }) => {
     if (obj == null) {
@@ -25,7 +27,13 @@ const MyLink = ({ obj, addClasses, activeClass, onClick }) => {
         }
     }
     return obj.isInternal ?
-        (<Link to={"/" + obj.targetPage?.url} className={linkStyles} activeClassName={activeClass} title={linkTitle} onClick={onClick}>{linkContent}</Link>)
+        (<EntryLink
+            type={obj.targetPage?.__typename}
+            slug={obj.targetPage?.slug ? obj.targetPage.slug : obj.targetPage?.tag}
+            className={linkStyles}
+            activeClassName={activeClass}
+            title={linkTitle}
+            onClick={onClick}>{linkContent}</EntryLink>)
         :
         (<OutboundLink href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle} onClick={onClick}>{linkContent}</OutboundLink>);
 }
@@ -39,9 +47,23 @@ export const query = graphql`
     text
     targetLink
     targetPage {
-        id
-        title
-        url
+      __typename
+      ... on ContentfulPage {
+        contentful_id
+        slug: url
+      }
+      ... on ContentfulBlogEntry {
+        contentful_id
+        tag: publishedDate(formatString: "YYYYMMDD")
+      }
+      ... on ContentfulNewsletter {
+        contentful_id
+        slug: url
+      }
+      ... on ContentfulAlbum {
+        contentful_id
+        tag: publishedDate(formatString: "YYYYMMDD")
+      }
     }
     styles
     icon

@@ -7,6 +7,7 @@ import get from 'lodash/get'
 
 import './newsletter.scss'
 
+import AppContext from '../components/app-context'
 import Seo from '../components/seo'
 import PageTitle from '../components/page-title'
 import NewsletterCard from '../components/newsletter-card'
@@ -21,7 +22,7 @@ class NewsletterTemplate extends React.Component {
     const next = !this.props.data.next ? "" : <><h3>Earlier issue</h3><NewsletterCard obj={this.props.data.next} imageSizing={cardClasses} /></>
 
     return (
-      <>
+      <AppContext.Provider value={this.props.pageContext}>
         <PageTitle title="Newsletters" asText={true} />
         <Section as="article" styles="newsletter">
           <Col className="newsletter-banner" xs="12">
@@ -43,7 +44,7 @@ class NewsletterTemplate extends React.Component {
             </Row>
           </Col>
         </Section>
-      </>
+      </AppContext.Provider>
     )
   }
 }

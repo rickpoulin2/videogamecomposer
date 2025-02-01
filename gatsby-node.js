@@ -2,20 +2,21 @@ const path = require('path')
 
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
+  union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter
   type RichText {
     raw: String!
-    references: [ContentfulPage] @link(from: "references___NODE")
+    references: [LinkableTypes] @link(from: "references___NODE")
   }
-  type ContentfulLink implements Node {
+  type ContentfulLink implements ContentfulEntry {
     isInternal: Boolean!
     text: String!
-    targetPage: ContentfulPage @link(from: "targetPage___NODE")
+    targetPage: LinkableTypes @link(from: "targetPage___NODE")
     targetLink: String
     icon: String
     styles: String
     hideText: Boolean
   }
-  type ContentfulAlbum implements Node {
+  type ContentfulAlbum implements ContentfulEntry {
     title: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
     trackCount: Int!
@@ -31,12 +32,12 @@ exports.createSchemaCustomization = ({ actions }) => {
     linkAmazon: String
     albumDescription: RichText!
   }
-  type ContentfulBlogEntry implements Node {
+  type ContentfulBlogEntry implements ContentfulEntry {
     title: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
     content: RichText!
   }
-  type ContentfulNewsletter implements Node {
+  type ContentfulNewsletter implements ContentfulEntry {
     heading: String!
     url: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
@@ -44,14 +45,14 @@ exports.createSchemaCustomization = ({ actions }) => {
     tagLine: String
     bodyContent: RichText!
   }
-  type ContentfulComponentText implements Node {
+  type ContentfulComponentText implements ContentfulEntry {
     styles: String
     fancyHeading: String
     dateTag: Date @dateformat(formatString: "YYYY-MM-DD")
     image: ContentfulAsset @link(from: "image___NODE")
     content: RichText!
   }
-  type ContentfulComponentContentCard implements Node {
+  type ContentfulComponentContentCard implements ContentfulEntry {
     styles: String
     fancyHeading: String
     cardType: String!
@@ -59,45 +60,44 @@ exports.createSchemaCustomization = ({ actions }) => {
     content: RichText!
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
-  type ContentfulComponentHero implements Node {
+  type ContentfulComponentHero implements ContentfulEntry {
     heading: String
     styles: String
     body: RichText!
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
     portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
   }
-  type ContentfulComponentVideo implements Node {
+  type ContentfulComponentVideo implements ContentfulEntry {
     title: String!
     styles: String
     cardType: String!
     videoId: String!
     backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
   }
-  type ContentfulComponentButtonBanner implements Node {
+  type ContentfulComponentButtonBanner implements ContentfulEntry {
     title: String!
     subtext: String
     styles: String
     cardType: String!
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
-  type ContentfulComponentAlbumList implements Node {
+  type ContentfulComponentAlbumList implements ContentfulEntry {
     id: ID!
     styles: String
   }
-  type ContentfulComponentNewsletterList implements Node {
+  type ContentfulComponentNewsletterList implements ContentfulEntry {
     id: ID!
     styles: String
   }
-  type ContentfulComponentBlogEntries implements Node {
+  type ContentfulComponentBlogEntries implements ContentfulEntry {
     id: ID!
   }
-  type ContentfulComponentBlogLatest implements Node {
+  type ContentfulComponentBlogLatest implements ContentfulEntry {
     heading: String
     styles: String
-    blogPage: ContentfulPage @link(from: "blogPage___NODE")
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
-  type ContentfulComponentNewsletterLatest implements Node {
+  type ContentfulComponentNewsletterLatest implements ContentfulEntry {
     heading: String
     styles: String
     trailingBlurb: RichText
@@ -105,7 +105,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     signupButtonLabel: String
     signupForm: ContentfulComponentNewsletterSignup @link(from: "signupForm___NODE")
   }
-  type ContentfulComponentNewsletterSignup implements Node {
+  type ContentfulComponentNewsletterSignup implements ContentfulEntry {
     heading: String
     styles: String
     introContent: RichText
@@ -115,7 +115,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     errorHeading: String
     errorBody: RichText
   }
-  type ContentfulComponentContactForm implements Node {
+  type ContentfulComponentContactForm implements ContentfulEntry {
     heading: String
     styles: String
     introContent: RichText
@@ -127,7 +127,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     errorHeading: String
     errorBody: RichText
   }
-  type ContentfulComponentCommissionCard implements Node {
+  type ContentfulComponentCommissionCard implements ContentfulEntry {
     title: String!
     coverImage: ContentfulAsset @link(from: "coverImage___NODE")
     developer: String
@@ -138,13 +138,13 @@ exports.createSchemaCustomization = ({ actions }) => {
     youTubeLink: String
     otherLink: String
   }
-  type ContentfulComponentGroup implements Node {
+  type ContentfulComponentGroup implements ContentfulEntry {
     styles: String
     structureType: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
   union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard
-  type ContentfulSiteGlobals implements Node {
+  type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     siteHeadingStart: String
     siteHeadingEnd: String!
@@ -156,8 +156,11 @@ exports.createSchemaCustomization = ({ actions }) => {
     siteBackground: ContentfulAsset @link(from: "siteBackground___NODE")
     footerContent: RichText
     copyrightLine: String
+    blogPage: ContentfulPage @link(from: "blogPage___NODE")
+    albumsPage: ContentfulPage @link(from: "albumsPage___NODE")
+    newsletterPage: ContentfulPage @link(from: "newsletterPage___NODE")
   }
-  type ContentfulPage implements Node {
+  type ContentfulPage implements ContentfulEntry {
     title: String!
     url: String!
     hideTitle: Boolean!
@@ -174,26 +177,28 @@ createPageTypes = async (graphql, actions, reporter, template, pathTransform, qu
     reporter.panicOnBuild(`Can't find Contentful results`, results.errors)
     return
   }
-  Object.keys(results.data).forEach((x) => {
-    const items = results.data[x].nodes;
+  const items = results.data.items.nodes;
+  const slugs = {}
+  Object.getOwnPropertyNames(results.data.links).forEach(x => { slugs[x] = results.data.links[x].url })
 
-    if (items.length > 0) {
-      items.forEach((item, index) => {
-        const previousPostSlug = index === 0 ? null : items[index - 1].url
-        const nextPostSlug = index === items.length - 1 ? null : items[index + 1].url
+  if (items.length > 0) {
+    items.forEach((item, index) => {
+      const previousPostSlug = index === 0 ? null : items[index - 1].url
+      const nextPostSlug = index === items.length - 1 ? null : items[index + 1].url
 
-        createPage({
-          path: pathTransform(item.url),
-          component: template,
-          context: {
-            slug: item.url,
-            previousPostSlug,
-            nextPostSlug,
-          },
-        })
+      createPage({
+        path: pathTransform(item.url, slugs),
+        component: template,
+        context: {
+          slug: item.url,
+          previousPostSlug,
+          nextPostSlug,
+          linkSlugs: slugs
+        },
       })
-    }
-  })
+    })
+  }
+
 }
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
@@ -206,17 +211,27 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           url
         }
       }
+      links: contentfulSiteGlobals {
+        blogPage { url }
+        albumsPage { url }
+        newsletterPage { url }
+      }
     }`
   );
 
   await createPageTypes(graphql, actions, reporter,
     path.resolve('./src/templates/newsletter.js'),
-    (slug) => `/newsletter/${slug}/`,
+    (slug, links) => `/${links.newsletterPage}/${slug}/`,
     `{
       items: allContentfulNewsletter(sort: {publishedDate: DESC}) {
         nodes {
           url
         }
+      }
+      links: contentfulSiteGlobals {
+        blogPage { url }
+        albumsPage { url }
+        newsletterPage { url }
       }
     }`
   );

@@ -1,17 +1,19 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import EntryLink from './entry-link'
 
 import './newsletter-card.scss'
 
 const NewsletterCard = ({ obj, imageSizing }) => {
+  console.log(this)
   if (obj == null) {
     return ""
   }
   const tagLine = obj.tagLine ? <p className="card-text">{obj.tagLine}</p> : ""
   const imgClasses = imageSizing ? imageSizing : "col-4 col-sm-3 col-md-2 col-lg-3 col-xl-6 col-xxl-3"
   return (
-    <Link to={"/newsletter/" + obj.url} className="card newsletter-card">
+    <EntryLink type="ContentfulNewsletter" slug={obj.url} className="card newsletter-card">
       <div className="row">
         <div className={imgClasses}>
           <GatsbyImage image={obj.bannerImage.gatsbyImageData} alt={obj.bannerImage.description} />
@@ -23,7 +25,7 @@ const NewsletterCard = ({ obj, imageSizing }) => {
           </div>
         </div>
       </div>
-    </Link>)
+    </EntryLink>)
 }
 
 export default NewsletterCard
