@@ -54,7 +54,7 @@ export default NewsletterTemplate
 export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
 
 export const pageQuery = graphql`
-  query BlogPostBySlug(
+  query NewsletterBySlug(
     $slug: String!
     $previousPostSlug: String
     $nextPostSlug: String

@@ -9,7 +9,13 @@ const BlogLatest = ({ obj }) => {
   const blogData = useStaticQuery(
     graphql`
       query LatestBlogEntries {
-        data: allContentfulBlogEntry(limit: 3, sort: {publishedDate: DESC}) {
+        data: allContentfulBlogEntry(limit: 3,
+          sort: { publishedDate: DESC },
+          filter: {
+            title: {ne:null},
+            publishedDate: {ne:null},
+            content: { raw: {ne:null} }
+        }) {
           nodes {
             id
             title

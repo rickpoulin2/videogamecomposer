@@ -206,7 +206,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     path.resolve('./src/templates/page.js'),
     (slug) => `/${slug}/`,
     `{
-      items: allContentfulPage {
+      items: allContentfulPage(
+        filter: {
+          title: {ne:null},
+          url: {ne:null}
+      }) {
         nodes {
           url
         }
@@ -223,7 +227,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     path.resolve('./src/templates/newsletter.js'),
     (slug, links) => `/${links.newsletterPage}/${slug}/`,
     `{
-      items: allContentfulNewsletter(sort: {publishedDate: DESC}) {
+      items: allContentfulNewsletter(
+          sort: { publishedDate: DESC },
+          filter: {
+            url: {ne:null},
+            heading: {ne:null},
+            bodyContent: { raw: {ne:null} },
+            publishedDate: {ne:null},
+            tagLine: {ne:null},
+            bannerImage: { contentful_id: {ne:null} }
+          }) {
         nodes {
           url
         }

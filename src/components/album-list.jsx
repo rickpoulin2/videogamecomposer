@@ -6,7 +6,16 @@ const AlbumList = ({ obj }) => {
   const albumData = useStaticQuery(
     graphql`
       query AllAlbums {
-        data: allContentfulAlbum(sort: {publishedDate: DESC}) {
+        data: allContentfulAlbum(
+          sort: { publishedDate: DESC },
+          filter: {
+            title: {ne:null},
+            trackCount: {ne:null},
+            publishedDate: {ne:null},
+            coverImage: { contentful_id: {ne:null} },
+            videoId: {ne:null},
+            albumDescription: { raw: {ne:null} }
+        }) {
           nodes {
             id
             ...ContentfulAlbum

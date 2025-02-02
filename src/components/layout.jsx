@@ -13,7 +13,7 @@ const Layout = (props) => {
   const { allContentfulSiteGlobals, siteBuildMetadata } = useStaticQuery(
     graphql`
       query SiteGlobalsQuery {
-        allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
+        allContentfulSiteGlobals(limit: 1, sort: {siteTitle: ASC}) {
           nodes {
             ... Header
             ... Footer

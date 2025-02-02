@@ -12,7 +12,13 @@ const BlogEntries = () => {
   const blogData = useStaticQuery(
     graphql`
       query AllBlogEntries {
-        data: allContentfulBlogEntry(sort: {publishedDate: DESC}) {
+        data: allContentfulBlogEntry(
+          sort: {publishedDate: DESC},
+          filter: {
+            title: {ne:null},
+            publishedDate: {ne:null},
+            content: { raw: {ne:null} }
+        }) {
           nodes {
             id
             title

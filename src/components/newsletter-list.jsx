@@ -8,7 +8,16 @@ const NewsletterList = ({ obj }) => {
   const newsData = useStaticQuery(
     graphql`
       query AllNewsletters {
-        data: allContentfulNewsletter(sort: {publishedDate: DESC}) {
+        data: allContentfulNewsletter(
+          sort: {publishedDate: DESC},
+          filter: {
+            url: {ne:null},
+            heading: {ne:null},
+            bodyContent: { raw: {ne:null} },
+            publishedDate: {ne:null},
+            tagLine: {ne:null},
+            bannerImage: { contentful_id: {ne:null} }
+          }) {
           nodes {
             id
             ...NewsletterCard

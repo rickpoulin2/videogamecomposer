@@ -7,7 +7,7 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
   const { allContentfulSiteGlobals } = useStaticQuery(
     graphql`
   query metaQuery {
-    allContentfulSiteGlobals(limit: 1, sort: {siteTitle: DESC}) {
+    allContentfulSiteGlobals(limit: 1, sort: {siteTitle: ASC}) {
       nodes {
         __typename
         siteTitle
