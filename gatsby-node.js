@@ -18,6 +18,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   }
   type ContentfulAlbum implements ContentfulEntry {
     title: String!
+    slug: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
     trackCount: Int!
     collaboratorName: String

@@ -10,6 +10,7 @@ const AlbumList = ({ obj }) => {
           sort: { publishedDate: DESC },
           filter: {
             title: {ne:null},
+            slug: {ne:null},
             trackCount: {ne:null},
             publishedDate: {ne:null},
             coverImage: { contentful_id: {ne:null} },

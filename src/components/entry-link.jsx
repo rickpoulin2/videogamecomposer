@@ -9,7 +9,7 @@ const EntryLink = ({ title, type, slug, className, activeClass, onClick, childre
     if (type === "ContentfulPage")
         href = "/" + slug
     if (type === "ContentfulAlbum")
-        href = `/${linkSlugs.albumsPage}/#album${slug}`
+        href = `/${linkSlugs.albumsPage}/#${slug}`
     if (type === "ContentfulBlogEntry")
         href = `/${linkSlugs.blogPage}/#entry${slug}`
     if (type === "ContentfulNewsletter")

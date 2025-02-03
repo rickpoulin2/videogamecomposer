@@ -40,7 +40,7 @@ const AlbumCard = ({ obj }) => {
   })
 
   return (
-    <div className="card album-card" id={`album${obj.tag}`}>
+    <div className="card album-card" id={obj.slug}>
       <div className="card-header">
         <h2 className="card-title">{obj.title}</h2>
         <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
@@ -73,6 +73,7 @@ export default AlbumCard
 export const query = graphql`
   fragment ContentfulAlbum on ContentfulAlbum {
     title
+    slug
     publishedDate(formatString: "MMM YYYY")
     tag: publishedDate(formatString: "YYYYMMDD")
     trackCount
@@ -80,7 +81,7 @@ export const query = graphql`
     collaboratorLink
     coverImage {
       description
-      gatsbyImageData(width:300)
+      gatsbyImageData(width: 300)
     }
     videoId
     linkYouTube

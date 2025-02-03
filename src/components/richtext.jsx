@@ -54,7 +54,7 @@ export const query = graphql`
       }
       ... on ContentfulAlbum {
         contentful_id
-        tag: publishedDate(formatString: "YYYYMMDD")
+        slug
       }
     }
   }
