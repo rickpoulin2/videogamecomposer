@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
-import { Card } from 'react-bootstrap'
+import { Card, Button, Collapse } from 'react-bootstrap'
 import RichText from './richtext'
 
 import './album-card.scss'
@@ -17,6 +17,7 @@ const CHANNELS = [
 ]
 
 const AlbumCard = ({ obj }) => {
+  const [open, setOpen] = useState(false)
   if (obj == null)
     return
   if (obj.title == null || obj.slug == null || obj.trackCount == null || obj.videoId == null || obj.albumDescription == null)
@@ -60,9 +61,14 @@ const AlbumCard = ({ obj }) => {
         </div>
       </Card.Header>
       <div className="card-aside">
-        <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>
+        <Button variant="outline-secondary" onClick={() => { setOpen(!open) }}>Show YouTube clip inline <i class="fab fa-youtube"></i></Button>
+        <Collapse in={open}>
+          <div>
+            <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>
+          </div>
+        </Collapse>
       </div>
       <Card.Body>
         <RichText data={obj.albumDescription} />
