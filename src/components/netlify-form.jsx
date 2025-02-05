@@ -115,6 +115,7 @@ const NetlifyForm = ({ name, submitRef, successHeading, successContent, errorHea
     resultDiv.innerHTML = `<div class="alert alert-${clz}" role="alert">${heading}${text}</div>`;
     if (isSuccess) {
       form.classList.add("visually-hidden");
+      submitBtn.classList.add("visually-hidden");
     }
     if (errorMsg) {
       console.error(errorMsg);
