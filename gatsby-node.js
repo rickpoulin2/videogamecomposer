@@ -20,18 +20,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     title: String!
     slug: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
-    trackCount: Int!
+    trackCount: Int
     collaboratorName: String
     collaboratorLink: String
     coverImage: ContentfulAsset @link(from: "coverImage___NODE")
-    videoId: String!
+    videoId: String
     linkYouTube: String
     linkSpotify: String
     linkBandcamp: String
     linkItchio: String
     linkItunes: String
     linkAmazon: String
-    albumDescription: RichText!
+    albumDescription: RichText
   }
   type ContentfulBlogEntry implements ContentfulEntry {
     title: String!
@@ -51,35 +51,35 @@ exports.createSchemaCustomization = ({ actions }) => {
     fancyHeading: String
     dateTag: Date @dateformat(formatString: "YYYY-MM-DD")
     image: ContentfulAsset @link(from: "image___NODE")
-    content: RichText!
+    content: RichText
   }
   type ContentfulComponentContentCard implements ContentfulEntry {
     styles: String
     fancyHeading: String
-    cardType: String!
+    cardType: String
     image: ContentfulAsset @link(from: "image___NODE")
-    content: RichText!
+    content: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulComponentHero implements ContentfulEntry {
     heading: String
     styles: String
-    body: RichText!
+    body: RichText
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
     portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
   }
   type ContentfulComponentVideo implements ContentfulEntry {
     title: String!
     styles: String
-    cardType: String!
-    videoId: String!
+    cardType: String
+    videoId: String
     backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
   }
   type ContentfulComponentButtonBanner implements ContentfulEntry {
     title: String!
     subtext: String
     styles: String
-    cardType: String!
+    cardType: String
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulComponentAlbumList implements ContentfulEntry {

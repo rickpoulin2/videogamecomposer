@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { Card, Col } from 'react-bootstrap'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
@@ -29,25 +30,25 @@ const CommissionCard = ({ obj }) => {
     hasLinks = true;
     return (<li key={fieldname}><OutboundLink href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={iconClz}></i></OutboundLink></li>)
   })
-  const footer = hasLinks ? <div className="card-footer"><ul>{channelLinks}</ul></div> : ""
+  const footer = hasLinks ? <Card.Footer><ul>{channelLinks}</ul></Card.Footer> : ""
 
   return (
-    <div className="commission-card col-12 col-sm-6 col-lg-4">
-      <div className="card">
+    <Col xs="12" sm="6" lg="4" className="commission-card">
+      <Card>
         <div className="card-top">
           <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
         </div>
-        <div className="card-body">
+        <Card.Body>
           <h3>{obj.title}</h3>
           <ul>
             {developer}
             {publisher}
             {releaseYear}
           </ul>
-        </div>
+        </Card.Body>
         {footer}
-      </div>
-    </div>
+      </Card>
+    </Col>
   )
 }
 

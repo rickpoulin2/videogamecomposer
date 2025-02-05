@@ -1466,7 +1466,7 @@ type ContentfulComponentHero implements ContentfulReference & ContentfulEntry & 
   node_locale: String!
   heading: String
   styles: String
-  body: RichText!
+  body: RichText
   buttons: [ContentfulLink]
   portraitImage: ContentfulAsset
   page: [ContentfulPage]
@@ -1551,7 +1551,7 @@ type ContentfulComponentText implements ContentfulReference & ContentfulEntry & 
     locale: String
   ): Date
   image: ContentfulAsset
-  content: RichText!
+  content: RichText
   name: String
   component_group: [ContentfulComponentGroup]
   spaceId: String
@@ -1618,8 +1618,8 @@ type ContentfulComponentVideo implements ContentfulReference & ContentfulEntry &
   node_locale: String!
   title: String!
   styles: String
-  cardType: String!
-  videoId: String!
+  cardType: String
+  videoId: String
   backgroundImage: ContentfulAsset
   page: [ContentfulPage]
   spaceId: String
@@ -1686,7 +1686,7 @@ type ContentfulComponentButtonBanner implements ContentfulReference & Contentful
   title: String!
   subtext: String
   styles: String
-  cardType: String!
+  cardType: String
   buttons: [ContentfulLink]
   page: [ContentfulPage]
   spaceId: String
@@ -1752,9 +1752,9 @@ type ContentfulComponentContentCard implements ContentfulReference & ContentfulE
   node_locale: String!
   styles: String
   fancyHeading: String
-  cardType: String!
+  cardType: String
   image: ContentfulAsset
-  content: RichText!
+  content: RichText
   buttons: [ContentfulLink]
   name: String
   page: [ContentfulPage]
@@ -1838,18 +1838,18 @@ type ContentfulAlbum implements ContentfulReference & ContentfulEntry & Node {
     """Configures the locale Moment.js will use to format the date."""
     locale: String
   ): Date
-  trackCount: Int!
+  trackCount: Int
   collaboratorName: String
   collaboratorLink: String
   coverImage: ContentfulAsset
-  videoId: String!
+  videoId: String
   linkYouTube: String
   linkSpotify: String
   linkBandcamp: String
   linkItchio: String
   linkItunes: String
   linkAmazon: String
-  albumDescription: RichText!
+  albumDescription: RichText
   spaceId: String
   createdAt(
     """

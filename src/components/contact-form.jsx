@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import { graphql } from 'gatsby'
-import RichText from './richtext'
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import NetlifyForm from './netlify-form';
+import RichText from './richtext'
 import FormField from './form-field';
 
 import './contact-form.scss'
@@ -33,11 +33,11 @@ const ContactForm = ({ obj }) => {
   return (
     <>
       <div className={clz}>
-        <div className="card">
-          <div className="card-header text-bg-primary">
+        <Card>
+          <Card.Header className="text-bg-primary">
             <h2>{obj.heading}</h2>
-          </div>
-          <div className="card-body">
+          </Card.Header>
+          <Card.Body>
             <div className="intro">
               <RichText data={obj.introContent} />
             </div>
@@ -60,8 +60,8 @@ const ContactForm = ({ obj }) => {
             <div>
               <Button variant="primary" ref={submitRef}>{obj.submitButtonLabel}</Button>
             </div>
-          </div>
-        </div>
+          </Card.Body>
+        </Card>
       </div>
     </>
   )

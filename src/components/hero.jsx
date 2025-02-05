@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { Col } from 'react-bootstrap'
 import MyLink from './mylink'
 import RichText from './richtext'
 import Section from './section';
@@ -21,7 +22,7 @@ const Hero = ({ obj }) => {
 
   return (
     <Section styles={styles}>
-      <div className="col-12 col-sm-9 col-md-7 col-lg-8 col-xl-7 col-xxl-6">
+      <Col xs="12" sm="9" md="7" lg="8" xl="7" xxl="6">
         <div className="herocaption">
           <div>
             {heading}
@@ -31,14 +32,14 @@ const Hero = ({ obj }) => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="col-12 col-md col-xl-4 col-xxl-4">
+      </Col>
+      <Col xs="12" md={true} xl="4">
         <div className="portrait">
           <div>
             <GatsbyImage image={image} className="img-fluid" alt="composer portrait" />
           </div>
         </div>
-      </div>
+      </Col>
     </Section>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { graphql } from 'gatsby'
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import RichText from './richtext'
 import NewsletterForm from './newsletter-form'
 
@@ -12,18 +12,18 @@ const NewsletterSignup = ({ obj }) => {
 
   return (
     <div className={clz}>
-      <div className="card">
-        <div className="card-header text-bg-primary">
+      <Card>
+        <Card.Header className="text-bg-primary">
           <h2>{obj.heading}</h2>
-        </div>
-        <div className="card-body">
+        </Card.Header>
+        <Card.Body>
           <div className="intro">
             <RichText data={obj.introContent} />
           </div>
           <NewsletterForm submitRef={submitRef} obj={obj} />
           <Button variant="primary" ref={submitRef}>{obj.submitButtonLabel}</Button>
-        </div>
-      </div>
+        </Card.Body>
+      </Card>
     </div>
   )
 }

@@ -1,8 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import RichText from './richtext'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
+import { Card } from 'react-bootstrap'
+import RichText from './richtext'
 
 import './album-card.scss'
 
@@ -17,6 +18,8 @@ const CHANNELS = [
 
 const AlbumCard = ({ obj }) => {
   if (obj == null)
+    return
+  if (obj.title == null || obj.slug == null || obj.trackCount == null || obj.videoId == null || obj.albumDescription == null)
     return
 
   let collab = "";
@@ -40,31 +43,31 @@ const AlbumCard = ({ obj }) => {
   })
 
   return (
-    <div className="card album-card" id={obj.slug}>
-      <div className="card-header">
-        <h2 className="card-title">{obj.title}</h2>
+    <Card className="album-card" id={obj.slug}>
+      <Card.Header>
+        <Card.Title as="h2">{obj.title}</Card.Title>
         <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
-        <div className="card-subtitle">
+        <Card.Subtitle>
           <span className="badge text-bg-secondary">{obj.publishedDate}</span>
           <span>{obj.trackCount} tracks</span>
           {collab}
-        </div>
+        </Card.Subtitle>
         <div className="album-channels">
           <span>Listen on:</span>
           <ul>
             {channelLinks}
           </ul>
         </div>
-      </div>
+      </Card.Header>
       <div className="card-aside">
         <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>
       </div>
-      <div className="card-body">
+      <Card.Body>
         <RichText data={obj.albumDescription} />
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   )
 }
 

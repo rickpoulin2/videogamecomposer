@@ -50,7 +50,7 @@ const NewsletterLatest = ({ obj }) => {
     <ModalDialog id="signupModal" heading={obj.signupForm.heading} footer={modalFooter} showModal={showModal} onClose={hideDialog}>
       <div className="intro">
         <RichText data={obj.signupForm.introContent} />
-      </div >
+      </div>
       <NewsletterForm submitRef={submitRef} obj={obj.signupForm} />
     </ModalDialog>
 

@@ -1,17 +1,12 @@
 import React from 'react'
+import { Form } from 'react-bootstrap'
 
 const FormField = ({ name, label, helpText, required = false, type = "text", rows = 5, children }) => {
-
-
-  const clz = "form-label" + (required ? "  label-required" : "")
-  const eLabel = <label htmlFor={name} className={clz}>{label}</label>
-  const eHelp = helpText ? <div id={name + "Help"} className="form-text">{helpText}</div> : null
+  const eHelp = helpText ? <Form.Text id={name + "Help"}>{helpText}</Form.Text> : null
 
   const addProps = {
-    id: name,
-    name: name,
-    className: "form-control"
-  };
+    name: name
+  }
   if (required) {
     addProps.required = true
   }
@@ -21,23 +16,23 @@ const FormField = ({ name, label, helpText, required = false, type = "text", row
 
   let eInput = null;
   if (type === "textarea") {
-    eInput = <textarea rows={rows} {...addProps}></textarea>
+    eInput = <Form.Control as="textarea" rows={rows} {...addProps}></Form.Control>
   } else if (type === "select") {
-    addProps.className = 'form-select';
-    eInput = (<select defaultValue="" {...addProps}>
-      <option value="" disabled>- Please select an option -</option>
-      {children}
-    </select>)
+    eInput = (
+      <Form.Select defaultValue="" {...addProps}>
+        <option value="" disabled>- Please select an option -</option>
+        {children}
+      </Form.Select>)
   } else {
-    eInput = <input type={type} {...addProps} />
+    eInput = <Form.Control type={type} {...addProps} />
   }
 
   return (
-    <div className="field">
-      {eLabel}
+    <Form.Group className="field" controlId={name}>
+      <Form.Label className={required ? "label-required" : ""}>{label}</Form.Label>
       {eInput}
       {eHelp}
-    </div>
+    </Form.Group>
   )
 }
 
