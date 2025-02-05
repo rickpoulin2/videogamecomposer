@@ -33,7 +33,7 @@ const ContentCard = ({ obj }) => {
                 <RichText data={obj.content} />
                 {buttons}
               </Col>
-              <Col xs="4" lg={{ span: 3, offset: 1 }} xl={{ span: 2, offset: 2 }}>
+              <Col xs="4" lg={{ span: 3, offset: 1 }} xl="2">
                 {image}
               </Col>
             </Row>

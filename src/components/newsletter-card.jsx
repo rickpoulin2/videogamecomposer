@@ -20,7 +20,7 @@ const NewsletterCard = ({ obj, imageSizing }) => {
         </div>
         <Col>
           <Card.Body>
-            <Card.Title><strong>{obj.heading} / {obj.publishedDate}</strong></Card.Title>
+            <Card.Title as="p"><strong>{obj.heading} / {obj.publishedDate}</strong></Card.Title>
             {tagLine}
           </Card.Body>
         </Col>
