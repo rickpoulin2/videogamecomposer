@@ -134,6 +134,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     developer: String
     publisher: String
     releaseYear: String
+    primaryLink: String
     steamLink: String
     itchioLink: String
     youTubeLink: String

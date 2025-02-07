@@ -21,6 +21,16 @@ const CommissionCard = ({ obj }) => {
   const publisher = obj.publisher ? <li><strong>Publisher:</strong> {obj.publisher}</li> : ""
   const releaseYear = obj.releaseYear ? <li><strong>Release Year:</strong> {obj.releaseYear}</li> : ""
 
+  const cardHeader = obj.primaryLink ?
+    <OutboundLink className="card-top" href={obj.primaryLink} target="_blank" rel="noreferrer">
+      <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
+    </OutboundLink>
+    :
+    <div className="card-top">
+      <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
+    </div>
+
+
   let hasLinks = false;
   const channelLinks = CHANNELS.map(({ title, icon, fieldname }) => {
     let href = obj[fieldname + "Link"];
@@ -35,9 +45,7 @@ const CommissionCard = ({ obj }) => {
   return (
     <Col xs="12" sm="6" lg="4" className="commission-card">
       <Card>
-        <div className="card-top">
-          <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
-        </div>
+        {cardHeader}
         <Card.Body>
           <h3>{obj.title}</h3>
           <ul>
@@ -64,6 +72,7 @@ export const query = graphql`
     developer
     publisher
     releaseYear
+    primaryLink
     steamLink
     youTubeLink
     itchioLink
