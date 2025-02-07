@@ -1186,6 +1186,7 @@ type ContentfulPage implements ContentfulReference & ContentfulEntry & Node {
   hideTitle: Boolean!
   introContent: [ContentfulPageContent]
   mainContent: [ContentfulPageContent]
+  site_globals: [ContentfulSiteGlobals]
   link: [ContentfulLink]
   spaceId: String
   createdAt(
@@ -1259,6 +1260,9 @@ type ContentfulSiteGlobals implements ContentfulReference & ContentfulEntry & No
   siteBackground: ContentfulAsset
   footerContent: RichText
   copyrightLine: String
+  blogPage: ContentfulPage
+  albumsPage: ContentfulPage
+  newsletterPage: ContentfulPage
   spaceId: String
   createdAt(
     """
@@ -1322,12 +1326,11 @@ type ContentfulLink implements ContentfulReference & ContentfulEntry & Node {
   node_locale: String!
   isInternal: Boolean!
   text: String!
-  targetPage: ContentfulPage
+  targetPage: LinkableTypes
   targetLink: String
   icon: String
   styles: String
   hideText: Boolean
-  component__blog_latest: [ContentfulComponentBlogLatest]
   spaceId: String
   createdAt(
     """
@@ -1364,6 +1367,7 @@ type ContentfulLink implements ContentfulReference & ContentfulEntry & Node {
     locale: String
   ): Date
   sys: ContentfulLinkSys
+  component__blog_latest: [ContentfulComponentBlogLatest]
   component__button_banner: [ContentfulComponentButtonBanner]
   site_globals: [ContentfulSiteGlobals]
   component__newsletter_latest: [ContentfulComponentNewsletterLatest]
@@ -1462,7 +1466,7 @@ type ContentfulComponentHero implements ContentfulReference & ContentfulEntry & 
   node_locale: String!
   heading: String
   styles: String
-  body: RichText!
+  body: RichText
   buttons: [ContentfulLink]
   portraitImage: ContentfulAsset
   page: [ContentfulPage]
@@ -1547,7 +1551,7 @@ type ContentfulComponentText implements ContentfulReference & ContentfulEntry & 
     locale: String
   ): Date
   image: ContentfulAsset
-  content: RichText!
+  content: RichText
   name: String
   component_group: [ContentfulComponentGroup]
   spaceId: String
@@ -1614,8 +1618,8 @@ type ContentfulComponentVideo implements ContentfulReference & ContentfulEntry &
   node_locale: String!
   title: String!
   styles: String
-  cardType: String!
-  videoId: String!
+  cardType: String
+  videoId: String
   backgroundImage: ContentfulAsset
   page: [ContentfulPage]
   spaceId: String
@@ -1682,7 +1686,7 @@ type ContentfulComponentButtonBanner implements ContentfulReference & Contentful
   title: String!
   subtext: String
   styles: String
-  cardType: String!
+  cardType: String
   buttons: [ContentfulLink]
   page: [ContentfulPage]
   spaceId: String
@@ -1748,9 +1752,9 @@ type ContentfulComponentContentCard implements ContentfulReference & ContentfulE
   node_locale: String!
   styles: String
   fancyHeading: String
-  cardType: String!
+  cardType: String
   image: ContentfulAsset
-  content: RichText!
+  content: RichText
   buttons: [ContentfulLink]
   name: String
   page: [ContentfulPage]
@@ -1816,6 +1820,7 @@ type ContentfulAlbum implements ContentfulReference & ContentfulEntry & Node {
   id: ID!
   node_locale: String!
   title: String!
+  slug: String!
   publishedDate(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
@@ -1833,18 +1838,18 @@ type ContentfulAlbum implements ContentfulReference & ContentfulEntry & Node {
     """Configures the locale Moment.js will use to format the date."""
     locale: String
   ): Date
-  trackCount: Int!
+  trackCount: Int
   collaboratorName: String
   collaboratorLink: String
   coverImage: ContentfulAsset
-  videoId: String!
+  videoId: String
   linkYouTube: String
   linkSpotify: String
   linkBandcamp: String
   linkItchio: String
   linkItunes: String
   linkAmazon: String
-  albumDescription: RichText!
+  albumDescription: RichText
   spaceId: String
   createdAt(
     """
@@ -2402,6 +2407,7 @@ type ContentfulComponentNewsletterSignup implements ContentfulReference & Conten
   errorHeading: String
   errorBody: RichText
   page: [ContentfulPage]
+  component__newsletter_latest: [ContentfulComponentNewsletterLatest]
   spaceId: String
   createdAt(
     """
@@ -2473,7 +2479,7 @@ type ContentfulComponentContactForm implements ContentfulReference & ContentfulE
   successBody: RichText
   errorHeading: String
   errorBody: RichText
-  page: [ContentfulPage]
+  component_group: [ContentfulComponentGroup]
   spaceId: String
   createdAt(
     """
@@ -2540,6 +2546,7 @@ type ContentfulComponentCommissionCard implements ContentfulReference & Contentf
   developer: String
   publisher: String
   releaseYear: String
+  primaryLink: String
   steamLink: String
   itchioLink: String
   youTubeLink: String
@@ -2602,9 +2609,11 @@ type ContentfulComponentCommissionCardSysContentTypeSys {
   id: String
 }
 
+union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter
+
 type RichText {
   raw: String!
-  references: [ContentfulPage]
+  references: [LinkableTypes]
 }
 
 union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard
@@ -2645,11 +2654,11 @@ type Query {
   allContentfulEntry(filter: ContentfulEntryFilterInput, sort: [ContentfulEntrySortInput], skip: Int, limit: Int): ContentfulEntryConnection!
   contentfulAsset(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, gatsbyImageData: GatsbyImageDataQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, file: ContentfulAssetFileFilterInput, title: StringQueryOperatorInput, description: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, url: StringQueryOperatorInput, placeholderUrl: StringQueryOperatorInput, mimeType: StringQueryOperatorInput, filename: StringQueryOperatorInput, width: IntQueryOperatorInput, height: IntQueryOperatorInput, size: IntQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, filesize: IntQueryOperatorInput, publicUrl: StringQueryOperatorInput, resize: RemoteFileResizeFilterInput, gatsbyImage: GatsbyImageDataQueryOperatorInput): ContentfulAsset
   allContentfulAsset(filter: ContentfulAssetFilterInput, sort: [ContentfulAssetSortInput], skip: Int, limit: Int): ContentfulAssetConnection!
-  contentfulPage(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, url: StringQueryOperatorInput, hideTitle: BooleanQueryOperatorInput, link: ContentfulLinkFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulPageSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulPage
+  contentfulPage(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, url: StringQueryOperatorInput, hideTitle: BooleanQueryOperatorInput, site_globals: ContentfulSiteGlobalsFilterListInput, link: ContentfulLinkFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulPageSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulPage
   allContentfulPage(filter: ContentfulPageFilterInput, sort: [ContentfulPageSortInput], skip: Int, limit: Int): ContentfulPageConnection!
-  contentfulSiteGlobals(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, siteTitle: StringQueryOperatorInput, siteHeadingStart: StringQueryOperatorInput, siteHeadingEnd: StringQueryOperatorInput, headerNavigation: ContentfulLinkFilterListInput, headerButtonLink: ContentfulLinkFilterInput, footerNavigation: ContentfulLinkFilterListInput, siteIcon: ContentfulAssetFilterInput, siteLogo: ContentfulAssetFilterInput, siteBackground: ContentfulAssetFilterInput, footerContent: RichTextFilterInput, copyrightLine: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulSiteGlobalsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulSiteGlobals
+  contentfulSiteGlobals(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, siteTitle: StringQueryOperatorInput, siteHeadingStart: StringQueryOperatorInput, siteHeadingEnd: StringQueryOperatorInput, headerNavigation: ContentfulLinkFilterListInput, headerButtonLink: ContentfulLinkFilterInput, footerNavigation: ContentfulLinkFilterListInput, siteIcon: ContentfulAssetFilterInput, siteLogo: ContentfulAssetFilterInput, siteBackground: ContentfulAssetFilterInput, footerContent: RichTextFilterInput, copyrightLine: StringQueryOperatorInput, blogPage: ContentfulPageFilterInput, albumsPage: ContentfulPageFilterInput, newsletterPage: ContentfulPageFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulSiteGlobalsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulSiteGlobals
   allContentfulSiteGlobals(filter: ContentfulSiteGlobalsFilterInput, sort: [ContentfulSiteGlobalsSortInput], skip: Int, limit: Int): ContentfulSiteGlobalsConnection!
-  contentfulLink(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, isInternal: BooleanQueryOperatorInput, text: StringQueryOperatorInput, targetPage: ContentfulPageFilterInput, targetLink: StringQueryOperatorInput, icon: StringQueryOperatorInput, styles: StringQueryOperatorInput, hideText: BooleanQueryOperatorInput, component__blog_latest: ContentfulComponentBlogLatestFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulLinkSysFilterInput, component__button_banner: ContentfulComponentButtonBannerFilterListInput, site_globals: ContentfulSiteGlobalsFilterListInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, component__hero: ContentfulComponentHeroFilterListInput, component__content_card: ContentfulComponentContentCardFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulLink
+  contentfulLink(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, isInternal: BooleanQueryOperatorInput, text: StringQueryOperatorInput, targetLink: StringQueryOperatorInput, icon: StringQueryOperatorInput, styles: StringQueryOperatorInput, hideText: BooleanQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulLinkSysFilterInput, component__blog_latest: ContentfulComponentBlogLatestFilterListInput, component__button_banner: ContentfulComponentButtonBannerFilterListInput, site_globals: ContentfulSiteGlobalsFilterListInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, component__hero: ContentfulComponentHeroFilterListInput, component__content_card: ContentfulComponentContentCardFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulLink
   allContentfulLink(filter: ContentfulLinkFilterInput, sort: [ContentfulLinkSortInput], skip: Int, limit: Int): ContentfulLinkConnection!
   contentfulComponentGroup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, structureType: StringQueryOperatorInput, name: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentGroupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentGroup
   allContentfulComponentGroup(filter: ContentfulComponentGroupFilterInput, sort: [ContentfulComponentGroupSortInput], skip: Int, limit: Int): ContentfulComponentGroupConnection!
@@ -2663,7 +2672,7 @@ type Query {
   allContentfulComponentButtonBanner(filter: ContentfulComponentButtonBannerFilterInput, sort: [ContentfulComponentButtonBannerSortInput], skip: Int, limit: Int): ContentfulComponentButtonBannerConnection!
   contentfulComponentContentCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, fancyHeading: StringQueryOperatorInput, cardType: StringQueryOperatorInput, image: ContentfulAssetFilterInput, content: RichTextFilterInput, buttons: ContentfulLinkFilterListInput, name: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContentCardSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContentCard
   allContentfulComponentContentCard(filter: ContentfulComponentContentCardFilterInput, sort: [ContentfulComponentContentCardSortInput], skip: Int, limit: Int): ContentfulComponentContentCardConnection!
-  contentfulAlbum(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, trackCount: IntQueryOperatorInput, collaboratorName: StringQueryOperatorInput, collaboratorLink: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkYouTube: StringQueryOperatorInput, linkSpotify: StringQueryOperatorInput, linkBandcamp: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkItunes: StringQueryOperatorInput, linkAmazon: StringQueryOperatorInput, albumDescription: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulAlbumSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAlbum
+  contentfulAlbum(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, slug: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, trackCount: IntQueryOperatorInput, collaboratorName: StringQueryOperatorInput, collaboratorLink: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkYouTube: StringQueryOperatorInput, linkSpotify: StringQueryOperatorInput, linkBandcamp: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkItunes: StringQueryOperatorInput, linkAmazon: StringQueryOperatorInput, albumDescription: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulAlbumSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAlbum
   allContentfulAlbum(filter: ContentfulAlbumFilterInput, sort: [ContentfulAlbumSortInput], skip: Int, limit: Int): ContentfulAlbumConnection!
   contentfulComponentAlbumList(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, internalTitle: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentAlbumListSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentAlbumList
   allContentfulComponentAlbumList(filter: ContentfulComponentAlbumListFilterInput, sort: [ContentfulComponentAlbumListSortInput], skip: Int, limit: Int): ContentfulComponentAlbumListConnection!
@@ -2679,11 +2688,11 @@ type Query {
   allContentfulComponentNewsletterLatest(filter: ContentfulComponentNewsletterLatestFilterInput, sort: [ContentfulComponentNewsletterLatestSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterLatestConnection!
   contentfulComponentNewsletterList(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, internalTitle: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterListSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterList
   allContentfulComponentNewsletterList(filter: ContentfulComponentNewsletterListFilterInput, sort: [ContentfulComponentNewsletterListSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterListConnection!
-  contentfulComponentNewsletterSignup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterSignupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterSignup
+  contentfulComponentNewsletterSignup(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentNewsletterSignupSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentNewsletterSignup
   allContentfulComponentNewsletterSignup(filter: ContentfulComponentNewsletterSignupFilterInput, sort: [ContentfulComponentNewsletterSignupSortInput], skip: Int, limit: Int): ContentfulComponentNewsletterSignupConnection!
-  contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, availableTopics: StringQueryOperatorInput, showNewsletterSignup: BooleanQueryOperatorInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
+  contentfulComponentContactForm(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, introContent: RichTextFilterInput, availableTopics: StringQueryOperatorInput, showNewsletterSignup: BooleanQueryOperatorInput, submitButtonLabel: StringQueryOperatorInput, successHeading: StringQueryOperatorInput, successBody: RichTextFilterInput, errorHeading: StringQueryOperatorInput, errorBody: RichTextFilterInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContactFormSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContactForm
   allContentfulComponentContactForm(filter: ContentfulComponentContactFormFilterInput, sort: [ContentfulComponentContactFormSortInput], skip: Int, limit: Int): ContentfulComponentContactFormConnection!
-  contentfulComponentCommissionCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, developer: StringQueryOperatorInput, publisher: StringQueryOperatorInput, releaseYear: StringQueryOperatorInput, steamLink: StringQueryOperatorInput, itchioLink: StringQueryOperatorInput, youTubeLink: StringQueryOperatorInput, otherLink: StringQueryOperatorInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentCommissionCardSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentCommissionCard
+  contentfulComponentCommissionCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, developer: StringQueryOperatorInput, publisher: StringQueryOperatorInput, releaseYear: StringQueryOperatorInput, primaryLink: StringQueryOperatorInput, steamLink: StringQueryOperatorInput, itchioLink: StringQueryOperatorInput, youTubeLink: StringQueryOperatorInput, otherLink: StringQueryOperatorInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentCommissionCardSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentCommissionCard
   allContentfulComponentCommissionCard(filter: ContentfulComponentCommissionCardFilterInput, sort: [ContentfulComponentCommissionCardSortInput], skip: Int, limit: Int): ContentfulComponentCommissionCardConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
@@ -3986,6 +3995,37 @@ input RemoteFileResizeSortInput {
   src: SortOrderEnum
 }
 
+input ContentfulSiteGlobalsFilterListInput {
+  elemMatch: ContentfulSiteGlobalsFilterInput
+}
+
+input ContentfulSiteGlobalsFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  siteTitle: StringQueryOperatorInput
+  siteHeadingStart: StringQueryOperatorInput
+  siteHeadingEnd: StringQueryOperatorInput
+  headerNavigation: ContentfulLinkFilterListInput
+  headerButtonLink: ContentfulLinkFilterInput
+  footerNavigation: ContentfulLinkFilterListInput
+  siteIcon: ContentfulAssetFilterInput
+  siteLogo: ContentfulAssetFilterInput
+  siteBackground: ContentfulAssetFilterInput
+  footerContent: RichTextFilterInput
+  copyrightLine: StringQueryOperatorInput
+  blogPage: ContentfulPageFilterInput
+  albumsPage: ContentfulPageFilterInput
+  newsletterPage: ContentfulPageFilterInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulSiteGlobalsSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
 input ContentfulLinkFilterListInput {
   elemMatch: ContentfulLinkFilterInput
 }
@@ -3996,16 +4036,15 @@ input ContentfulLinkFilterInput {
   node_locale: StringQueryOperatorInput
   isInternal: BooleanQueryOperatorInput
   text: StringQueryOperatorInput
-  targetPage: ContentfulPageFilterInput
   targetLink: StringQueryOperatorInput
   icon: StringQueryOperatorInput
   styles: StringQueryOperatorInput
   hideText: BooleanQueryOperatorInput
-  component__blog_latest: ContentfulComponentBlogLatestFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
   sys: ContentfulLinkSysFilterInput
+  component__blog_latest: ContentfulComponentBlogLatestFilterListInput
   component__button_banner: ContentfulComponentButtonBannerFilterListInput
   site_globals: ContentfulSiteGlobalsFilterListInput
   component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput
@@ -4016,34 +4055,17 @@ input ContentfulLinkFilterInput {
   internal: InternalFilterInput
 }
 
-input ContentfulPageFilterInput {
-  contentful_id: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-  node_locale: StringQueryOperatorInput
-  title: StringQueryOperatorInput
-  url: StringQueryOperatorInput
-  hideTitle: BooleanQueryOperatorInput
-  link: ContentfulLinkFilterListInput
-  spaceId: StringQueryOperatorInput
-  createdAt: DateQueryOperatorInput
-  updatedAt: DateQueryOperatorInput
-  sys: ContentfulPageSysFilterInput
-  parent: NodeFilterInput
-  children: NodeFilterListInput
-  internal: InternalFilterInput
-}
-
-input ContentfulPageSysFilterInput {
+input ContentfulLinkSysFilterInput {
   type: StringQueryOperatorInput
   revision: IntQueryOperatorInput
-  contentType: ContentfulPageSysContentTypeFilterInput
+  contentType: ContentfulLinkSysContentTypeFilterInput
 }
 
-input ContentfulPageSysContentTypeFilterInput {
-  sys: ContentfulPageSysContentTypeSysFilterInput
+input ContentfulLinkSysContentTypeFilterInput {
+  sys: ContentfulLinkSysContentTypeSysFilterInput
 }
 
-input ContentfulPageSysContentTypeSysFilterInput {
+input ContentfulLinkSysContentTypeSysFilterInput {
   type: StringQueryOperatorInput
   linkType: StringQueryOperatorInput
   id: StringQueryOperatorInput
@@ -4095,6 +4117,40 @@ input ContentfulPageFilterListInput {
   elemMatch: ContentfulPageFilterInput
 }
 
+input ContentfulPageFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  title: StringQueryOperatorInput
+  url: StringQueryOperatorInput
+  hideTitle: BooleanQueryOperatorInput
+  site_globals: ContentfulSiteGlobalsFilterListInput
+  link: ContentfulLinkFilterListInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulPageSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulPageSysFilterInput {
+  type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
+  contentType: ContentfulPageSysContentTypeFilterInput
+}
+
+input ContentfulPageSysContentTypeFilterInput {
+  sys: ContentfulPageSysContentTypeSysFilterInput
+}
+
+input ContentfulPageSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
 input ContentfulComponentGroupSysFilterInput {
   type: StringQueryOperatorInput
   revision: IntQueryOperatorInput
@@ -4122,22 +4178,6 @@ input ContentfulComponentBlogLatestSysContentTypeFilterInput {
 }
 
 input ContentfulComponentBlogLatestSysContentTypeSysFilterInput {
-  type: StringQueryOperatorInput
-  linkType: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-}
-
-input ContentfulLinkSysFilterInput {
-  type: StringQueryOperatorInput
-  revision: IntQueryOperatorInput
-  contentType: ContentfulLinkSysContentTypeFilterInput
-}
-
-input ContentfulLinkSysContentTypeFilterInput {
-  sys: ContentfulLinkSysContentTypeSysFilterInput
-}
-
-input ContentfulLinkSysContentTypeSysFilterInput {
   type: StringQueryOperatorInput
   linkType: StringQueryOperatorInput
   id: StringQueryOperatorInput
@@ -4182,55 +4222,6 @@ input ContentfulComponentButtonBannerSysContentTypeSysFilterInput {
   id: StringQueryOperatorInput
 }
 
-input ContentfulSiteGlobalsFilterListInput {
-  elemMatch: ContentfulSiteGlobalsFilterInput
-}
-
-input ContentfulSiteGlobalsFilterInput {
-  contentful_id: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-  node_locale: StringQueryOperatorInput
-  siteTitle: StringQueryOperatorInput
-  siteHeadingStart: StringQueryOperatorInput
-  siteHeadingEnd: StringQueryOperatorInput
-  headerNavigation: ContentfulLinkFilterListInput
-  headerButtonLink: ContentfulLinkFilterInput
-  footerNavigation: ContentfulLinkFilterListInput
-  siteIcon: ContentfulAssetFilterInput
-  siteLogo: ContentfulAssetFilterInput
-  siteBackground: ContentfulAssetFilterInput
-  footerContent: RichTextFilterInput
-  copyrightLine: StringQueryOperatorInput
-  spaceId: StringQueryOperatorInput
-  createdAt: DateQueryOperatorInput
-  updatedAt: DateQueryOperatorInput
-  sys: ContentfulSiteGlobalsSysFilterInput
-  parent: NodeFilterInput
-  children: NodeFilterListInput
-  internal: InternalFilterInput
-}
-
-input RichTextFilterInput {
-  raw: StringQueryOperatorInput
-  references: ContentfulPageFilterListInput
-}
-
-input ContentfulSiteGlobalsSysFilterInput {
-  type: StringQueryOperatorInput
-  revision: IntQueryOperatorInput
-  contentType: ContentfulSiteGlobalsSysContentTypeFilterInput
-}
-
-input ContentfulSiteGlobalsSysContentTypeFilterInput {
-  sys: ContentfulSiteGlobalsSysContentTypeSysFilterInput
-}
-
-input ContentfulSiteGlobalsSysContentTypeSysFilterInput {
-  type: StringQueryOperatorInput
-  linkType: StringQueryOperatorInput
-  id: StringQueryOperatorInput
-}
-
 input ContentfulComponentNewsletterLatestFilterListInput {
   elemMatch: ContentfulComponentNewsletterLatestFilterInput
 }
@@ -4255,6 +4246,10 @@ input ContentfulComponentNewsletterLatestFilterInput {
   internal: InternalFilterInput
 }
 
+input RichTextFilterInput {
+  raw: StringQueryOperatorInput
+}
+
 input ContentfulComponentNewsletterSignupFilterInput {
   contentful_id: StringQueryOperatorInput
   id: StringQueryOperatorInput
@@ -4268,6 +4263,7 @@ input ContentfulComponentNewsletterSignupFilterInput {
   errorHeading: StringQueryOperatorInput
   errorBody: RichTextFilterInput
   page: ContentfulPageFilterListInput
+  component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
@@ -4389,6 +4385,22 @@ input ContentfulComponentContentCardSysContentTypeSysFilterInput {
   id: StringQueryOperatorInput
 }
 
+input ContentfulSiteGlobalsSysFilterInput {
+  type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
+  contentType: ContentfulSiteGlobalsSysContentTypeFilterInput
+}
+
+input ContentfulSiteGlobalsSysContentTypeFilterInput {
+  sys: ContentfulSiteGlobalsSysContentTypeSysFilterInput
+}
+
+input ContentfulSiteGlobalsSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
 type ContentfulPageConnection {
   totalCount: Int!
   edges: [ContentfulPageEdge!]!
@@ -4414,11 +4426,39 @@ input ContentfulPageFieldSelector {
   title: FieldSelectorEnum
   url: FieldSelectorEnum
   hideTitle: FieldSelectorEnum
+  site_globals: ContentfulSiteGlobalsFieldSelector
   link: ContentfulLinkFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
   sys: ContentfulPageSysFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulSiteGlobalsFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  siteTitle: FieldSelectorEnum
+  siteHeadingStart: FieldSelectorEnum
+  siteHeadingEnd: FieldSelectorEnum
+  headerNavigation: ContentfulLinkFieldSelector
+  headerButtonLink: ContentfulLinkFieldSelector
+  footerNavigation: ContentfulLinkFieldSelector
+  siteIcon: ContentfulAssetFieldSelector
+  siteLogo: ContentfulAssetFieldSelector
+  siteBackground: ContentfulAssetFieldSelector
+  footerContent: RichTextFieldSelector
+  copyrightLine: FieldSelectorEnum
+  blogPage: ContentfulPageFieldSelector
+  albumsPage: ContentfulPageFieldSelector
+  newsletterPage: ContentfulPageFieldSelector
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulSiteGlobalsSysFieldSelector
   parent: NodeFieldSelector
   children: NodeFieldSelector
   internal: InternalFieldSelector
@@ -4430,16 +4470,15 @@ input ContentfulLinkFieldSelector {
   node_locale: FieldSelectorEnum
   isInternal: FieldSelectorEnum
   text: FieldSelectorEnum
-  targetPage: ContentfulPageFieldSelector
   targetLink: FieldSelectorEnum
   icon: FieldSelectorEnum
   styles: FieldSelectorEnum
   hideText: FieldSelectorEnum
-  component__blog_latest: ContentfulComponentBlogLatestFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
   sys: ContentfulLinkSysFieldSelector
+  component__blog_latest: ContentfulComponentBlogLatestFieldSelector
   component__button_banner: ContentfulComponentButtonBannerFieldSelector
   site_globals: ContentfulSiteGlobalsFieldSelector
   component__newsletter_latest: ContentfulComponentNewsletterLatestFieldSelector
@@ -4448,6 +4487,22 @@ input ContentfulLinkFieldSelector {
   parent: NodeFieldSelector
   children: NodeFieldSelector
   internal: InternalFieldSelector
+}
+
+input ContentfulLinkSysFieldSelector {
+  type: FieldSelectorEnum
+  revision: FieldSelectorEnum
+  contentType: ContentfulLinkSysContentTypeFieldSelector
+}
+
+input ContentfulLinkSysContentTypeFieldSelector {
+  sys: ContentfulLinkSysContentTypeSysFieldSelector
+}
+
+input ContentfulLinkSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
 }
 
 input ContentfulComponentBlogLatestFieldSelector {
@@ -4516,22 +4571,6 @@ input ContentfulComponentBlogLatestSysContentTypeSysFieldSelector {
   id: FieldSelectorEnum
 }
 
-input ContentfulLinkSysFieldSelector {
-  type: FieldSelectorEnum
-  revision: FieldSelectorEnum
-  contentType: ContentfulLinkSysContentTypeFieldSelector
-}
-
-input ContentfulLinkSysContentTypeFieldSelector {
-  sys: ContentfulLinkSysContentTypeSysFieldSelector
-}
-
-input ContentfulLinkSysContentTypeSysFieldSelector {
-  type: FieldSelectorEnum
-  linkType: FieldSelectorEnum
-  id: FieldSelectorEnum
-}
-
 input ContentfulComponentButtonBannerFieldSelector {
   contentful_id: FieldSelectorEnum
   id: FieldSelectorEnum
@@ -4567,51 +4606,6 @@ input ContentfulComponentButtonBannerSysContentTypeSysFieldSelector {
   id: FieldSelectorEnum
 }
 
-input ContentfulSiteGlobalsFieldSelector {
-  contentful_id: FieldSelectorEnum
-  id: FieldSelectorEnum
-  node_locale: FieldSelectorEnum
-  siteTitle: FieldSelectorEnum
-  siteHeadingStart: FieldSelectorEnum
-  siteHeadingEnd: FieldSelectorEnum
-  headerNavigation: ContentfulLinkFieldSelector
-  headerButtonLink: ContentfulLinkFieldSelector
-  footerNavigation: ContentfulLinkFieldSelector
-  siteIcon: ContentfulAssetFieldSelector
-  siteLogo: ContentfulAssetFieldSelector
-  siteBackground: ContentfulAssetFieldSelector
-  footerContent: RichTextFieldSelector
-  copyrightLine: FieldSelectorEnum
-  spaceId: FieldSelectorEnum
-  createdAt: FieldSelectorEnum
-  updatedAt: FieldSelectorEnum
-  sys: ContentfulSiteGlobalsSysFieldSelector
-  parent: NodeFieldSelector
-  children: NodeFieldSelector
-  internal: InternalFieldSelector
-}
-
-input RichTextFieldSelector {
-  raw: FieldSelectorEnum
-  references: ContentfulPageFieldSelector
-}
-
-input ContentfulSiteGlobalsSysFieldSelector {
-  type: FieldSelectorEnum
-  revision: FieldSelectorEnum
-  contentType: ContentfulSiteGlobalsSysContentTypeFieldSelector
-}
-
-input ContentfulSiteGlobalsSysContentTypeFieldSelector {
-  sys: ContentfulSiteGlobalsSysContentTypeSysFieldSelector
-}
-
-input ContentfulSiteGlobalsSysContentTypeSysFieldSelector {
-  type: FieldSelectorEnum
-  linkType: FieldSelectorEnum
-  id: FieldSelectorEnum
-}
-
 input ContentfulComponentNewsletterLatestFieldSelector {
   contentful_id: FieldSelectorEnum
   id: FieldSelectorEnum
@@ -4632,6 +4626,10 @@ input ContentfulComponentNewsletterLatestFieldSelector {
   internal: InternalFieldSelector
 }
 
+input RichTextFieldSelector {
+  raw: FieldSelectorEnum
+}
+
 input ContentfulComponentNewsletterSignupFieldSelector {
   contentful_id: FieldSelectorEnum
   id: FieldSelectorEnum
@@ -4645,6 +4643,7 @@ input ContentfulComponentNewsletterSignupFieldSelector {
   errorHeading: FieldSelectorEnum
   errorBody: RichTextFieldSelector
   page: ContentfulPageFieldSelector
+  component__newsletter_latest: ContentfulComponentNewsletterLatestFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
@@ -4758,6 +4757,22 @@ input ContentfulComponentContentCardSysContentTypeSysFieldSelector {
   id: FieldSelectorEnum
 }
 
+input ContentfulSiteGlobalsSysFieldSelector {
+  type: FieldSelectorEnum
+  revision: FieldSelectorEnum
+  contentType: ContentfulSiteGlobalsSysContentTypeFieldSelector
+}
+
+input ContentfulSiteGlobalsSysContentTypeFieldSelector {
+  sys: ContentfulSiteGlobalsSysContentTypeSysFieldSelector
+}
+
+input ContentfulSiteGlobalsSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
+}
+
 input ContentfulPageSysFieldSelector {
   type: FieldSelectorEnum
   revision: FieldSelectorEnum
@@ -4795,11 +4810,39 @@ input ContentfulPageSortInput {
   title: SortOrderEnum
   url: SortOrderEnum
   hideTitle: SortOrderEnum
+  site_globals: ContentfulSiteGlobalsSortInput
   link: ContentfulLinkSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
   sys: ContentfulPageSysSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulSiteGlobalsSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  siteTitle: SortOrderEnum
+  siteHeadingStart: SortOrderEnum
+  siteHeadingEnd: SortOrderEnum
+  headerNavigation: ContentfulLinkSortInput
+  headerButtonLink: ContentfulLinkSortInput
+  footerNavigation: ContentfulLinkSortInput
+  siteIcon: ContentfulAssetSortInput
+  siteLogo: ContentfulAssetSortInput
+  siteBackground: ContentfulAssetSortInput
+  footerContent: RichTextSortInput
+  copyrightLine: SortOrderEnum
+  blogPage: ContentfulPageSortInput
+  albumsPage: ContentfulPageSortInput
+  newsletterPage: ContentfulPageSortInput
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulSiteGlobalsSysSortInput
   parent: NodeSortInput
   children: NodeSortInput
   internal: InternalSortInput
@@ -4811,16 +4854,15 @@ input ContentfulLinkSortInput {
   node_locale: SortOrderEnum
   isInternal: SortOrderEnum
   text: SortOrderEnum
-  targetPage: ContentfulPageSortInput
   targetLink: SortOrderEnum
   icon: SortOrderEnum
   styles: SortOrderEnum
   hideText: SortOrderEnum
-  component__blog_latest: ContentfulComponentBlogLatestSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
   sys: ContentfulLinkSysSortInput
+  component__blog_latest: ContentfulComponentBlogLatestSortInput
   component__button_banner: ContentfulComponentButtonBannerSortInput
   site_globals: ContentfulSiteGlobalsSortInput
   component__newsletter_latest: ContentfulComponentNewsletterLatestSortInput
@@ -4829,6 +4871,22 @@ input ContentfulLinkSortInput {
   parent: NodeSortInput
   children: NodeSortInput
   internal: InternalSortInput
+}
+
+input ContentfulLinkSysSortInput {
+  type: SortOrderEnum
+  revision: SortOrderEnum
+  contentType: ContentfulLinkSysContentTypeSortInput
+}
+
+input ContentfulLinkSysContentTypeSortInput {
+  sys: ContentfulLinkSysContentTypeSysSortInput
+}
+
+input ContentfulLinkSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
 }
 
 input ContentfulComponentBlogLatestSortInput {
@@ -4897,22 +4955,6 @@ input ContentfulComponentBlogLatestSysContentTypeSysSortInput {
   id: SortOrderEnum
 }
 
-input ContentfulLinkSysSortInput {
-  type: SortOrderEnum
-  revision: SortOrderEnum
-  contentType: ContentfulLinkSysContentTypeSortInput
-}
-
-input ContentfulLinkSysContentTypeSortInput {
-  sys: ContentfulLinkSysContentTypeSysSortInput
-}
-
-input ContentfulLinkSysContentTypeSysSortInput {
-  type: SortOrderEnum
-  linkType: SortOrderEnum
-  id: SortOrderEnum
-}
-
 input ContentfulComponentButtonBannerSortInput {
   contentful_id: SortOrderEnum
   id: SortOrderEnum
@@ -4948,51 +4990,6 @@ input ContentfulComponentButtonBannerSysContentTypeSysSortInput {
   id: SortOrderEnum
 }
 
-input ContentfulSiteGlobalsSortInput {
-  contentful_id: SortOrderEnum
-  id: SortOrderEnum
-  node_locale: SortOrderEnum
-  siteTitle: SortOrderEnum
-  siteHeadingStart: SortOrderEnum
-  siteHeadingEnd: SortOrderEnum
-  headerNavigation: ContentfulLinkSortInput
-  headerButtonLink: ContentfulLinkSortInput
-  footerNavigation: ContentfulLinkSortInput
-  siteIcon: ContentfulAssetSortInput
-  siteLogo: ContentfulAssetSortInput
-  siteBackground: ContentfulAssetSortInput
-  footerContent: RichTextSortInput
-  copyrightLine: SortOrderEnum
-  spaceId: SortOrderEnum
-  createdAt: SortOrderEnum
-  updatedAt: SortOrderEnum
-  sys: ContentfulSiteGlobalsSysSortInput
-  parent: NodeSortInput
-  children: NodeSortInput
-  internal: InternalSortInput
-}
-
-input RichTextSortInput {
-  raw: SortOrderEnum
-  references: ContentfulPageSortInput
-}
-
-input ContentfulSiteGlobalsSysSortInput {
-  type: SortOrderEnum
-  revision: SortOrderEnum
-  contentType: ContentfulSiteGlobalsSysContentTypeSortInput
-}
-
-input ContentfulSiteGlobalsSysContentTypeSortInput {
-  sys: ContentfulSiteGlobalsSysContentTypeSysSortInput
-}
-
-input ContentfulSiteGlobalsSysContentTypeSysSortInput {
-  type: SortOrderEnum
-  linkType: SortOrderEnum
-  id: SortOrderEnum
-}
-
 input ContentfulComponentNewsletterLatestSortInput {
   contentful_id: SortOrderEnum
   id: SortOrderEnum
@@ -5013,6 +5010,10 @@ input ContentfulComponentNewsletterLatestSortInput {
   internal: InternalSortInput
 }
 
+input RichTextSortInput {
+  raw: SortOrderEnum
+}
+
 input ContentfulComponentNewsletterSignupSortInput {
   contentful_id: SortOrderEnum
   id: SortOrderEnum
@@ -5026,6 +5027,7 @@ input ContentfulComponentNewsletterSignupSortInput {
   errorHeading: SortOrderEnum
   errorBody: RichTextSortInput
   page: ContentfulPageSortInput
+  component__newsletter_latest: ContentfulComponentNewsletterLatestSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
@@ -5134,6 +5136,22 @@ input ContentfulComponentContentCardSysContentTypeSortInput {
 }
 
 input ContentfulComponentContentCardSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
+}
+
+input ContentfulSiteGlobalsSysSortInput {
+  type: SortOrderEnum
+  revision: SortOrderEnum
+  contentType: ContentfulSiteGlobalsSysContentTypeSortInput
+}
+
+input ContentfulSiteGlobalsSysContentTypeSortInput {
+  sys: ContentfulSiteGlobalsSysContentTypeSysSortInput
+}
+
+input ContentfulSiteGlobalsSysContentTypeSysSortInput {
   type: SortOrderEnum
   linkType: SortOrderEnum
   id: SortOrderEnum
@@ -5666,6 +5684,7 @@ input ContentfulAlbumFieldSelector {
   id: FieldSelectorEnum
   node_locale: FieldSelectorEnum
   title: FieldSelectorEnum
+  slug: FieldSelectorEnum
   publishedDate: FieldSelectorEnum
   trackCount: FieldSelectorEnum
   collaboratorName: FieldSelectorEnum
@@ -5723,6 +5742,7 @@ input ContentfulAlbumFilterInput {
   id: StringQueryOperatorInput
   node_locale: StringQueryOperatorInput
   title: StringQueryOperatorInput
+  slug: StringQueryOperatorInput
   publishedDate: DateQueryOperatorInput
   trackCount: IntQueryOperatorInput
   collaboratorName: StringQueryOperatorInput
@@ -5750,6 +5770,7 @@ input ContentfulAlbumSortInput {
   id: SortOrderEnum
   node_locale: SortOrderEnum
   title: SortOrderEnum
+  slug: SortOrderEnum
   publishedDate: SortOrderEnum
   trackCount: SortOrderEnum
   collaboratorName: SortOrderEnum
@@ -6578,7 +6599,7 @@ input ContentfulComponentContactFormFieldSelector {
   successBody: RichTextFieldSelector
   errorHeading: FieldSelectorEnum
   errorBody: RichTextFieldSelector
-  page: ContentfulPageFieldSelector
+  component_group: ContentfulComponentGroupFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
@@ -6632,7 +6653,7 @@ input ContentfulComponentContactFormFilterInput {
   successBody: RichTextFilterInput
   errorHeading: StringQueryOperatorInput
   errorBody: RichTextFilterInput
-  page: ContentfulPageFilterListInput
+  component_group: ContentfulComponentGroupFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
@@ -6656,7 +6677,7 @@ input ContentfulComponentContactFormSortInput {
   successBody: RichTextSortInput
   errorHeading: SortOrderEnum
   errorBody: RichTextSortInput
-  page: ContentfulPageSortInput
+  component_group: ContentfulComponentGroupSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
@@ -6725,6 +6746,7 @@ input ContentfulComponentCommissionCardFieldSelector {
   developer: FieldSelectorEnum
   publisher: FieldSelectorEnum
   releaseYear: FieldSelectorEnum
+  primaryLink: FieldSelectorEnum
   steamLink: FieldSelectorEnum
   itchioLink: FieldSelectorEnum
   youTubeLink: FieldSelectorEnum
@@ -6778,6 +6800,7 @@ input ContentfulComponentCommissionCardFilterInput {
   developer: StringQueryOperatorInput
   publisher: StringQueryOperatorInput
   releaseYear: StringQueryOperatorInput
+  primaryLink: StringQueryOperatorInput
   steamLink: StringQueryOperatorInput
   itchioLink: StringQueryOperatorInput
   youTubeLink: StringQueryOperatorInput
@@ -6801,6 +6824,7 @@ input ContentfulComponentCommissionCardSortInput {
   developer: SortOrderEnum
   publisher: SortOrderEnum
   releaseYear: SortOrderEnum
+  primaryLink: SortOrderEnum
   steamLink: SortOrderEnum
   itchioLink: SortOrderEnum
   youTubeLink: SortOrderEnum

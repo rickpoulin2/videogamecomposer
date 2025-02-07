@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { INLINES, MARKS } from '@contentful/rich-text-types'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
+import EntryLink from './entry-link'
 
 const RichText = ({ data, addOptions }) => {
   if (data == null)
@@ -23,11 +24,8 @@ const RichText = ({ data, addOptions }) => {
         return <OutboundLink href={node.data.uri} target="_blank" rel="noreferrer">{children}</OutboundLink>
       },
       [INLINES.ENTRY_HYPERLINK]: (node, children) => {
-        //console.log(node.data)
-        if (node.data?.target?.url) {
-          return <Link to={"/" + node.data.target.url}>{children}</Link>
-        }
-        return (<>{children}</>)
+        const target = node.data.target
+        return <EntryLink type={target.__typename} slug={target.slug ? target.slug : target.tag}>{children}</EntryLink>
       },
       ...addOptions?.renderNode
     }
@@ -41,10 +39,22 @@ export const query = graphql`
   fragment RichText on RichText {
     raw
     references {
-      contentful_id
       __typename
       ... on ContentfulPage {
-        url
+        contentful_id
+        slug: url
+      }
+      ... on ContentfulBlogEntry {
+        contentful_id
+        tag: publishedDate(formatString: "YYYYMMDD")
+      }
+      ... on ContentfulNewsletter {
+        contentful_id
+        slug: url
+      }
+      ... on ContentfulAlbum {
+        contentful_id
+        slug
       }
     }
   }

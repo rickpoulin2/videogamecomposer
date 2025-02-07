@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { Card, Col } from 'react-bootstrap'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
@@ -20,6 +21,16 @@ const CommissionCard = ({ obj }) => {
   const publisher = obj.publisher ? <li><strong>Publisher:</strong> {obj.publisher}</li> : ""
   const releaseYear = obj.releaseYear ? <li><strong>Release Year:</strong> {obj.releaseYear}</li> : ""
 
+  const cardHeader = obj.primaryLink ?
+    <OutboundLink className="card-top" href={obj.primaryLink} target="_blank" rel="noreferrer">
+      <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
+    </OutboundLink>
+    :
+    <div className="card-top">
+      <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
+    </div>
+
+
   let hasLinks = false;
   const channelLinks = CHANNELS.map(({ title, icon, fieldname }) => {
     let href = obj[fieldname + "Link"];
@@ -29,25 +40,23 @@ const CommissionCard = ({ obj }) => {
     hasLinks = true;
     return (<li key={fieldname}><OutboundLink href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={iconClz}></i></OutboundLink></li>)
   })
-  const footer = hasLinks ? <div className="card-footer"><ul>{channelLinks}</ul></div> : ""
+  const footer = hasLinks ? <Card.Footer><ul>{channelLinks}</ul></Card.Footer> : ""
 
   return (
-    <div className="commission-card col-12 col-sm-6 col-lg-4">
-      <div className="card">
-        <div className="card-top">
-          <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
-        </div>
-        <div className="card-body">
+    <Col xs="12" sm="6" lg="4" className="commission-card">
+      <Card>
+        {cardHeader}
+        <Card.Body>
           <h3>{obj.title}</h3>
           <ul>
             {developer}
             {publisher}
             {releaseYear}
           </ul>
-        </div>
+        </Card.Body>
         {footer}
-      </div>
-    </div>
+      </Card>
+    </Col>
   )
 }
 
@@ -63,6 +72,7 @@ export const query = graphql`
     developer
     publisher
     releaseYear
+    primaryLink
     steamLink
     youTubeLink
     itchioLink

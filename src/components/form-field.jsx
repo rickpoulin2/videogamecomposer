@@ -1,27 +1,38 @@
 import React from 'react'
+import { Form } from 'react-bootstrap'
 
-const FormField = ({ name, label, helpText, required = false, type = "text", children }) => {
+const FormField = ({ name, label, helpText, required = false, type = "text", rows = 5, children }) => {
+  const eHelp = helpText ? <Form.Text id={name + "Help"}>{helpText}</Form.Text> : null
 
-
-  const clz = "form-label" + (required ? "  label-required" : "")
-  const eLabel = <label htmlFor={name} className={clz}>{label}</label>
-  const eHelp = helpText ? <div id={name + "Help"} className="form-text">{helpText}</div> : null
-
-  const addProps = {};
+  const addProps = {
+    name: name
+  }
   if (required) {
     addProps.required = true
   }
   if (helpText) {
     addProps['aria-describedby'] = name + "Help";
   }
-  const eInput = <input id={name} name={name} className="form-control" type={type} {...addProps} />
+
+  let eInput = null;
+  if (type === "textarea") {
+    eInput = <Form.Control as="textarea" rows={rows} {...addProps}></Form.Control>
+  } else if (type === "select") {
+    eInput = (
+      <Form.Select defaultValue="" {...addProps}>
+        <option value="" disabled>- Please select an option -</option>
+        {children}
+      </Form.Select>)
+  } else {
+    eInput = <Form.Control type={type} {...addProps} />
+  }
 
   return (
-    <div className="field">
-      {eLabel}
+    <Form.Group className="field" controlId={name}>
+      <Form.Label className={required ? "label-required" : ""}>{label}</Form.Label>
       {eInput}
       {eHelp}
-    </div>
+    </Form.Group>
   )
 }
 

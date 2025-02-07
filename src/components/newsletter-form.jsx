@@ -1,17 +1,14 @@
 import React from 'react'
-
-import './newsletter-form.scss'
 import NetlifyForm from './netlify-form';
 import FormField from './form-field';
 
-export function meow() { console.log('meow') }
+import './newsletter-form.scss'
 
-const NewsletterForm = ({ formRef, obj }) => {
-
+const NewsletterForm = ({ submitRef, obj }) => {
   return (
     <NetlifyForm
       name="newsletter"
-      formRef={formRef}
+      submitRef={submitRef}
       successHeading={obj.successHeading}
       errorHeading={obj.errorHeading}
       successContent={obj.successBody}

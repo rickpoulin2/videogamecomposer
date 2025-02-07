@@ -1,51 +1,6 @@
 .blog-latest {
   margin-block-end: 2em;
 
-  .date-list {
-    padding-left: 0;
-    list-style-type: none;
-
-    li {
-      margin-bottom: 0.5em;
-    }
-
-    a {
-      display: grid;
-      align-items: stretch;
-      grid-template-columns: 7.5em auto;
-      text-decoration: none;
-      border-radius: var(--bs-border-radius);
-    }
-
-    a,
-    a span {
-      transition: color .15s ease-in-out,
-        background-color .15s ease-in-out,
-        border-color .15s ease-in-out,
-        box-shadow .15s ease-in-out;
-    }
-
-    a span:not(.badge) {
-      text-decoration: underline;
-      border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
-    }
-
-    a:hover span.badge {
-      background-color: var(--bs-secondary-hover) !important;
-    }
-
-    span:last-child {
-      padding: 0.35em 1em;
-      background-color: var(--bs-gray-200);
-    }
-
-    span.badge {
-      text-align: left;
-      border-radius: var(--bs-border-radius) 0 0 var(--bs-border-radius);
-      padding: 1em;
-    }
-  }
-
   .cta {
     text-align: center;
 

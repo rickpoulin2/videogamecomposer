@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { Container, Row, Col } from 'react-bootstrap'
 import MyLink from './mylink'
 import RichText from './richtext'
 
@@ -12,23 +13,23 @@ const Footer = ({ copyrightLine, content, navItems = [], buildTime }) => {
   return (
     <footer>
       <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-md-7">
+        <Container>
+          <Row>
+            <Col xs="12" md="7">
               <p className="footer-copyright">{copyrightLine}</p>
               <RichText data={content} />
-            </div>
+            </Col>
 
-            <nav className="col-12 col-md-5">
+            <Col as="nav" xs="12" md="5">
               <ul className="nav">
                 {navData}
               </ul>
               <div className="last-built">
                 Last built: {new Date(buildTime).toLocaleString('en-CA', { timeZone: 'America/Toronto' })} ET
               </div>
-            </nav>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </footer>
   )

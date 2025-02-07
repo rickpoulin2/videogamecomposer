@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import MyLink from './mylink'
+import BlogLink from './blog-link';
 
 import './blog-latest.scss';
 
@@ -8,7 +9,13 @@ const BlogLatest = ({ obj }) => {
   const blogData = useStaticQuery(
     graphql`
       query LatestBlogEntries {
-        data: allContentfulBlogEntry(limit: 3, sort: {publishedDate: DESC}) {
+        data: allContentfulBlogEntry(limit: 3,
+          sort: { publishedDate: DESC },
+          filter: {
+            title: {ne:null},
+            publishedDate: {ne:null},
+            content: { raw: {ne:null} }
+        }) {
           nodes {
             id
             title
@@ -33,7 +40,7 @@ const BlogLatest = ({ obj }) => {
   return (
     <div className={"blog-latest " + obj.styles}>
       <h2 className="pix"><span>{blogTitle}</span></h2>
-      <ul className="date-list">
+      <ul className="blog-list">
         {entries}
       </ul>
       <div className="cta">
@@ -44,17 +51,6 @@ const BlogLatest = ({ obj }) => {
 }
 
 export default BlogLatest
-
-const BlogLink = ({ obj }) => {
-  const htmlid = `entry${obj.tag}`;
-  return (
-    <li>
-      <Link to={"/reflections/#" + htmlid}>
-        <span className="badge text-bg-secondary">{obj.publishedDate}</span>
-        <span>{obj.title}</span>
-      </Link>
-    </li>)
-}
 
 export const query = graphql`
   fragment ContentfulComponentBlogLatest on ContentfulComponentBlogLatest {

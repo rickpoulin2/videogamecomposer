@@ -1,27 +1,29 @@
 import React, { useRef } from 'react'
 import { graphql } from 'gatsby'
+import { Button, Card } from 'react-bootstrap'
 import RichText from './richtext'
 import NewsletterForm from './newsletter-form'
 
 import './newsletter-signup.scss'
 
 const NewsletterSignup = ({ obj }) => {
-  const clz = "newsletter-signup " + (obj.styles ? obj.styles : "col-12 col-lg-6 col-xl-4 offset-xl-2")
-  let signupFormRef = useRef(null)
+  const clz = "newsletter-signup " + (obj.styles ? obj.styles : "col-12 col-lg-6 col-xxl-4")
+  const submitRef = useRef();
 
   return (
     <div className={clz}>
-      <div className="card">
-        <div className="card-header text-bg-primary">
+      <Card>
+        <Card.Header className="text-bg-primary">
           <h2>{obj.heading}</h2>
-        </div>
-        <div className="card-body">
+        </Card.Header>
+        <Card.Body>
           <div className="intro">
             <RichText data={obj.introContent} />
           </div>
-          <NewsletterForm formRef={el => signupFormRef = el} obj={obj} />
-        </div>
-      </div>
+          <NewsletterForm submitRef={submitRef} obj={obj} />
+          <Button variant="primary" ref={submitRef}>{obj.submitButtonLabel}</Button>
+        </Card.Body>
+      </Card>
     </div>
   )
 }

@@ -1,15 +1,18 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { Col, Row } from 'react-bootstrap'
 //import readingTime from 'reading-time'
 import get from 'lodash/get'
 
 import './newsletter.scss'
 
+import AppContext from '../components/app-context'
 import Seo from '../components/seo'
 import PageTitle from '../components/page-title'
 import NewsletterCard from '../components/newsletter-card'
 import RichText from '../components/richtext'
+import Section from '../components/section'
 
 class NewsletterTemplate extends React.Component {
   render() {
@@ -19,35 +22,29 @@ class NewsletterTemplate extends React.Component {
     const next = !this.props.data.next ? "" : <><h3>Earlier issue</h3><NewsletterCard obj={this.props.data.next} imageSizing={cardClasses} /></>
 
     return (
-      <>
+      <AppContext.Provider value={this.props.pageContext}>
         <PageTitle title="Newsletters" asText={true} />
-        <section className="newsletter">
-          <div className="container">
-            <div>
-              <div className="row">
-                <div className="col-12 newsletter-banner">
-                  <GatsbyImage image={pageData.bannerImage.gatsbyImageData} alt={pageData.bannerImage.description} />
-                </div>
-                <div className="col-12 newsletter-body">
-                  <h1>{pageData.heading} / {pageData.publishedDate}</h1>
-                  <RichText data={pageData.bodyContent} />
-                </div>
-                <div className="col-12 newsletter-links">
-                  <h2 className="visually-hidden">Navigation</h2>
-                  <div className="row">
-                    <div className="col-12 col-lg-6">
-                      {prev}
-                    </div>
-                    <div className="col-12 col-lg-6">
-                      {next}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </>
+        <Section as="article" styles="newsletter">
+          <Col className="newsletter-banner" xs="12">
+            <GatsbyImage image={pageData.bannerImage.gatsbyImageData} alt={pageData.bannerImage.description} />
+          </Col>
+          <Col className="newsletter-body" xs="12">
+            <h1>{pageData.heading} / {pageData.publishedDate}</h1>
+            <RichText data={pageData.bodyContent} />
+          </Col>
+          <Col className="newsletter-links" xs="12">
+            <h2 className="visually-hidden">Navigation</h2>
+            <Row>
+              <Col xs="12" lg="6">
+                {prev}
+              </Col>
+              <Col xs="12" lg="6">
+                {next}
+              </Col>
+            </Row>
+          </Col>
+        </Section>
+      </AppContext.Provider>
     )
   }
 }
@@ -57,7 +54,7 @@ export default NewsletterTemplate
 export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
 
 export const pageQuery = graphql`
-  query BlogPostBySlug(
+  query NewsletterBySlug(
     $slug: String!
     $previousPostSlug: String
     $nextPostSlug: String

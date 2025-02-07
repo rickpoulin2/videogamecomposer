@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { Navbar, Offcanvas } from 'react-bootstrap';
+import { Navbar, Offcanvas, Container, Col } from 'react-bootstrap';
 import MyLink from './mylink'
 
 import './header.scss'
@@ -16,11 +16,11 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
   )
   const headerNav = (
     <>
-      <nav className="col-lg">
+      <Col as="nav" lg="">
         <ul className="navbar-nav">
           {navData}
         </ul>
-      </nav>
+      </Col>
       <div className="navbar-cta">
         <MyLink obj={buttonLink} addClasses="btn btn-outline-primary" onClick={handleClose}></MyLink>
       </div>
@@ -29,14 +29,14 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
 
   return (
     <header>
-      <nav className="navbar navbar-dark navbar-expand-lg">
-        <div className="container-lg">
-          <div className="navbar-brand">
+      <Navbar variant="dark" expand="lg">
+        <Container fluid="lg">
+          <Navbar.Brand as="div">
             <Link to="/" className="site-heading" id="top-of-page">
               <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
               <p className="h1"><span>{siteHeadingStart}</span> {siteHeadingEnd}</p>
             </Link>
-          </div>
+          </Navbar.Brand>
           <div className="desktop-nav">
             {headerNav}
           </div>
@@ -52,8 +52,8 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
               {headerNav}
             </Offcanvas.Body>
           </Offcanvas>
-        </div>
-      </nav>
+        </Container>
+      </Navbar>
     </header>
   )
 }

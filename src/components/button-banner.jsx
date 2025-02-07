@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { Card, Col } from 'react-bootstrap'
 import MyLink from './mylink'
 
 import './button-banner.scss'
@@ -7,10 +8,12 @@ import './button-banner.scss'
 const ButtonBanner = ({ obj }) => {
   if (obj == null)
     return
+  if (obj.title == null || obj.cardType == null)
+    return
 
   const subtext = obj.subtext ? <p className="card-subtitle">{obj.subtext}</p> : ""
   const styles = "button-banner " + (obj.styles ? obj.styles : "")
-  const cardClass = "card text-bg-" + obj.cardType
+  const cardClass = "text-bg-" + obj.cardType
   const buttonClass = "btn btn-lg btn-outline-" + (obj.cardType === "tertiary" || obj.cardType === "light" ? "dark" : "light")
   const buttons = obj.buttons?.map((btn, i, arr) => {
     return <MyLink key={btn.id} obj={btn} addClasses={buttonClass} />
@@ -18,17 +21,17 @@ const ButtonBanner = ({ obj }) => {
 
   return (
     <div className={styles}>
-      <div className={cardClass}>
-        <div className="card-body">
-          <div className="col">
-            <h2 className="card-title">{obj.title}</h2>
+      <Card className={cardClass}>
+        <Card.Body>
+          <Col>
+            <Card.Title as="h2">{obj.title}</Card.Title>
             {subtext}
-          </div>
-          <div className="col">
+          </Col>
+          <Col>
             {buttons}
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Card.Body>
+      </Card>
     </div>
   )
 }

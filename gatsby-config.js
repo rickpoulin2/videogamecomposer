@@ -21,7 +21,14 @@ module.exports = {
       }
     },
     "gatsby-plugin-image",
-    "gatsby-plugin-sass",
+    {
+      resolve: "gatsby-plugin-sass",
+      options: {
+        sassOptions: {
+          api: "modern"
+        }
+      }
+    },
     {
       resolve: "gatsby-plugin-recaptcha",
       options: {

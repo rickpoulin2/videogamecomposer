@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import PageComponent from './page-component'
+import Section from './section';
 
 const ComponentGroup = ({ obj }) => {
   if (obj == null)
@@ -11,13 +12,9 @@ const ComponentGroup = ({ obj }) => {
 
   if (obj.structureType === "section")
     return (
-      <section className={styles}>
-        <div className="container">
-          <div className="row">
-            {components}
-          </div>
-        </div>
-      </section>
+      <Section styles={styles}>
+        {components}
+      </Section>
     )
 
 
