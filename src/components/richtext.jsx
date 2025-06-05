@@ -1,7 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { INLINES, MARKS } from '@contentful/rich-text-types'
+import { INLINES, MARKS, BLOCKS } from '@contentful/rich-text-types'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import EntryLink from './entry-link'
 
@@ -26,6 +27,16 @@ const RichText = ({ data, addOptions }) => {
       [INLINES.ENTRY_HYPERLINK]: (node, children) => {
         const target = node.data.target
         return <EntryLink type={target.__typename} slug={target.slug ? target.slug : target.tag}>{children}</EntryLink>
+      },
+      [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
+        console.log(node.data.target.file)
+        if (node.data?.target?.gatsbyImageData != null) {
+          return <div className="inline-image"><GatsbyImage image={node.data.target.gatsbyImageData} alt={node.data.target.description} /></div>
+        }
+        if (node.data?.target?.file?.url) {
+          return <div className="inline-file"><object data={node.data.target.file.url}></object></div>
+        }
+        return <></>
       },
       ...addOptions?.renderNode
     }
@@ -55,6 +66,15 @@ export const query = graphql`
       ... on ContentfulAlbum {
         contentful_id
         slug
+      }
+      ... on ContentfulAsset {
+        contentful_id
+        description
+        gatsbyImageData
+        file {
+          url
+          fileName
+        }
       }
     }
   }
