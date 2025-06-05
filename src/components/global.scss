@@ -368,3 +368,14 @@ form {
     margin-top: 2em;
   }
 }
+
+.inline-image {
+  max-width: 100%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.inline-file object {
+  width: 100%;
+  aspect-ratio: 8.5/11;
+}

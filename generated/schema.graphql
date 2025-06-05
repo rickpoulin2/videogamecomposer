@@ -2611,9 +2611,11 @@ type ContentfulComponentCommissionCardSysContentTypeSys {
 
 union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter
 
+union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
+
 type RichText {
   raw: String!
-  references: [LinkableTypes]
+  references: [RichTextEmbeds]
 }
 
 union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard

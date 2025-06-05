@@ -3,9 +3,10 @@ const path = require('path')
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
   union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter
+  union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
   type RichText {
     raw: String!
-    references: [LinkableTypes] @link(from: "references___NODE")
+    references: [RichTextEmbeds] @link(from: "references___NODE")
   }
   type ContentfulLink implements ContentfulEntry {
     isInternal: Boolean!
@@ -169,7 +170,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     introContent: [ContentfulPageContent] @link(from: "introContent___NODE")
     mainContent: [ContentfulPageContent] @link(from: "mainContent___NODE")
   }
-  `);
+  `)
 }
 
 createPageTypes = async (graphql, actions, reporter, template, pathTransform, query) => {
@@ -179,7 +180,7 @@ createPageTypes = async (graphql, actions, reporter, template, pathTransform, qu
     reporter.panicOnBuild(`Can't find Contentful results`, results.errors)
     return
   }
-  const items = results.data.items.nodes;
+  const items = results.data.items.nodes
   const slugs = {}
   Object.getOwnPropertyNames(results.data.links).forEach(x => { slugs[x] = results.data.links[x].url })
 
@@ -223,7 +224,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         newsletterPage { url }
       }
     }`
-  );
+  )
 
   await createPageTypes(graphql, actions, reporter,
     path.resolve('./src/templates/newsletter.js'),
@@ -249,6 +250,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         newsletterPage { url }
       }
     }`
-  );
+  )
 
 }
