@@ -14,9 +14,10 @@ import NewsletterList from './newsletter-list'
 import NewsletterSignup from './newsletter-signup'
 import ContactForm from './contact-form'
 import CommissionCard from './commission-card'
+import Poster from './poster'
 
 const PageComponent = ({ obj }) => {
-    const type = obj.__typename;
+    const type = obj.__typename
 
     if (type === 'ContentfulComponentGroup')
         return <ComponentGroup obj={obj} />
@@ -46,8 +47,10 @@ const PageComponent = ({ obj }) => {
         return <ContactForm obj={obj} />
     if (type === 'ContentfulComponentCommissionCard')
         return <CommissionCard obj={obj} />
+    if (type === 'ContentfulComponentPoster')
+        return <Poster obj={obj} />
 
-    console.log("unknown component: " + type);
+    console.log("unknown component: " + type)
     return <></>
 }
 
@@ -70,5 +73,6 @@ export const query = graphql`
         ...ContentfulComponentNewsletterSignup
         ...ContentfulComponentContactForm
         ...ContentfulComponentCommissionCard
+        ...ContentfulComponentPoster
     }
 `

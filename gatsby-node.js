@@ -54,6 +54,12 @@ exports.createSchemaCustomization = ({ actions }) => {
     image: ContentfulAsset @link(from: "image___NODE")
     content: RichText
   }
+  type ContentfulComponentPoster implements ContentfulEntry {
+    styles: String
+    fancyHeading: String
+    image: ContentfulAsset @link(from: "image___NODE")
+    link: ContentfulLink @link(from: "link___NODE")
+  }
   type ContentfulComponentContentCard implements ContentfulEntry {
     styles: String
     fancyHeading: String
@@ -146,7 +152,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     structureType: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     siteHeadingStart: String
