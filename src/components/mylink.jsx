@@ -4,12 +4,12 @@ import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
 import EntryLink from './entry-link'
 
-const MyLink = ({ obj, addClasses, activeClass, onClick, children, skipContent = false }) => {
+const MyLink = ({ obj, addClasses, activeClass, onClick, children, useChildren = false }) => {
   if (obj == null) {
     return ''
   }
   let linkTitle = ""
-  let linkContent = skipContent === false ? children : obj.text
+  let linkContent = useChildren ? children : obj.text
   let linkStyles = ""
   let linkIcon = ""
   if (addClasses) {
