@@ -22,7 +22,7 @@ const Poster = ({ obj }) => {
   let body = image
   console.log(obj.link)
   if (obj.link != null) {
-    body = <MyLink obj={obj.link}>{body}</MyLink>
+    body = <MyLink obj={obj.link} useChildren={true}>{body}</MyLink>
   }
   return (
     <div className={styles}>
