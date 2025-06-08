@@ -1,29 +1,29 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { OutboundLink } from 'gatsby-plugin-google-gtag';
+import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
-import EntryLink from './entry-link';
+import EntryLink from './entry-link'
 
-const MyLink = ({ obj, addClasses, activeClass, onClick }) => {
+const MyLink = ({ obj, addClasses, activeClass, onClick, children }) => {
   if (obj == null) {
-    return '';
+    return ''
   }
-  let linkTitle = "";
-  let linkContent = obj.text;
-  let linkStyles = "";
-  let linkIcon = "";
+  let linkTitle = ""
+  let linkContent = children === null ? obj.text : children
+  let linkStyles = ""
+  let linkIcon = ""
   if (addClasses) {
-    linkStyles += addClasses + " ";
+    linkStyles += addClasses + " "
   }
   if (obj.styles) {
-    linkStyles += obj.styles;
+    linkStyles += obj.styles
   }
   if (obj.icon) {
-    const faLib = obj.icon === "envelope" ? "fas" : "fab";
-    linkIcon = <i className={faLib + " fa-" + obj.icon}></i>;
+    const faLib = obj.icon === "envelope" ? "fas" : "fab"
+    linkIcon = <i className={faLib + " fa-" + obj.icon}></i>
     linkContent = obj.hideText ? linkIcon : <>{linkContent} {linkIcon}</>
     if (obj.hideText) {
-      linkTitle = obj.text;
+      linkTitle = obj.text
     }
   }
   return obj.isInternal ?
@@ -35,7 +35,7 @@ const MyLink = ({ obj, addClasses, activeClass, onClick }) => {
       title={linkTitle}
       onClick={onClick}>{linkContent}</EntryLink>)
     :
-    (<OutboundLink href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle} onClick={onClick}>{linkContent}</OutboundLink>);
+    (<OutboundLink href={obj.targetLink} target="_blank" rel="noreferrer" className={linkStyles} title={linkTitle} onClick={onClick}>{linkContent}</OutboundLink>)
 }
 
 export default MyLink
