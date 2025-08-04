@@ -58,6 +58,7 @@ export const query = graphql`
     __typename
     heading
     styles
+    maxEntries
     buttons {
       ...MyLink
     }

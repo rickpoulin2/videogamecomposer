@@ -103,6 +103,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulComponentBlogLatest implements ContentfulEntry {
     heading: String
     styles: String
+    maxEntries: Int
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulComponentNewsletterLatest implements ContentfulEntry {
