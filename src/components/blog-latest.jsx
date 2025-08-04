@@ -27,7 +27,7 @@ const BlogLatest = ({ obj }) => {
 
   const blogTitle = obj.heading
   const maxEntries = obj.maxEntries || 3
-  let entries = blogData.data?.nodes?.slice(0, maxEntries - 1).map((i) =>
+  let entries = blogData.data?.nodes?.slice(0, maxEntries).map((i) =>
     <BlogLink key={i.id} obj={i} />
   )
   let buttons = obj.buttons?.map((btn, i, arr) => {
