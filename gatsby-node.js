@@ -148,12 +148,22 @@ exports.createSchemaCustomization = ({ actions }) => {
     youTubeLink: String
     otherLink: String
   }
+  type ContentfulComponentTestimonials implements ContentfulEntry {
+    heading: String
+    styles: String
+    testimonial1Image: ContentfulAsset @link(from: "testimonial1Image___NODE")
+    testimonial1Text: RichText
+    testimonial2Image: ContentfulAsset @link(from: "testimonial2Image___NODE")
+    testimonial2Text: RichText
+    testimonial3Image: ContentfulAsset @link(from: "testimonial3Image___NODE")
+    testimonial3Text: RichText
+  }
   type ContentfulComponentGroup implements ContentfulEntry {
     styles: String
     structureType: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster | ContentfulComponentTestimonials
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     siteHeadingStart: String

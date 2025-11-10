@@ -15,6 +15,7 @@ import NewsletterSignup from './newsletter-signup'
 import ContactForm from './contact-form'
 import CommissionCard from './commission-card'
 import Poster from './poster'
+import Testimonials from './testimonials'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename
@@ -49,6 +50,8 @@ const PageComponent = ({ obj }) => {
         return <CommissionCard obj={obj} />
     if (type === 'ContentfulComponentPoster')
         return <Poster obj={obj} />
+    if (type === 'ContentfulComponentTestimonials')
+        return <Testimonials obj={obj} />
 
     console.log("unknown component: " + type)
     return <></>
@@ -74,5 +77,6 @@ export const query = graphql`
         ...ContentfulComponentContactForm
         ...ContentfulComponentCommissionCard
         ...ContentfulComponentPoster
+        ...ContentfulComponentTestimonials
     }
 `

@@ -284,51 +284,6 @@ h2.pix {
   color: var(--bs-secondary);
 }
 
-.testimonials {
-  blockquote {
-    padding: 2rem calc(var(--bs-gutter-x) * 0.5);
-    position: relative;
-
-    &,
-    *:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  blockquote+blockquote::before {
-    content: "";
-    display: block;
-    width: 100px;
-    height: 1px;
-    position: absolute;
-    top: 0;
-    left: calc(50% - 50px);
-    border-top: 1px solid rgba(var(--bs-primary-rgb), 0.5);
-  }
-
-  @media only screen and (min-width: 768px) {
-
-    &,
-    .card-body {
-      display: flex;
-    }
-
-    blockquote {
-      width: 33.33%;
-      padding: 0 calc(var(--bs-gutter-x));
-    }
-
-    blockquote+blockquote::before {
-      width: 1px;
-      height: 100px;
-      border-top: 0px transparent none;
-      border-left: 1px solid rgba(var(--bs-primary-rgb), 0.5);
-      left: 0;
-      top: calc(50% - 50px);
-    }
-  }
-}
-
 form {
   display: flex;
   flex-direction: column;
