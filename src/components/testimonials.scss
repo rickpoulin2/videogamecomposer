@@ -1,0 +1,67 @@
+.testimonials {
+    margin-bottom: 2em;
+
+    blockquote {
+        padding: 2rem calc(var(--bs-gutter-x) * 0.5);
+        position: relative;
+
+        &,
+        *:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    blockquote+blockquote::before {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 1px;
+        position: absolute;
+        top: -2px;
+        left: calc(50% - 50px);
+        border-top: 3px solid rgba(var(--bs-primary-rgb), 0.5);
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1em;
+    }
+
+    .pic {
+        display: inline-block;
+        border-radius: 9999px;
+        padding: 2px;
+        border: 1px solid var(--bs-secondary);
+        margin-bottom: 1em;
+    }
+
+    .gatsby-image-wrapper {
+        width: 70px;
+        height: 70px;
+        border-radius: 9999px;
+    }
+
+    @media only screen and (min-width: 768px) {
+
+        &,
+        .card-body {
+            display: flex;
+        }
+
+        blockquote {
+            //width: 33.33%;
+            flex: 1;
+            padding: 0 calc(var(--bs-gutter-x));
+        }
+
+        blockquote+blockquote::before {
+            width: 1px;
+            height: 150px;
+            border-top: 0px transparent none;
+            border-left: 3px solid rgba(var(--bs-primary-rgb), 0.5);
+            left: -2px;
+            top: calc(50% - 75px);
+        }
+    }
+}
