@@ -11,13 +11,13 @@ const Testimonials = ({ obj }) => {
 
   const styles = "testimonials " + (obj.styles ? obj.styles : "")
 
-  const image1 = obj.testimonial1Image?.gatsbyImageData ? <div className="pic"><GatsbyImage image={obj.testimonial1Image.gatsbyImageData} alt={obj.testimonial1Image.description} /></div> : ""
+  const image1 = obj.testimonial1Image?.gatsbyImageData ? <div className="center"><div className="pic"><GatsbyImage image={obj.testimonial1Image.gatsbyImageData} alt={obj.testimonial1Image.description} /></div></div> : ""
   const quote1 = obj.testimonial1Text == null ? "" : <blockquote>{image1}<RichText data={obj.testimonial1Text} /></blockquote>
 
-  const image2 = obj.testimonial2Image?.gatsbyImageData ? <div className="pic"><GatsbyImage image={obj.testimonial2Image.gatsbyImageData} alt={obj.testimonial2Image.description} /></div> : ""
+  const image2 = obj.testimonial2Image?.gatsbyImageData ? <div className="center"><div className="pic"><GatsbyImage image={obj.testimonial2Image.gatsbyImageData} alt={obj.testimonial2Image.description} /></div></div> : ""
   const quote2 = obj.testimonial2Text == null ? "" : <blockquote>{image2}<RichText data={obj.testimonial2Text} /></blockquote>
 
-  const image3 = obj.testimonial3Image?.gatsbyImageData ? <div className="pic"><GatsbyImage image={obj.testimonial3Image.gatsbyImageData} alt={obj.testimonial3Image.description} /></div> : ""
+  const image3 = obj.testimonial3Image?.gatsbyImageData ? <div className="center"><div className="pic"><GatsbyImage image={obj.testimonial3Image.gatsbyImageData} alt={obj.testimonial3Image.description} /></div></div> : ""
   const quote3 = obj.testimonial3Text == null ? "" : <blockquote>{image3}<RichText data={obj.testimonial3Text} /></blockquote>
 
   return (

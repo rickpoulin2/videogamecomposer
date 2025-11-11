@@ -22,6 +22,12 @@
         border-top: 3px solid rgba(var(--bs-primary-rgb), 0.5);
     }
 
+    .center {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1em;
+    }
+
     .pic {
         display: inline-block;
         border-radius: 9999px;
