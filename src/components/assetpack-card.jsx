@@ -41,7 +41,7 @@ const AssetPackCard = ({ obj }) => {
           <span className="badge text-bg-secondary">{obj.publishedDate}</span>
         </Card.Subtitle>
         <div className="album-channels">
-          <span>Listen on:</span>
+          <span>Find on:</span>
           <ul>
             {channelLinks}
           </ul>

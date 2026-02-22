@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Accordion, Badge, Col } from 'react-bootstrap'
+import { Accordion, Col } from 'react-bootstrap'
 import Scrollspy from 'react-scrollspy'
 import Section from './section'
 import EntryLink from './entry-link'
