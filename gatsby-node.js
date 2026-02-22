@@ -2,8 +2,8 @@ const path = require('path')
 
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
-  union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter
-  union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
+  union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulAssetPack | ContentfulBlogEntry | ContentfulNewsletter
+  union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulAssetPack | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
   type RichText {
     raw: String!
     references: [RichTextEmbeds] @link(from: "references___NODE")
@@ -33,6 +33,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     linkItunes: String
     linkAmazon: String
     albumDescription: RichText
+  }
+  type ContentfulAssetPack implements ContentfulEntry {
+    title: String!
+    slug: String!
+    publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
+    coverImage: ContentfulAsset @link(from: "coverImage___NODE")
+    videoId: String
+    linkUnity: String
+    linkUnreal: String
+    linkItchio: String
+    linkGdm: String
+    description: RichText
   }
   type ContentfulBlogEntry implements ContentfulEntry {
     title: String!
@@ -92,6 +104,11 @@ exports.createSchemaCustomization = ({ actions }) => {
   type ContentfulComponentAlbumList implements ContentfulEntry {
     id: ID!
     styles: String
+  }
+  type ContentfulComponentContentList implements ContentfulEntry {
+    id: ID!
+    styles: String
+    type: String
   }
   type ContentfulComponentNewsletterList implements ContentfulEntry {
     id: ID!
@@ -163,7 +180,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     structureType: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster | ContentfulComponentTestimonials
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentContentList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster | ContentfulComponentTestimonials
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     siteHeadingStart: String
