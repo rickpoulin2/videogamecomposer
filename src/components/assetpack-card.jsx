@@ -33,7 +33,7 @@ const AssetPackCard = ({ obj }) => {
   })
 
   return (
-    <Card className="album-card" id={obj.slug}>
+    <Card className="musicpack-card" id={obj.slug}>
       <Card.Header>
         <Card.Title as="h2">{obj.title}</Card.Title>
         <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />

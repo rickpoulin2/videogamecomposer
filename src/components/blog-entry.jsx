@@ -6,7 +6,8 @@ import RichText from './richtext'
 import BlogLink from './blog-link'
 import Section from './section'
 
-import './blog-entry.scss';
+import './blog-entry.scss'
+import './side-nav.scss'
 
 const BlogEntries = () => {
   const blogData = useStaticQuery(
@@ -29,21 +30,21 @@ const BlogEntries = () => {
             }
           }
         }
-      }`);
+      }`)
   const showNav = blogData.data?.nodes?.length > 3
 
   let entries = blogData.data?.nodes?.map((i) =>
     <BlogEntry key={i.id} obj={i} showNav={showNav} />
-  );
+  )
   let nav = <></>
   if (showNav) {
-    const anchors = [];
+    const anchors = []
     let navEntries = blogData.data?.nodes?.map((i) => {
       anchors.push(`entry${i.tag}`)
       return <BlogLink key={i.id} obj={i} />
     })
     nav =
-      <Section styles="nobg blog-nav">
+      <Section styles="nobg side-nav">
         <div className="box-flair">
           <div>
             <Accordion>
@@ -80,7 +81,7 @@ const BlogEntries = () => {
 export default BlogEntries
 
 const BlogEntry = ({ obj, showNav }) => {
-  const htmlid = `entry${obj.tag}`;
+  const htmlid = `entry${obj.tag}`
   return (
     <Section as="article" id={htmlid} styles={showNav ? "blog blog-wnav" : "blog"}>
       <Col className="blog-entry">

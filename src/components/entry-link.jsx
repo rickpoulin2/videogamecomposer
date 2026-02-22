@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'gatsby'
-import AppContext from './app-context';
+import AppContext from './app-context'
 
 const EntryLink = ({ title, type, slug, className, activeClass, onClick, children }) => {
     const linkSlugs = useContext(AppContext).linkSlugs
@@ -14,6 +14,8 @@ const EntryLink = ({ title, type, slug, className, activeClass, onClick, childre
         href = `/${linkSlugs.blogPage}/#entry${slug}`
     if (type === "ContentfulNewsletter")
         href = `/${linkSlugs.newsletterPage}/${slug}`
+    if (type === "ContentfulAssetPack")
+        href = `/${linkSlugs.assetpackPage}/#${slug}`
 
     if (href == null) {
         console.log(`unknown link type ${type} for slug ${slug}`)

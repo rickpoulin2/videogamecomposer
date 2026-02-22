@@ -196,6 +196,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
     albumsPage: ContentfulPage @link(from: "albumsPage___NODE")
     newsletterPage: ContentfulPage @link(from: "newsletterPage___NODE")
+    assetpacksPage: ContentfulPage @link(from: "assetpacksPage___NODE")
   }
   type ContentfulPage implements ContentfulEntry {
     title: String!
@@ -256,6 +257,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         blogPage { url }
         albumsPage { url }
         newsletterPage { url }
+        assetpacksPage { url }
       }
     }`
   )
@@ -282,6 +284,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         blogPage { url }
         albumsPage { url }
         newsletterPage { url }
+        assetpacksPage { url }
       }
     }`
   )
