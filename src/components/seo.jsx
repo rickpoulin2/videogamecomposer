@@ -21,12 +21,12 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
     }
   }`
   )
-  const siteData = get(allContentfulSiteGlobals, 'nodes[0]');
-  let siteTitle = siteData.siteTitle;
+  const siteData = get(allContentfulSiteGlobals, 'nodes[0]')
+  let siteTitle = siteData.siteTitle
   if (title) {
-    siteTitle = `${title} | ` + siteTitle;
+    siteTitle = `${title} | ` + siteTitle
   }
-  const image = getSrc(siteData.siteIcon);
+  const image = getSrc(siteData.siteIcon)
 
   return (
     <>
@@ -47,8 +47,8 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link rel="stylesheet" href="/css/custom-svg.css" />
       <link rel="stylesheet" href="/css/fontawesome.min.css" />
-      <link rel="stylesheet" href="/css/fa-solid.min.css" />
-      <link rel="stylesheet" href="/css/fa-brands.min.css" />
+      <link rel="stylesheet" href="/css/solid.min.css" />
+      <link rel="stylesheet" href="/css/brands.min.css" />
       {children}
     </>
   )

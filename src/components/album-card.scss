@@ -53,7 +53,11 @@
             }
 
             i {
-                padding: 0 0.5em;
+                margin: 0 0.2em;
+
+                @media only screen and (min-width: 480px) {
+                    margin: 0 0.5em;
+                }
             }
 
             ul {

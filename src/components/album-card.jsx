@@ -23,7 +23,7 @@ const AlbumCard = ({ obj }) => {
   if (obj.title == null || obj.slug == null || obj.trackCount == null || obj.videoId == null || obj.albumDescription == null)
     return
 
-  let collab = "";
+  let collab = ""
   if (obj.collaboratorName) {
     if (obj.collaboratorLink) {
       collab = <span>with <OutboundLink href={obj.collaboratorLink} target="_blank" rel="noreferrer">{obj.collaboratorName}</OutboundLink></span>
@@ -33,9 +33,9 @@ const AlbumCard = ({ obj }) => {
   }
 
   const channelLinks = CHANNELS.map(({ title, icon, fieldname }) => {
-    let href = obj["link" + fieldname];
+    let href = obj["link" + fieldname]
     if ((href == null || href === "") && fieldname === "YouTube") {
-      href = "https://youtube.com/watch?v=" + obj.videoId;
+      href = "https://youtube.com/watch?v=" + obj.videoId
     }
     return (href == null || href === "") ?
       (<li key={fieldname}><span>Not available on {title}</span><i className={"fab fa-" + icon}></i></li>)
