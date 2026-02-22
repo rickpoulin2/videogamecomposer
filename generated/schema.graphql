@@ -2734,6 +2734,7 @@ type ContentfulComponentTestimonials implements ContentfulReference & Contentful
 
 type ContentfulComponentTestimonialsSys {
   type: String
+  revision: Int
   contentType: ContentfulComponentTestimonialsSysContentType
 }
 
@@ -2745,6 +2746,15 @@ type ContentfulComponentTestimonialsSysContentTypeSys {
   type: String
   linkType: String
   id: String
+}
+
+type ContentfulAssetPack implements ContentfulReference & ContentfulEntry & Node {
+  contentful_id: String!
+  id: ID!
+  node_locale: String!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
 }
 
 union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulBlogEntry | ContentfulNewsletter
@@ -2838,6 +2848,8 @@ type Query {
   allContentfulComponentPoster(filter: ContentfulComponentPosterFilterInput, sort: [ContentfulComponentPosterSortInput], skip: Int, limit: Int): ContentfulComponentPosterConnection!
   contentfulComponentTestimonials(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, testimonial1Image: ContentfulAssetFilterInput, testimonial1Text: RichTextFilterInput, testimonial2Image: ContentfulAssetFilterInput, testimonial2Text: RichTextFilterInput, testimonial3Image: ContentfulAssetFilterInput, testimonial3Text: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentTestimonialsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentTestimonials
   allContentfulComponentTestimonials(filter: ContentfulComponentTestimonialsFilterInput, sort: [ContentfulComponentTestimonialsSortInput], skip: Int, limit: Int): ContentfulComponentTestimonialsConnection!
+  contentfulAssetPack(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAssetPack
+  allContentfulAssetPack(filter: ContentfulAssetPackFilterInput, sort: [ContentfulAssetPackSortInput], skip: Int, limit: Int): ContentfulAssetPackConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
 }
@@ -7148,6 +7160,7 @@ type ContentfulComponentPosterGroupConnection {
 
 input ContentfulComponentTestimonialsSysFilterInput {
   type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
   contentType: ContentfulComponentTestimonialsSysContentTypeFilterInput
 }
 
@@ -7203,6 +7216,7 @@ input ContentfulComponentTestimonialsFieldSelector {
 
 input ContentfulComponentTestimonialsSysFieldSelector {
   type: FieldSelectorEnum
+  revision: FieldSelectorEnum
   contentType: ContentfulComponentTestimonialsSysContentTypeFieldSelector
 }
 
@@ -7276,6 +7290,7 @@ input ContentfulComponentTestimonialsSortInput {
 
 input ContentfulComponentTestimonialsSysSortInput {
   type: SortOrderEnum
+  revision: SortOrderEnum
   contentType: ContentfulComponentTestimonialsSysContentTypeSortInput
 }
 
@@ -7287,6 +7302,65 @@ input ContentfulComponentTestimonialsSysContentTypeSysSortInput {
   type: SortOrderEnum
   linkType: SortOrderEnum
   id: SortOrderEnum
+}
+
+type ContentfulAssetPackConnection {
+  totalCount: Int!
+  edges: [ContentfulAssetPackEdge!]!
+  nodes: [ContentfulAssetPack!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulAssetPackFieldSelector!): [String!]!
+  max(field: ContentfulAssetPackFieldSelector!): Float
+  min(field: ContentfulAssetPackFieldSelector!): Float
+  sum(field: ContentfulAssetPackFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulAssetPackFieldSelector!): [ContentfulAssetPackGroupConnection!]!
+}
+
+type ContentfulAssetPackEdge {
+  next: ContentfulAssetPack
+  node: ContentfulAssetPack!
+  previous: ContentfulAssetPack
+}
+
+input ContentfulAssetPackFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+type ContentfulAssetPackGroupConnection {
+  totalCount: Int!
+  edges: [ContentfulAssetPackEdge!]!
+  nodes: [ContentfulAssetPack!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulAssetPackFieldSelector!): [String!]!
+  max(field: ContentfulAssetPackFieldSelector!): Float
+  min(field: ContentfulAssetPackFieldSelector!): Float
+  sum(field: ContentfulAssetPackFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulAssetPackFieldSelector!): [ContentfulAssetPackGroupConnection!]!
+  field: String!
+  fieldValue: String
+}
+
+input ContentfulAssetPackFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulAssetPackSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
 }
 
 input ContentfulContentTypeSysFilterInput {
