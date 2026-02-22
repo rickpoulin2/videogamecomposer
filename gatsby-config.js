@@ -1,6 +1,6 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-});
+})
 
 module.exports = {
   flags: { DEV_SSR: true },
@@ -25,7 +25,7 @@ module.exports = {
       resolve: "gatsby-plugin-sass",
       options: {
         sassOptions: {
-          api: "modern"
+          api: "modern-compiler"
         }
       }
     },
@@ -53,4 +53,4 @@ module.exports = {
       },
     },
   ],
-};
+}

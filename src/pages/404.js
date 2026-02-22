@@ -13,8 +13,8 @@ class PageTemplate extends React.Component {
     const pageData = this.props.data.contentfulPage
     const titleBlock = get(pageData, 'hideTitle') ? '' : <PageTitle title={get(pageData, 'title')} />
 
-    const introBlock = get(pageData, 'introContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
-    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />));
+    const introBlock = get(pageData, 'introContent')?.map((x) => (<PageComponent key={x.id} obj={x} />))
+    let mainBlock = get(pageData, 'mainContent')?.map((x) => (<PageComponent key={x.id} obj={x} />))
     if (pageData.mainContent?.length > 0) {
       mainBlock =
         <Section>
@@ -79,6 +79,7 @@ export const pageQuery = graphql`
       blogPage { url }
       albumsPage { url }
       newsletterPage { url }
+      assetpacksPage { url }
     }
   }
 `

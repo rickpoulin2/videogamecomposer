@@ -5,32 +5,21 @@ import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import { Card, Button, Collapse } from 'react-bootstrap'
 import RichText from './richtext'
 
-import './album-card.scss'
+import './assetpack-card.scss'
 
 const CHANNELS = [
-  { title: "YouTube", icon: "youtube", fieldname: "YouTube" },
-  { title: "Spotify", icon: "spotify", fieldname: "Spotify" },
-  { title: "Bandcamp", icon: "bandcamp", fieldname: "Bandcamp" },
+  { title: "Unity", icon: "unity", fieldname: "Unity" },
+  { title: "Unreal Engine", icon: "unreal-engine", fieldname: "Unreal" },
   { title: "itch.io", icon: "itch-io", fieldname: "Itchio" },
-  { title: "Apple Music", icon: "apple", fieldname: "Itunes" },
-  { title: "Amazon Music", icon: "amazon", fieldname: "Amazon" },
+  { title: "GameDev Market", icon: "gdm", fieldname: "Gdm" }
 ]
 
-const AlbumCard = ({ obj }) => {
+const AssetPackCard = ({ obj }) => {
   const [open, setOpen] = useState(false)
   if (obj == null)
     return
-  if (obj.title == null || obj.slug == null || obj.trackCount == null || obj.videoId == null || obj.albumDescription == null)
+  if (obj.title == null || obj.slug == null || obj.videoId == null || obj.description == null)
     return
-
-  let collab = ""
-  if (obj.collaboratorName) {
-    if (obj.collaboratorLink) {
-      collab = <span>with <OutboundLink href={obj.collaboratorLink} target="_blank" rel="noreferrer">{obj.collaboratorName}</OutboundLink></span>
-    } else {
-      collab = <span>with {obj.collaboratorName}</span>
-    }
-  }
 
   const channelLinks = CHANNELS.map(({ title, icon, fieldname }) => {
     let href = obj["link" + fieldname]
@@ -44,17 +33,15 @@ const AlbumCard = ({ obj }) => {
   })
 
   return (
-    <Card className="album-card" id={obj.slug}>
+    <Card className="musicpack-card" id={obj.slug}>
       <Card.Header>
         <Card.Title as="h2">{obj.title}</Card.Title>
         <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
         <Card.Subtitle>
           <span className="badge text-bg-secondary">{obj.publishedDate}</span>
-          <span>{obj.trackCount} tracks</span>
-          {collab}
         </Card.Subtitle>
         <div className="album-channels">
-          <span>Listen on:</span>
+          <span>Find on:</span>
           <ul>
             {channelLinks}
           </ul>
@@ -71,35 +58,30 @@ const AlbumCard = ({ obj }) => {
         </Collapse>
       </div>
       <Card.Body>
-        <RichText data={obj.albumDescription} />
+        <RichText data={obj.description} />
       </Card.Body>
     </Card>
   )
 }
 
-export default AlbumCard
+export default AssetPackCard
 
 export const query = graphql`
-  fragment ContentfulAlbum on ContentfulAlbum {
+  fragment ContentfulAssetPack on ContentfulAssetPack {
     title
     slug
     publishedDate(formatString: "MMM YYYY")
     tag: publishedDate(formatString: "YYYYMMDD")
-    trackCount
-    collaboratorName
-    collaboratorLink
     coverImage {
       description
       gatsbyImageData(width: 300)
     }
     videoId
-    linkYouTube
-    linkSpotify
-    linkBandcamp
+    linkUnity
+    linkUnreal
     linkItchio
-    linkItunes
-    linkAmazon
-    albumDescription {
+    linkGdm
+    description {
       ...RichText
     }
   }
