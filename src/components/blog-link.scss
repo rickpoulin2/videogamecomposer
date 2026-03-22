@@ -1,9 +1,19 @@
 .blog-list {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
+
+  li {
+    margin-bottom: 0.5em;
+  }
 
   a {
     display: grid;
     align-items: stretch;
     grid-template-columns: 7.5em auto;
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-gray-200);
+    text-decoration: none;
   }
 
   a,
