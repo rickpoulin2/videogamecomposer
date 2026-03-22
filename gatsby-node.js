@@ -2,8 +2,8 @@ const path = require('path')
 
 exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
-  union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulAssetPack | ContentfulBlogEntry | ContentfulNewsletter
-  union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulAssetPack | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
+  union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulMusicPack | ContentfulBlogEntry | ContentfulNewsletter
+  union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulMusicPack | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
   type RichText {
     raw: String!
     references: [RichTextEmbeds] @link(from: "references___NODE")
@@ -34,9 +34,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     linkAmazon: String
     albumDescription: RichText
   }
-  type ContentfulAssetPack implements ContentfulEntry {
+  type ContentfulMusicPack implements ContentfulEntry {
     title: String!
-    slug: String!
+    url: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
     coverImage: ContentfulAsset @link(from: "coverImage___NODE")
     videoId: String
@@ -196,7 +196,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     blogPage: ContentfulPage @link(from: "blogPage___NODE")
     albumsPage: ContentfulPage @link(from: "albumsPage___NODE")
     newsletterPage: ContentfulPage @link(from: "newsletterPage___NODE")
-    assetpacksPage: ContentfulPage @link(from: "assetpacksPage___NODE")
+    musicpacksPage: ContentfulPage @link(from: "musicpacksPage___NODE")
   }
   type ContentfulPage implements ContentfulEntry {
     title: String!
@@ -231,7 +231,8 @@ createPageTypes = async (graphql, actions, reporter, template, pathTransform, qu
           slug: item.url,
           previousPostSlug,
           nextPostSlug,
-          linkSlugs: slugs
+          linkSlugs: slugs,
+          dataList: items
         },
       })
     })
@@ -251,13 +252,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       }) {
         nodes {
           url
+          title
         }
       }
       links: contentfulSiteGlobals {
         blogPage { url }
         albumsPage { url }
         newsletterPage { url }
-        assetpacksPage { url }
+        musicpacksPage { url }
       }
     }`
   )
@@ -284,7 +286,35 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         blogPage { url }
         albumsPage { url }
         newsletterPage { url }
-        assetpacksPage { url }
+        musicpacksPage { url }
+      }
+    }`
+  )
+
+  await createPageTypes(graphql, actions, reporter,
+    path.resolve('./src/templates/musicpack.js'),
+    (slug, links) => `/${links.musicpacksPage}/${slug}/`,
+    `{
+      items: allContentfulMusicPack(
+          sort: { publishedDate: DESC },
+          filter: {
+            url: {ne:null},
+            title: {ne:null},
+            description: { raw: {ne:null} },
+            publishedDate: {ne:null},
+            coverImage: { contentful_id: {ne:null} }
+          }) {
+        nodes {
+          id
+          title
+          url
+        }
+      }
+      links: contentfulSiteGlobals {
+        blogPage { url }
+        albumsPage { url }
+        newsletterPage { url }
+        musicpacksPage { url }
       }
     }`
   )

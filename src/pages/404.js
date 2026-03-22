@@ -79,7 +79,7 @@ export const pageQuery = graphql`
       blogPage { url }
       albumsPage { url }
       newsletterPage { url }
-      assetpacksPage { url }
+      musicpacksPage { url }
     }
   }
 `

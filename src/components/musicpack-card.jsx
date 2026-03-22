@@ -5,7 +5,8 @@ import { OutboundLink } from 'gatsby-plugin-google-gtag'
 import { Card, Button, Collapse } from 'react-bootstrap'
 import RichText from './richtext'
 
-import './assetpack-card.scss'
+import './musicpack-card.scss'
+import Video from './video'
 
 const CHANNELS = [
   { title: "Unity", icon: "unity", fieldname: "Unity" },
@@ -14,11 +15,10 @@ const CHANNELS = [
   { title: "GameDev Market", icon: "gdm", fieldname: "Gdm" }
 ]
 
-const AssetPackCard = ({ obj }) => {
-  const [open, setOpen] = useState(false)
+const MusicPackCard = ({ obj }) => {
   if (obj == null)
     return
-  if (obj.title == null || obj.slug == null || obj.videoId == null || obj.description == null)
+  if (obj.title == null || obj.url == null || obj.videoId == null || obj.description == null)
     return
 
   const channelLinks = CHANNELS.map(({ title, icon, fieldname }) => {
@@ -36,40 +36,33 @@ const AssetPackCard = ({ obj }) => {
     <Card className="musicpack-card" id={obj.slug}>
       <Card.Header>
         <Card.Title as="h2">{obj.title}</Card.Title>
-        <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
         <Card.Subtitle>
           <span className="badge text-bg-secondary">{obj.publishedDate}</span>
         </Card.Subtitle>
+      </Card.Header>
+      <Card.Body>
+        <Video obj={{ title: obj.title, cardType: "no-border", videoId: obj.videoId }} />
+        <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
+        <RichText data={obj.description} />
+      </Card.Body>
+      <Card.Footer>
         <div className="album-channels">
           <span>Find on:</span>
           <ul>
             {channelLinks}
           </ul>
         </div>
-      </Card.Header>
-      <div className="card-aside">
-        <Button variant="outline-secondary" onClick={() => { setOpen(!open) }}>Show YouTube clip inline <i class="fab fa-youtube"></i></Button>
-        <Collapse in={open}>
-          <div>
-            <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>
-          </div>
-        </Collapse>
-      </div>
-      <Card.Body>
-        <RichText data={obj.description} />
-      </Card.Body>
+      </Card.Footer>
     </Card>
   )
 }
 
-export default AssetPackCard
+export default MusicPackCard
 
 export const query = graphql`
-  fragment ContentfulAssetPack on ContentfulAssetPack {
+  fragment ContentfulMusicPack on ContentfulMusicPack {
     title
-    slug
+    url
     publishedDate(formatString: "MMM YYYY")
     tag: publishedDate(formatString: "YYYYMMDD")
     coverImage {
