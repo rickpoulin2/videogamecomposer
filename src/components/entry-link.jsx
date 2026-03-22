@@ -14,8 +14,8 @@ const EntryLink = ({ title, type, slug, className, activeClass, onClick, childre
         href = `/${linkSlugs.blogPage}/#entry${slug}`
     if (type === "ContentfulNewsletter")
         href = `/${linkSlugs.newsletterPage}/${slug}`
-    if (type === "ContentfulAssetPack")
-        href = `/${linkSlugs.assetpacksPage}/#${slug}`
+    if (type === "ContentfulMusicPack")
+        href = `/${linkSlugs.musicpacksPage}/${slug}`
 
     if (href == null) {
         console.log(`unknown link type ${type} for slug ${slug}`)

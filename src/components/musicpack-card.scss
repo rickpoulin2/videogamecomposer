@@ -1,0 +1,170 @@
+.musicpack-card {
+    margin-bottom: 2em;
+    --bs-card-border-color: var(--bs-tertiary);
+    --bs-card-border-width: 2px;
+
+    .card-header {
+        background-color: var(--bs-light);
+        border-radius: var(--bs-card-inner-border-radius) 0 0 0;
+
+        .card-subtitle {
+            margin-bottom: 0.5em;
+
+            span {
+                display: inline-block;
+            }
+
+            span:nth-child(2)::before {
+                content: 'X';
+                padding: 0 0.5em;
+            }
+
+            span:nth-child(3) {
+                display: block;
+            }
+        }
+
+        a {
+            color: var(--bs-secondary);
+        }
+
+        a:hover {
+            color: var(--bs-hover);
+        }
+    }
+
+    .gatsby-image-wrapper {
+        grid-row: 1 / span 2;
+        border-radius: var(--bs-border-radius);
+        width: 10em;
+        box-shadow: 0 0 5px 1px white;
+    }
+
+    iframe {
+        margin-top: var(--bs-card-spacer-y);
+        width: 100%;
+        aspect-ratio: 16/9;
+        display: block;
+    }
+
+    .album-channels {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 0.3em;
+        background-color: white;
+        border-radius: var(--bs-border-radius);
+        padding: 0.3em;
+        margin-top: 0.5em;
+
+        span {
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        i {
+            margin: 0 0.2em;
+
+            @media only screen and (min-width: 480px) {
+                margin: 0 0.5em;
+            }
+        }
+
+        i.fa-gdm {
+            --fa: '\25A0';
+            background-color: var(--bs-light);
+            mask-image: url('/img/gdm.webp');
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+            color: transparent;
+        }
+
+        a i.fa-gdm {
+            background-color: var(--bs-secondary);
+        }
+
+        a:hover i.fa-gdm {
+            background-color: var(--bs-hover);
+        }
+
+
+
+        ul {
+            display: inline-flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            font-size: 1.2em;
+        }
+
+        li {
+            color: var(--bs-light);
+
+            span {
+                visibility: hidden;
+                position: absolute;
+                width: 0;
+                height: 0;
+                clip: rect(0, 0, 0, 0);
+                overflow: hidden;
+            }
+        }
+    }
+
+    .card-body p:last-child {
+        margin-bottom: 0;
+    }
+
+    @media only screen and (min-width: 360px) {
+        .card-header {
+            .album-channels {
+                gap: 1em;
+                padding: 0.3em 1em;
+
+                ul {
+                    font-size: 1.5em;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        iframe {
+            aspect-ratio: 1;
+            border-radius: 0 var(--bs-card-inner-border-radius) 0 0;
+        }
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .card-aside {
+            border-radius: 0 var(--bs-card-inner-border-radius) 0 0;
+            border-bottom: 1px solid var(--bs-card-border-color);
+            background-color: var(--bs-light);
+        }
+    }
+
+    @media only screen and (min-width: 992px) {
+        .card-header {
+
+            .card-subtitle {
+                span {
+                    display: inline-block !important;
+                }
+
+                span+span::before {
+                    content: '\25A0';
+                    padding: 0 0.5em;
+                }
+            }
+        }
+
+        iframe {
+            border-radius: 0 var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0;
+        }
+
+        .card-body {
+            grid-column: auto;
+        }
+    }
+}

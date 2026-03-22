@@ -1263,7 +1263,7 @@ type ContentfulSiteGlobals implements ContentfulReference & ContentfulEntry & No
   blogPage: ContentfulPage
   albumsPage: ContentfulPage
   newsletterPage: ContentfulPage
-  assetpacksPage: ContentfulPage
+  musicpacksPage: ContentfulPage
   spaceId: String
   createdAt(
     """
@@ -1958,8 +1958,8 @@ type ContentfulComponentAlbumList implements ContentfulReference & ContentfulEnt
 
 type ContentfulComponentAlbumListSys {
   type: String
-  contentType: ContentfulComponentAlbumListSysContentType
   revision: Int
+  contentType: ContentfulComponentAlbumListSysContentType
 }
 
 type ContentfulComponentAlbumListSysContentType {
@@ -2752,13 +2752,13 @@ type ContentfulAssetPack implements ContentfulReference & ContentfulEntry & Node
   contentful_id: String!
   id: ID!
   node_locale: String!
-  title: String!
-  slug: String!
+  title: String
+  slug: String
   publishedDate(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
     """
-    formatString: String = "YYYY-MM-DD"
+    formatString: String
 
     """Returns a string generated with Moment.js' `fromNow` function"""
     fromNow: Boolean
@@ -2771,13 +2771,10 @@ type ContentfulAssetPack implements ContentfulReference & ContentfulEntry & Node
     """Configures the locale Moment.js will use to format the date."""
     locale: String
   ): Date
-  coverImage: ContentfulAsset
   videoId: String
-  linkUnity: String
-  linkUnreal: String
+  description: ContentfulAssetPackDescription
   linkItchio: String
-  linkGdm: String
-  description: RichText
+  coverImage: ContentfulAsset
   spaceId: String
   createdAt(
     """
@@ -2814,9 +2811,16 @@ type ContentfulAssetPack implements ContentfulReference & ContentfulEntry & Node
     locale: String
   ): Date
   sys: ContentfulAssetPackSys
+  linkUnity: String
+  linkUnreal: String
+  linkGdm: String
   parent: Node
   children: [Node!]!
   internal: Internal!
+}
+
+type ContentfulAssetPackDescription {
+  raw: String
 }
 
 type ContentfulAssetPackSys {
@@ -2885,6 +2889,7 @@ type ContentfulComponentContentList implements ContentfulReference & ContentfulE
 
 type ContentfulComponentContentListSys {
   type: String
+  revision: Int
   contentType: ContentfulComponentContentListSysContentType
 }
 
@@ -2898,9 +2903,95 @@ type ContentfulComponentContentListSysContentTypeSys {
   id: String
 }
 
-union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulAssetPack | ContentfulBlogEntry | ContentfulNewsletter
+type ContentfulMusicPack implements ContentfulReference & ContentfulEntry & Node {
+  contentful_id: String!
+  id: ID!
+  node_locale: String!
+  title: String!
+  url: String!
+  publishedDate(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String = "YYYY-MM-DD"
 
-union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulAssetPack | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  coverImage: ContentfulAsset
+  videoId: String
+  linkUnity: String
+  linkUnreal: String
+  linkItchio: String
+  linkGdm: String
+  description: RichText
+  spaceId: String
+  createdAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  updatedAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  sys: ContentfulMusicPackSys
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+
+type ContentfulMusicPackSys {
+  type: String
+  contentType: ContentfulMusicPackSysContentType
+}
+
+type ContentfulMusicPackSysContentType {
+  sys: ContentfulMusicPackSysContentTypeSys
+}
+
+type ContentfulMusicPackSysContentTypeSys {
+  type: String
+  linkType: String
+  id: String
+}
+
+union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulMusicPack | ContentfulBlogEntry | ContentfulNewsletter
+
+union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulMusicPack | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
 
 type RichText {
   raw: String!
@@ -2947,7 +3038,7 @@ type Query {
   allContentfulAsset(filter: ContentfulAssetFilterInput, sort: [ContentfulAssetSortInput], skip: Int, limit: Int): ContentfulAssetConnection!
   contentfulPage(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, url: StringQueryOperatorInput, hideTitle: BooleanQueryOperatorInput, site_globals: ContentfulSiteGlobalsFilterListInput, link: ContentfulLinkFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulPageSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulPage
   allContentfulPage(filter: ContentfulPageFilterInput, sort: [ContentfulPageSortInput], skip: Int, limit: Int): ContentfulPageConnection!
-  contentfulSiteGlobals(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, siteTitle: StringQueryOperatorInput, siteHeadingStart: StringQueryOperatorInput, siteHeadingEnd: StringQueryOperatorInput, headerNavigation: ContentfulLinkFilterListInput, headerButtonLink: ContentfulLinkFilterInput, footerNavigation: ContentfulLinkFilterListInput, siteIcon: ContentfulAssetFilterInput, siteLogo: ContentfulAssetFilterInput, siteBackground: ContentfulAssetFilterInput, footerContent: RichTextFilterInput, copyrightLine: StringQueryOperatorInput, blogPage: ContentfulPageFilterInput, albumsPage: ContentfulPageFilterInput, newsletterPage: ContentfulPageFilterInput, assetpacksPage: ContentfulPageFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulSiteGlobalsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulSiteGlobals
+  contentfulSiteGlobals(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, siteTitle: StringQueryOperatorInput, siteHeadingStart: StringQueryOperatorInput, siteHeadingEnd: StringQueryOperatorInput, headerNavigation: ContentfulLinkFilterListInput, headerButtonLink: ContentfulLinkFilterInput, footerNavigation: ContentfulLinkFilterListInput, siteIcon: ContentfulAssetFilterInput, siteLogo: ContentfulAssetFilterInput, siteBackground: ContentfulAssetFilterInput, footerContent: RichTextFilterInput, copyrightLine: StringQueryOperatorInput, blogPage: ContentfulPageFilterInput, albumsPage: ContentfulPageFilterInput, newsletterPage: ContentfulPageFilterInput, musicpacksPage: ContentfulPageFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulSiteGlobalsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulSiteGlobals
   allContentfulSiteGlobals(filter: ContentfulSiteGlobalsFilterInput, sort: [ContentfulSiteGlobalsSortInput], skip: Int, limit: Int): ContentfulSiteGlobalsConnection!
   contentfulLink(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, isInternal: BooleanQueryOperatorInput, text: StringQueryOperatorInput, targetLink: StringQueryOperatorInput, icon: StringQueryOperatorInput, styles: StringQueryOperatorInput, hideText: BooleanQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulLinkSysFilterInput, component__blog_latest: ContentfulComponentBlogLatestFilterListInput, component__button_banner: ContentfulComponentButtonBannerFilterListInput, site_globals: ContentfulSiteGlobalsFilterListInput, component__poster: ContentfulComponentPosterFilterListInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, component__hero: ContentfulComponentHeroFilterListInput, component__content_card: ContentfulComponentContentCardFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulLink
   allContentfulLink(filter: ContentfulLinkFilterInput, sort: [ContentfulLinkSortInput], skip: Int, limit: Int): ContentfulLinkConnection!
@@ -2989,10 +3080,12 @@ type Query {
   allContentfulComponentPoster(filter: ContentfulComponentPosterFilterInput, sort: [ContentfulComponentPosterSortInput], skip: Int, limit: Int): ContentfulComponentPosterConnection!
   contentfulComponentTestimonials(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, testimonial1Image: ContentfulAssetFilterInput, testimonial1Text: RichTextFilterInput, testimonial2Image: ContentfulAssetFilterInput, testimonial2Text: RichTextFilterInput, testimonial3Image: ContentfulAssetFilterInput, testimonial3Text: RichTextFilterInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentTestimonialsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentTestimonials
   allContentfulComponentTestimonials(filter: ContentfulComponentTestimonialsFilterInput, sort: [ContentfulComponentTestimonialsSortInput], skip: Int, limit: Int): ContentfulComponentTestimonialsConnection!
-  contentfulAssetPack(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, slug: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkUnity: StringQueryOperatorInput, linkUnreal: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkGdm: StringQueryOperatorInput, description: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulAssetPackSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAssetPack
+  contentfulAssetPack(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, slug: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, videoId: StringQueryOperatorInput, description: ContentfulAssetPackDescriptionFilterInput, linkItchio: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulAssetPackSysFilterInput, linkUnity: StringQueryOperatorInput, linkUnreal: StringQueryOperatorInput, linkGdm: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAssetPack
   allContentfulAssetPack(filter: ContentfulAssetPackFilterInput, sort: [ContentfulAssetPackSortInput], skip: Int, limit: Int): ContentfulAssetPackConnection!
   contentfulComponentContentList(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, type: StringQueryOperatorInput, internalTitle: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContentListSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContentList
   allContentfulComponentContentList(filter: ContentfulComponentContentListFilterInput, sort: [ContentfulComponentContentListSortInput], skip: Int, limit: Int): ContentfulComponentContentListConnection!
+  contentfulMusicPack(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, url: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkUnity: StringQueryOperatorInput, linkUnreal: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkGdm: StringQueryOperatorInput, description: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulMusicPackSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulMusicPack
+  allContentfulMusicPack(filter: ContentfulMusicPackFilterInput, sort: [ContentfulMusicPackSortInput], skip: Int, limit: Int): ContentfulMusicPackConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
 }
@@ -4316,7 +4409,7 @@ input ContentfulSiteGlobalsFilterInput {
   blogPage: ContentfulPageFilterInput
   albumsPage: ContentfulPageFilterInput
   newsletterPage: ContentfulPageFilterInput
-  assetpacksPage: ContentfulPageFilterInput
+  musicpacksPage: ContentfulPageFilterInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
@@ -4796,7 +4889,7 @@ input ContentfulSiteGlobalsFieldSelector {
   blogPage: ContentfulPageFieldSelector
   albumsPage: ContentfulPageFieldSelector
   newsletterPage: ContentfulPageFieldSelector
-  assetpacksPage: ContentfulPageFieldSelector
+  musicpacksPage: ContentfulPageFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
@@ -5218,7 +5311,7 @@ input ContentfulSiteGlobalsSortInput {
   blogPage: ContentfulPageSortInput
   albumsPage: ContentfulPageSortInput
   newsletterPage: ContentfulPageSortInput
-  assetpacksPage: ContentfulPageSortInput
+  musicpacksPage: ContentfulPageSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
@@ -6228,8 +6321,8 @@ input ContentfulAlbumSysContentTypeSysSortInput {
 
 input ContentfulComponentAlbumListSysFilterInput {
   type: StringQueryOperatorInput
-  contentType: ContentfulComponentAlbumListSysContentTypeFilterInput
   revision: IntQueryOperatorInput
+  contentType: ContentfulComponentAlbumListSysContentTypeFilterInput
 }
 
 input ContentfulComponentAlbumListSysContentTypeFilterInput {
@@ -6277,8 +6370,8 @@ input ContentfulComponentAlbumListFieldSelector {
 
 input ContentfulComponentAlbumListSysFieldSelector {
   type: FieldSelectorEnum
-  contentType: ContentfulComponentAlbumListSysContentTypeFieldSelector
   revision: FieldSelectorEnum
+  contentType: ContentfulComponentAlbumListSysContentTypeFieldSelector
 }
 
 input ContentfulComponentAlbumListSysContentTypeFieldSelector {
@@ -6337,8 +6430,8 @@ input ContentfulComponentAlbumListSortInput {
 
 input ContentfulComponentAlbumListSysSortInput {
   type: SortOrderEnum
-  contentType: ContentfulComponentAlbumListSysContentTypeSortInput
   revision: SortOrderEnum
+  contentType: ContentfulComponentAlbumListSysContentTypeSortInput
 }
 
 input ContentfulComponentAlbumListSysContentTypeSortInput {
@@ -7447,6 +7540,10 @@ input ContentfulComponentTestimonialsSysContentTypeSysSortInput {
   id: SortOrderEnum
 }
 
+input ContentfulAssetPackDescriptionFilterInput {
+  raw: StringQueryOperatorInput
+}
+
 input ContentfulAssetPackSysFilterInput {
   type: StringQueryOperatorInput
   contentType: ContentfulAssetPackSysContentTypeFilterInput
@@ -7487,20 +7584,24 @@ input ContentfulAssetPackFieldSelector {
   title: FieldSelectorEnum
   slug: FieldSelectorEnum
   publishedDate: FieldSelectorEnum
-  coverImage: ContentfulAssetFieldSelector
   videoId: FieldSelectorEnum
-  linkUnity: FieldSelectorEnum
-  linkUnreal: FieldSelectorEnum
+  description: ContentfulAssetPackDescriptionFieldSelector
   linkItchio: FieldSelectorEnum
-  linkGdm: FieldSelectorEnum
-  description: RichTextFieldSelector
+  coverImage: ContentfulAssetFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
   sys: ContentfulAssetPackSysFieldSelector
+  linkUnity: FieldSelectorEnum
+  linkUnreal: FieldSelectorEnum
+  linkGdm: FieldSelectorEnum
   parent: NodeFieldSelector
   children: NodeFieldSelector
   internal: InternalFieldSelector
+}
+
+input ContentfulAssetPackDescriptionFieldSelector {
+  raw: FieldSelectorEnum
 }
 
 input ContentfulAssetPackSysFieldSelector {
@@ -7539,17 +7640,17 @@ input ContentfulAssetPackFilterInput {
   title: StringQueryOperatorInput
   slug: StringQueryOperatorInput
   publishedDate: DateQueryOperatorInput
-  coverImage: ContentfulAssetFilterInput
   videoId: StringQueryOperatorInput
-  linkUnity: StringQueryOperatorInput
-  linkUnreal: StringQueryOperatorInput
+  description: ContentfulAssetPackDescriptionFilterInput
   linkItchio: StringQueryOperatorInput
-  linkGdm: StringQueryOperatorInput
-  description: RichTextFilterInput
+  coverImage: ContentfulAssetFilterInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
   sys: ContentfulAssetPackSysFilterInput
+  linkUnity: StringQueryOperatorInput
+  linkUnreal: StringQueryOperatorInput
+  linkGdm: StringQueryOperatorInput
   parent: NodeFilterInput
   children: NodeFilterListInput
   internal: InternalFilterInput
@@ -7562,20 +7663,24 @@ input ContentfulAssetPackSortInput {
   title: SortOrderEnum
   slug: SortOrderEnum
   publishedDate: SortOrderEnum
-  coverImage: ContentfulAssetSortInput
   videoId: SortOrderEnum
-  linkUnity: SortOrderEnum
-  linkUnreal: SortOrderEnum
+  description: ContentfulAssetPackDescriptionSortInput
   linkItchio: SortOrderEnum
-  linkGdm: SortOrderEnum
-  description: RichTextSortInput
+  coverImage: ContentfulAssetSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
   sys: ContentfulAssetPackSysSortInput
+  linkUnity: SortOrderEnum
+  linkUnreal: SortOrderEnum
+  linkGdm: SortOrderEnum
   parent: NodeSortInput
   children: NodeSortInput
   internal: InternalSortInput
+}
+
+input ContentfulAssetPackDescriptionSortInput {
+  raw: SortOrderEnum
 }
 
 input ContentfulAssetPackSysSortInput {
@@ -7595,6 +7700,7 @@ input ContentfulAssetPackSysContentTypeSysSortInput {
 
 input ContentfulComponentContentListSysFilterInput {
   type: StringQueryOperatorInput
+  revision: IntQueryOperatorInput
   contentType: ContentfulComponentContentListSysContentTypeFilterInput
 }
 
@@ -7645,6 +7751,7 @@ input ContentfulComponentContentListFieldSelector {
 
 input ContentfulComponentContentListSysFieldSelector {
   type: FieldSelectorEnum
+  revision: FieldSelectorEnum
   contentType: ContentfulComponentContentListSysContentTypeFieldSelector
 }
 
@@ -7708,6 +7815,7 @@ input ContentfulComponentContentListSortInput {
 
 input ContentfulComponentContentListSysSortInput {
   type: SortOrderEnum
+  revision: SortOrderEnum
   contentType: ContentfulComponentContentListSysContentTypeSortInput
 }
 
@@ -7716,6 +7824,152 @@ input ContentfulComponentContentListSysContentTypeSortInput {
 }
 
 input ContentfulComponentContentListSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
+}
+
+input ContentfulMusicPackSysFilterInput {
+  type: StringQueryOperatorInput
+  contentType: ContentfulMusicPackSysContentTypeFilterInput
+}
+
+input ContentfulMusicPackSysContentTypeFilterInput {
+  sys: ContentfulMusicPackSysContentTypeSysFilterInput
+}
+
+input ContentfulMusicPackSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+type ContentfulMusicPackConnection {
+  totalCount: Int!
+  edges: [ContentfulMusicPackEdge!]!
+  nodes: [ContentfulMusicPack!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulMusicPackFieldSelector!): [String!]!
+  max(field: ContentfulMusicPackFieldSelector!): Float
+  min(field: ContentfulMusicPackFieldSelector!): Float
+  sum(field: ContentfulMusicPackFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulMusicPackFieldSelector!): [ContentfulMusicPackGroupConnection!]!
+}
+
+type ContentfulMusicPackEdge {
+  next: ContentfulMusicPack
+  node: ContentfulMusicPack!
+  previous: ContentfulMusicPack
+}
+
+input ContentfulMusicPackFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  title: FieldSelectorEnum
+  url: FieldSelectorEnum
+  publishedDate: FieldSelectorEnum
+  coverImage: ContentfulAssetFieldSelector
+  videoId: FieldSelectorEnum
+  linkUnity: FieldSelectorEnum
+  linkUnreal: FieldSelectorEnum
+  linkItchio: FieldSelectorEnum
+  linkGdm: FieldSelectorEnum
+  description: RichTextFieldSelector
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulMusicPackSysFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulMusicPackSysFieldSelector {
+  type: FieldSelectorEnum
+  contentType: ContentfulMusicPackSysContentTypeFieldSelector
+}
+
+input ContentfulMusicPackSysContentTypeFieldSelector {
+  sys: ContentfulMusicPackSysContentTypeSysFieldSelector
+}
+
+input ContentfulMusicPackSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
+}
+
+type ContentfulMusicPackGroupConnection {
+  totalCount: Int!
+  edges: [ContentfulMusicPackEdge!]!
+  nodes: [ContentfulMusicPack!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulMusicPackFieldSelector!): [String!]!
+  max(field: ContentfulMusicPackFieldSelector!): Float
+  min(field: ContentfulMusicPackFieldSelector!): Float
+  sum(field: ContentfulMusicPackFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulMusicPackFieldSelector!): [ContentfulMusicPackGroupConnection!]!
+  field: String!
+  fieldValue: String
+}
+
+input ContentfulMusicPackFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  title: StringQueryOperatorInput
+  url: StringQueryOperatorInput
+  publishedDate: DateQueryOperatorInput
+  coverImage: ContentfulAssetFilterInput
+  videoId: StringQueryOperatorInput
+  linkUnity: StringQueryOperatorInput
+  linkUnreal: StringQueryOperatorInput
+  linkItchio: StringQueryOperatorInput
+  linkGdm: StringQueryOperatorInput
+  description: RichTextFilterInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulMusicPackSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulMusicPackSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  title: SortOrderEnum
+  url: SortOrderEnum
+  publishedDate: SortOrderEnum
+  coverImage: ContentfulAssetSortInput
+  videoId: SortOrderEnum
+  linkUnity: SortOrderEnum
+  linkUnreal: SortOrderEnum
+  linkItchio: SortOrderEnum
+  linkGdm: SortOrderEnum
+  description: RichTextSortInput
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulMusicPackSysSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulMusicPackSysSortInput {
+  type: SortOrderEnum
+  contentType: ContentfulMusicPackSysContentTypeSortInput
+}
+
+input ContentfulMusicPackSysContentTypeSortInput {
+  sys: ContentfulMusicPackSysContentTypeSysSortInput
+}
+
+input ContentfulMusicPackSysContentTypeSysSortInput {
   type: SortOrderEnum
   linkType: SortOrderEnum
   id: SortOrderEnum
