@@ -47,69 +47,79 @@
         display: block;
     }
 
-    .album-channels {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        gap: 0.3em;
-        background-color: white;
-        border-radius: var(--bs-border-radius);
-        padding: 0.3em;
-        margin-top: 0.5em;
-
+    .pack-channels {
         span {
             font-size: 0.8em;
             font-weight: bold;
+            display: inline-block;
         }
-
-        i {
-            margin: 0 0.2em;
-
-            @media only screen and (min-width: 480px) {
-                margin: 0 0.5em;
-            }
-        }
-
-        i.fa-gdm {
-            --fa: '\25A0';
-            background-color: var(--bs-light);
-            mask-image: url('/img/gdm.webp');
-            mask-repeat: no-repeat;
-            mask-position: center;
-            mask-size: contain;
-            color: transparent;
-        }
-
-        a i.fa-gdm {
-            background-color: var(--bs-secondary);
-        }
-
-        a:hover i.fa-gdm {
-            background-color: var(--bs-hover);
-        }
-
-
 
         ul {
-            display: inline-flex;
+            display: flex;
             list-style-type: none;
             margin: 0;
             padding: 0;
             font-size: 1.2em;
+            align-items: stretch;
+            gap: 0.3em;
+            margin-top: 0.5em;
         }
 
         li {
             color: var(--bs-light);
+            border-radius: var(--bs-border-radius);
+            width: 25%;
 
-            span {
-                visibility: hidden;
-                position: absolute;
-                width: 0;
-                height: 0;
-                clip: rect(0, 0, 0, 0);
-                overflow: hidden;
+            a {
+                display: block;
+                padding: 0.5em;
+                border-radius: var(--bs-border-radius);
+                border: 1px solid transparent;
+                opacity: 0.2;
+            }
+
+            a[href] {
+                border-color: var(--bs-gray-500);
+                background-color: var(--bs-gray-200);
+                opacity: 1;
+
+                &:active,
+                &:hover {
+                    border-color: var(--bs-primary);
+                    background-color: var(--bs-gray-300);
+                }
+            }
+
+
+            i {
+                display: block;
+                height: 50px;
+                background-size: contain;
+                background-position: center center;
+                background-repeat: no-repeat;
+                color: transparent;
+                font-size: 0px;
+                text-indent: -9999px;
+            }
+
+            .store-unity {
+                background-image: url("/img/unity.png");
+            }
+
+            .store-fab {
+                background-image: url("/img/fab.svg");
+            }
+
+            .store-itch {
+                background-image: url("/img/itchio.svg");
+            }
+
+            .store-gdm {
+                background-image: url("/img/gdm.png");
             }
         }
+
+
     }
 
     .card-body p:last-child {
