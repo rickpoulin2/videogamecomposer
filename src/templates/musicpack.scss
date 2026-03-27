@@ -8,11 +8,11 @@
         @media only screen and (min-width:768px) {
             .container {
                 background-color: transparent;
-                margin-left: calc(30% + var(--bs-gutter-x));
             }
 
             .container>div {
                 max-width: 70%;
+                margin-left: calc(30%);
             }
 
             .container::before,
