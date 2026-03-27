@@ -44,12 +44,12 @@ const VideoWidget = ({ videoId, title, placeholderImage, opts }) => {
 
     return (
         <div className={styles}>
-            <div className="vidplaceholder">
+            <button className="vidplaceholder btn" onClick={play}>
                 {img}
-                <Button variant="secondary" onClick={play}>
-                    <i className="fas fa-play"></i>
+                <Button as="div" variant="secondary">
+                    <i className="fas fa-headphones"></i>
                 </Button>
-            </div>
+            </button>
             <YouTube videoId={videoId} title={title} onReady={videoReady} opts={vidOpts} onPause={stop} onEnd={stop} />
         </div>
     )
