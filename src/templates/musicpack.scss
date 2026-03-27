@@ -12,12 +12,13 @@
 
             .container>div {
                 max-width: 70%;
-                margin-left: calc(30%);
+                margin-left: 30%;
             }
 
             .container::before,
             .container::after {
                 width: calc(70% - 2px);
+                margin-left: 30%;
             }
         }
     }
