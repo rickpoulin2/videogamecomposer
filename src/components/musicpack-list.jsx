@@ -44,13 +44,13 @@ const MusicPackList = ({ activeItem = "" }) => {
   }
 
   return (
-    <>
+    <div className="side-menu">
       <h2>Available music packs</h2>
       {error}
       <ul>
         {navEntries}
       </ul>
-    </>
+    </div>
   )
 }
 
