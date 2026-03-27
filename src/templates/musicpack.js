@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
-import { Col, Row } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 //import readingTime from 'reading-time'
 import get from 'lodash/get'
 

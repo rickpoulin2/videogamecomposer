@@ -6,21 +6,19 @@
     .card-header {
         background-color: var(--bs-light);
         border-radius: var(--bs-card-inner-border-radius) 0 0 0;
+        display: flex;
+        align-items: baseline;
+
+        h2 {
+            flex-grow: 1;
+            margin: 0;
+        }
 
         .card-subtitle {
-            margin-bottom: 0.5em;
+            width: fit-content;
 
             span {
                 display: inline-block;
-            }
-
-            span:nth-child(2)::before {
-                content: 'X';
-                padding: 0 0.5em;
-            }
-
-            span:nth-child(3) {
-                display: block;
             }
         }
 
@@ -31,20 +29,6 @@
         a:hover {
             color: var(--bs-hover);
         }
-    }
-
-    .gatsby-image-wrapper {
-        grid-row: 1 / span 2;
-        border-radius: var(--bs-border-radius);
-        width: 10em;
-        box-shadow: 0 0 5px 1px white;
-    }
-
-    iframe {
-        margin-top: var(--bs-card-spacer-y);
-        width: 100%;
-        aspect-ratio: 16/9;
-        display: block;
     }
 
     .pack-channels {
@@ -66,15 +50,11 @@
         }
 
         li {
-            color: var(--bs-light);
-            border-radius: var(--bs-border-radius);
             width: 25%;
 
             a {
                 display: block;
                 padding: 0.5em;
-                border-radius: var(--bs-border-radius);
-                border: 1px solid transparent;
                 opacity: 0.2;
             }
 
@@ -124,57 +104,5 @@
 
     .card-body p:last-child {
         margin-bottom: 0;
-    }
-
-    @media only screen and (min-width: 360px) {
-        .card-header {
-            .album-channels {
-                gap: 1em;
-                padding: 0.3em 1em;
-
-                ul {
-                    font-size: 1.5em;
-                }
-            }
-        }
-    }
-
-    @media only screen and (min-width: 768px) {
-        iframe {
-            aspect-ratio: 1;
-            border-radius: 0 var(--bs-card-inner-border-radius) 0 0;
-        }
-    }
-
-    @media only screen and (min-width: 768px) and (max-width: 991px) {
-        .card-aside {
-            border-radius: 0 var(--bs-card-inner-border-radius) 0 0;
-            border-bottom: 1px solid var(--bs-card-border-color);
-            background-color: var(--bs-light);
-        }
-    }
-
-    @media only screen and (min-width: 992px) {
-        .card-header {
-
-            .card-subtitle {
-                span {
-                    display: inline-block !important;
-                }
-
-                span+span::before {
-                    content: '\25A0';
-                    padding: 0 0.5em;
-                }
-            }
-        }
-
-        iframe {
-            border-radius: 0 var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0;
-        }
-
-        .card-body {
-            grid-column: auto;
-        }
     }
 }

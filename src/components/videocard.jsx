@@ -3,9 +3,9 @@ import { graphql } from 'gatsby'
 import { getSrc } from 'gatsby-plugin-image'
 import { Card } from 'react-bootstrap'
 
-import './video.scss'
+import './videocard.scss'
 
-const Video = ({ obj }) => {
+const VideoCard = ({ obj }) => {
   if (obj == null)
     return
   if (obj.title == null || obj.cardType == null || obj.videoId == null)
@@ -42,7 +42,7 @@ const Video = ({ obj }) => {
   )
 }
 
-export default Video
+export default VideoCard
 
 export const query = graphql`
   fragment ContentfulComponentVideo on ContentfulComponentVideo {

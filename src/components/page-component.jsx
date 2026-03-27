@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Hero from '../components/hero'
 import Text from '../components/text'
-import Video from '../components/video'
+import VideoCard from '../components/videocard'
 import ButtonBanner from '../components/button-banner'
 import ContentCard from '../components/content-card'
 import AlbumList from './album-list'
@@ -28,7 +28,7 @@ const PageComponent = ({ obj }) => {
     if (type === 'ContentfulComponentText')
         return <Text obj={obj} />
     if (type === 'ContentfulComponentVideo')
-        return <Video obj={obj} />
+        return <VideoCard obj={obj} />
     if (type === 'ContentfulComponentButtonBanner')
         return <ButtonBanner obj={obj} />
     if (type === 'ContentfulComponentContentCard')

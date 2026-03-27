@@ -301,8 +301,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             url: {ne:null},
             title: {ne:null},
             description: { raw: {ne:null} },
-            publishedDate: {ne:null},
-            coverImage: { contentful_id: {ne:null} }
+            publishedDate: {ne:null}
           }) {
         nodes {
           id

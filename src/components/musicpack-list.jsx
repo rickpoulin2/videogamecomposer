@@ -1,7 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import { Accordion } from 'react-bootstrap'
-import Scrollspy from 'react-scrollspy'
 import EntryLink from './entry-link'
 
 import './side-nav.scss'
@@ -17,7 +16,6 @@ const MusicPackList = ({ obj }) => {
             title: {ne:null},
             url: {ne:null},
             publishedDate: {ne:null},
-            coverImage: { contentful_id: {ne:null} },
             videoId: {ne:null},
             description: { raw: {ne:null} }
         }) {

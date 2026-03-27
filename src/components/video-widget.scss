@@ -1,0 +1,41 @@
+.video-widget {
+    margin-bottom: 1em;
+
+    .vidplaceholder,
+    .gatsby-image-wrapper,
+    .vidplaceholder>img,
+    iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        display: block;
+    }
+
+    .vidplaceholder {
+        position: relative;
+
+        >img {
+            object-fit: cover;
+        }
+
+        .btn {
+            position: absolute;
+            bottom: 1em;
+            right: 1em;
+            box-shadow: 0 0 1px 2px white;
+        }
+    }
+
+    iframe {
+        display: none;
+    }
+
+    &.playing {
+        .vidplaceholder {
+            display: none;
+        }
+
+        iframe {
+            display: block;
+        }
+    }
+}
