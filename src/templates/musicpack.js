@@ -13,31 +13,33 @@ import Section from '../components/section'
 import MusicPackCard from '../components/musicpack-card'
 import MusicPackList from '../components/musicpack-list'
 
-class NewsletterTemplate extends React.Component {
+class MusicPackTemplate extends React.Component {
   render() {
     const pageData = this.props.data.contentfulMusicPack
 
     return (
       <AppContext.Provider value={this.props.pageContext}>
         <PageTitle title="Music Packs" asText={true} />
-        <Section styles="nobg side-nav">
-          <div className="box-flair">
-            <div>
-              <MusicPackList />
+        <div className="page-reorder">
+          <Section as="article" styles="packs wnav">
+            <Col>
+              <MusicPackCard obj={pageData} />
+            </Col>
+          </Section>
+          <Section as="aside" styles="nobg side-nav left">
+            <div className="box-flair">
+              <div>
+                <MusicPackList activeItem={pageData.id} />
+              </div>
             </div>
-          </div>
-        </Section>
-        <Section as="article" styles="packs wnav">
-          <Col>
-            <MusicPackCard obj={pageData} />
-          </Col>
-        </Section>
+          </Section>
+        </div>
       </AppContext.Provider>
     )
   }
 }
 
-export default NewsletterTemplate
+export default MusicPackTemplate
 
 export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
 

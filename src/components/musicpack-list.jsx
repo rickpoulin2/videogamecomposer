@@ -6,7 +6,7 @@ import EntryLink from './entry-link'
 import './side-nav.scss'
 import './musicpack-list.scss'
 
-const MusicPackList = ({ obj }) => {
+const MusicPackList = ({ activeItem = "" }) => {
   const packsData = useStaticQuery(
     graphql`
       query AllMusicPacks {
@@ -31,7 +31,7 @@ const MusicPackList = ({ obj }) => {
   let navEntries = packsData.data?.nodes?.map((i) => {
     anchors.push(`entry${i.tag}`)
     return <li>
-      <EntryLink type="ContentfulMusicPack" slug={i.url}>
+      <EntryLink type="ContentfulMusicPack" slug={i.url} activeClass="active">
         <span>{i.title}</span>
       </EntryLink>
     </li>
@@ -45,18 +45,11 @@ const MusicPackList = ({ obj }) => {
 
   return (
     <>
+      <h2>Available music packs</h2>
       {error}
-
-      <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header><h2>See also</h2></Accordion.Header>
-          <Accordion.Body>
-            <ul>
-              {navEntries}
-            </ul>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
+      <ul>
+        {navEntries}
+      </ul>
     </>
   )
 }
