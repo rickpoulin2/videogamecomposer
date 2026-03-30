@@ -51,7 +51,7 @@ class NewsletterTemplate extends React.Component {
 
 export default NewsletterTemplate
 
-export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
+export const Head = ({ data }) => <Seo title={get(data, 'contentfulNewsletter.heading')} />
 
 export const pageQuery = graphql`
   query NewsletterBySlug(

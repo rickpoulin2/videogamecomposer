@@ -41,7 +41,7 @@ class MusicPackTemplate extends React.Component {
 
 export default MusicPackTemplate
 
-export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
+export const Head = ({ data }) => <Seo title={get(data, 'contentfulMusicPack.title')} />
 
 export const pageQuery = graphql`
   query MusicPackBySlug(
@@ -49,6 +49,7 @@ export const pageQuery = graphql`
   ) {
     contentfulMusicPack(url: { eq: $slug }) {
       id
+      title
       ...ContentfulMusicPack
     }
   }
