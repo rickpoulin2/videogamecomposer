@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Accordion } from 'react-bootstrap'
+import { navigate } from 'gatsby'
+import AppContext from './app-context'
 import EntryLink from './entry-link'
 
 import './side-nav.scss'
 import './musicpack-list.scss'
 
-const MusicPackList = ({ activeItem = "" }) => {
+const MusicPackList = ({ obj, asSidebar = false }) => {
+  const linkSlugs = useContext(AppContext).linkSlugs
   const packsData = useStaticQuery(
     graphql`
       query AllMusicPacks {
@@ -27,10 +29,8 @@ const MusicPackList = ({ activeItem = "" }) => {
         }
       }`)
 
-  const anchors = []
   let navEntries = packsData.data?.nodes?.map((i) => {
-    anchors.push(`entry${i.tag}`)
-    return <li>
+    return <li key={i.id}>
       <EntryLink type="ContentfulMusicPack" slug={i.url} activeClass="active">
         <span>{i.title}</span>
       </EntryLink>
@@ -42,9 +42,16 @@ const MusicPackList = ({ activeItem = "" }) => {
     error =
       <p>Nothing here yet! Check back again soon.</p>
   }
+  useEffect(() => {
+    if (!asSidebar) {
+      let slug = packsData.data?.nodes[0]?.url
+      console.log('meow', `/${linkSlugs.musicpacksPage}/${slug}`)
+      navigate(`/${linkSlugs.musicpacksPage}/${slug}`)
+    }
+  })
 
   return (
-    <div className="side-menu">
+    <div className="musicpack-list side-menu">
       <h2>Available music packs</h2>
       {error}
       <ul>

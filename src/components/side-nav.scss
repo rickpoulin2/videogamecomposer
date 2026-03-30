@@ -55,44 +55,46 @@ aside.side-nav {
         padding-left: calc(.5 * var(--bs-gutter-x));
         padding-right: calc(.5 * var(--bs-gutter-x));
     }
+}
 
-    ul {
-        margin-bottom: 0;
-        padding-left: 0;
-        list-style-type: none;
+section.side-nav ul,
+aside.side-nav ul,
+.side-menu ul {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style-type: none;
 
-        li {
-            transition: font-weight 0.5s ease-in-out;
-            margin-bottom: 0.5em;
+    li {
+        transition: font-weight 0.5s ease-in-out;
+        margin-bottom: 0.5em;
 
-            a {
-                display: grid;
-                border-radius: var(--bs-border-radius);
-                background-color: var(--bs-gray-200);
-                text-decoration: none;
-            }
+        a {
+            display: grid;
+            border-radius: var(--bs-border-radius);
+            background-color: var(--bs-gray-200);
+            text-decoration: none;
         }
+    }
 
-        li.active a,
-        li a.active {
-            background-color: var(--bs-gray-400);
-        }
+    li.active a,
+    li a.active {
+        background-color: var(--bs-gray-400);
+    }
 
-        li,
-        li.active {
-            a:hover span.badge {
-                background-color: var(--bs-secondary-hover);
-            }
+    li,
+    li.active {
+        a:hover span.badge {
+            background-color: var(--bs-secondary-hover);
         }
+    }
 
-        span {
-            padding: 1em;
-        }
+    span {
+        padding: 1em;
     }
 
 
     @media only screen and (min-width: 768px) and (max-width:992px) {
-        ul li {
+        li {
             a span.badge {
                 padding-left: 1.5em;
             }
@@ -100,7 +102,7 @@ aside.side-nav {
     }
 
     @media only screen and (min-width: 768px) and (max-width:1199px) {
-        ul li {
+        li {
             a {
                 grid-template-columns: auto;
             }

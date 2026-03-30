@@ -29,7 +29,7 @@ class MusicPackTemplate extends React.Component {
           <Section as="aside" styles="nobg side-nav left">
             <div className="box-flair">
               <div>
-                <MusicPackList activeItem={pageData.id} />
+                <MusicPackList activeItem={pageData.id} asSidebar={true} />
               </div>
             </div>
           </Section>
