@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { getSrc } from 'gatsby-plugin-image'
 import { Card } from 'react-bootstrap'
+import VideoWidget from './video-widget'
 
 import './videocard.scss'
 
@@ -34,7 +35,7 @@ const VideoCard = ({ obj }) => {
       <Card className={cardClass} style={cardStyles}>
         <Card.Body>
           <div>
-            {embed}
+            <VideoWidget videoId={obj.videoId} placeholderImage={obj.coverImage} title={obj.title} />
           </div>
         </Card.Body>
       </Card>

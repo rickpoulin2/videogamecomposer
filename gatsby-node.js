@@ -93,6 +93,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     cardType: String
     videoId: String
     backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
+    coverImage: ContentfulAsset @link(from: "coverImage___NODE")
   }
   type ContentfulComponentButtonBanner implements ContentfulEntry {
     title: String!

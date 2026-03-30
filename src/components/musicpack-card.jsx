@@ -37,7 +37,7 @@ const MusicPackCard = ({ obj }) => {
         </Card.Subtitle>
       </Card.Header>
       <Card.Body>
-        <VideoWidget videoId={obj.videoId} placeholderImage={obj.coverImage} obj={{ title: obj.title, cardType: "no-border", videoId: obj.videoId }} />
+        <VideoWidget videoId={obj.videoId} placeholderImage={obj.coverImage} title={obj.title} />
         <RichText data={obj.description} />
       </Card.Body>
       <Card.Footer>

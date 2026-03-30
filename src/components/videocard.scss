@@ -2,21 +2,19 @@
   background-size: cover;
   margin-bottom: 2em;
 
+  .card-body>div {
+    display: flex;
+    justify-content: center;
+  }
+
   &.no-border {
     border-color: transparent !important;
   }
 
-  div {
-    text-align: center;
-    padding: 1em;
-
-    @media only screen and (min-width:768px) and (max-width: 991px) {}
-  }
-
-  iframe {
+  .video-widget {
     width: 100%;
     max-width: 500px;
-    aspect-ratio: 16/9;
+    margin-bottom: 0;
   }
 
 }
