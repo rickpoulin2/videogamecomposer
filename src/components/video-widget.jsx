@@ -44,7 +44,7 @@ const VideoWidget = ({ videoId, title, placeholderImage, opts }) => {
 
     return (
         <div className={styles}>
-            <button className="vidplaceholder btn" onClick={play}>
+            <button className="vidplaceholder" onClick={play}>
                 {img}
                 <Button as="div" variant="secondary">
                     <i className="fas fa-headphones"></i>
