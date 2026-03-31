@@ -43,7 +43,7 @@ const MusicPackList = ({ obj, asSidebar = false }) => {
       <p>Nothing here yet! Check back again soon.</p>
   }
   useEffect(() => {
-    if (!asSidebar) {
+    if (!asSidebar && packsData.data?.nodes?.length > 0) {
       let slug = packsData.data?.nodes[0]?.url
       console.log('meow', `/${linkSlugs.musicpacksPage}/${slug}`)
       navigate(`/${linkSlugs.musicpacksPage}/${slug}`)
