@@ -13,18 +13,14 @@ const VideoCard = ({ obj }) => {
     return
 
   const styles = "videocard " + (obj.styles ? obj.styles : "")
-  const videoSrc = "https://www.youtube.com/embed/" + obj.videoId
   const cardStyles = obj.backgroundImage?.gatsbyImageData ? { backgroundImage: `url(${getSrc(obj.backgroundImage.gatsbyImageData)})` } : {}
   const cardClass = obj.cardType === "no-border" ? "no-border" : "text-bg-" + obj.cardType
-  const embed = (<iframe src={videoSrc} title={obj.title}
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>)
 
   if (obj.cardType === "none") {
     return (
       <div className={styles}>
         <div style={cardStyles}>
-          {embed}
+          <VideoWidget videoId={obj.videoId} placeholderImage={obj.coverImage} title={obj.title} />
         </div>
       </div>
     )
