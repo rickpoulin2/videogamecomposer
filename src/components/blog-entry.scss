@@ -27,6 +27,12 @@ article.blog {
 
   .blog-entry {
     margin-bottom: 2em;
+
+    @media only screen and (max-width: 400px) {
+      a {
+        word-break: break-all;
+      }
+    }
   }
 
   .blog-heading {
