@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Accordion } from 'react-bootstrap'
-import Scrollspy from 'react-scrollspy'
+import { navigate } from 'gatsby'
+import AppContext from './app-context'
 import EntryLink from './entry-link'
 
 import './side-nav.scss'
 import './musicpack-list.scss'
 
-const MusicPackList = ({ obj }) => {
+const MusicPackList = ({ obj, asSidebar = false }) => {
+  const linkSlugs = useContext(AppContext).linkSlugs
   const packsData = useStaticQuery(
     graphql`
       query AllMusicPacks {
@@ -17,7 +18,6 @@ const MusicPackList = ({ obj }) => {
             title: {ne:null},
             url: {ne:null},
             publishedDate: {ne:null},
-            coverImage: { contentful_id: {ne:null} },
             videoId: {ne:null},
             description: { raw: {ne:null} }
         }) {
@@ -29,11 +29,9 @@ const MusicPackList = ({ obj }) => {
         }
       }`)
 
-  const anchors = []
   let navEntries = packsData.data?.nodes?.map((i) => {
-    anchors.push(`entry${i.tag}`)
-    return <li>
-      <EntryLink type="ContentfulMusicPack" slug={i.url}>
+    return <li key={i.id}>
+      <EntryLink type="ContentfulMusicPack" slug={i.url} activeClass="active">
         <span>{i.title}</span>
       </EntryLink>
     </li>
@@ -44,22 +42,22 @@ const MusicPackList = ({ obj }) => {
     error =
       <p>Nothing here yet! Check back again soon.</p>
   }
+  useEffect(() => {
+    if (!asSidebar) {
+      let slug = packsData.data?.nodes[0]?.url
+      console.log('meow', `/${linkSlugs.musicpacksPage}/${slug}`)
+      navigate(`/${linkSlugs.musicpacksPage}/${slug}`)
+    }
+  })
 
   return (
-    <>
+    <div className="musicpack-list side-menu">
+      <h2>Available music packs</h2>
       {error}
-
-      <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header><h2>See also</h2></Accordion.Header>
-          <Accordion.Body>
-            <ul>
-              {navEntries}
-            </ul>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
-    </>
+      <ul>
+        {navEntries}
+      </ul>
+    </div>
   )
 }
 

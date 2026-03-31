@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import { OutboundLink } from 'gatsby-plugin-google-gtag'
-import { Card, Button, Collapse } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import RichText from './richtext'
+import VideoWidget from './video-widget'
 
 import './musicpack-card.scss'
-import Video from './video'
 
 const CHANNELS = [
-  { title: "Unity", icon: "unity", fieldname: "Unity" },
-  { title: "Unreal Engine", icon: "unreal-engine", fieldname: "Unreal" },
-  { title: "itch.io", icon: "itch-io", fieldname: "Itchio" },
-  { title: "GameDev Market", icon: "gdm", fieldname: "Gdm" }
+  { title: "Unity Asset Store", clz: "store-unity", fieldname: "Unity" },
+  { title: "Fab (Unreal Engine Marketplace)", clz: "store-fab", fieldname: "Unreal" },
+  { title: "itch.io", clz: "store-itch", fieldname: "Itchio" },
+  { title: "GameDev Market", clz: "store-gdm", fieldname: "Gdm" }
 ]
 
 const MusicPackCard = ({ obj }) => {
@@ -21,15 +20,12 @@ const MusicPackCard = ({ obj }) => {
   if (obj.title == null || obj.url == null || obj.videoId == null || obj.description == null)
     return
 
-  const channelLinks = CHANNELS.map(({ title, icon, fieldname }) => {
+  const channelLinks = CHANNELS.map(({ title, clz, fieldname }) => {
     let href = obj["link" + fieldname]
-    if ((href == null || href === "") && fieldname === "YouTube") {
-      href = "https://youtube.com/watch?v=" + obj.videoId
-    }
     return (href == null || href === "") ?
-      (<li key={fieldname}><span>Not available on {title}</span><i className={"fab fa-" + icon}></i></li>)
+      (<li key={fieldname}><a className="inactive"><i className={clz}>Not available on {title}</i></a></li>)
       :
-      (<li key={fieldname}><OutboundLink href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={"fab fa-" + icon}></i></OutboundLink></li>)
+      (<li key={fieldname}><OutboundLink className="btn" href={href} title={title} aria-label={title} target="_blank" rel="noreferrer"><i className={clz}>{title}</i></OutboundLink></li>)
   })
 
   return (
@@ -41,13 +37,12 @@ const MusicPackCard = ({ obj }) => {
         </Card.Subtitle>
       </Card.Header>
       <Card.Body>
-        <Video obj={{ title: obj.title, cardType: "no-border", videoId: obj.videoId }} />
-        <GatsbyImage image={obj.coverImage.gatsbyImageData} alt={obj.coverImage.description} />
+        <VideoWidget videoId={obj.videoId} placeholderImage={obj.coverImage} title={obj.title} />
         <RichText data={obj.description} />
       </Card.Body>
       <Card.Footer>
-        <div className="album-channels">
-          <span>Find on:</span>
+        <div className="pack-channels">
+          <span>Available on your favourite marketplace</span>
           <ul>
             {channelLinks}
           </ul>
@@ -67,7 +62,7 @@ export const query = graphql`
     tag: publishedDate(formatString: "YYYYMMDD")
     coverImage {
       description
-      gatsbyImageData(width: 300)
+      gatsbyImageData(width: 640)
     }
     videoId
     linkUnity

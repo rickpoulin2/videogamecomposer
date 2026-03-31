@@ -32,14 +32,6 @@
 
   @media only screen and (min-width: 768px) {
     li.active {
-      a {
-        background-color: var(--bs-gray-300);
-      }
-
-      a span:not(.badge) {
-        border-color: rgba(var(--bs-secondary-rgb), 0.5);
-      }
-
       a span.badge {
         background-color: var(--bs-secondary-active);
       }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
-import { Col, Row } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 //import readingTime from 'reading-time'
 import get from 'lodash/get'
 
@@ -14,33 +13,35 @@ import Section from '../components/section'
 import MusicPackCard from '../components/musicpack-card'
 import MusicPackList from '../components/musicpack-list'
 
-class NewsletterTemplate extends React.Component {
+class MusicPackTemplate extends React.Component {
   render() {
     const pageData = this.props.data.contentfulMusicPack
 
     return (
       <AppContext.Provider value={this.props.pageContext}>
         <PageTitle title="Music Packs" asText={true} />
-        <Section styles="nobg side-nav">
-          <div className="box-flair">
-            <div>
-              <MusicPackList />
+        <div className="page-reorder">
+          <Section as="article" styles="packs wnav">
+            <Col>
+              <MusicPackCard obj={pageData} />
+            </Col>
+          </Section>
+          <Section as="aside" styles="nobg side-nav left">
+            <div className="box-flair">
+              <div>
+                <MusicPackList activeItem={pageData.id} asSidebar={true} />
+              </div>
             </div>
-          </div>
-        </Section>
-        <Section as="article" styles="packs wnav">
-          <Col>
-            <MusicPackCard obj={pageData} />
-          </Col>
-        </Section>
+          </Section>
+        </div>
       </AppContext.Provider>
     )
   }
 }
 
-export default NewsletterTemplate
+export default MusicPackTemplate
 
-export const Head = ({ data }) => <Seo title={get(data, 'contentfulPage.title')} />
+export const Head = ({ data }) => <Seo title={get(data, 'contentfulMusicPack.title')} />
 
 export const pageQuery = graphql`
   query MusicPackBySlug(
@@ -48,6 +49,7 @@ export const pageQuery = graphql`
   ) {
     contentfulMusicPack(url: { eq: $slug }) {
       id
+      title
       ...ContentfulMusicPack
     }
   }

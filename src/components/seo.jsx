@@ -14,9 +14,6 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
         siteIcon {
           gatsbyImageData(layout:FIXED)
         }
-        siteBackground {
-          gatsbyImageData(layout:FIXED)
-        }
       }
     }
   }`
@@ -31,7 +28,6 @@ const Seo = ({ children, description = '', lang = 'en', meta = [], title }) => {
   return (
     <>
       <html lang={lang} />
-      <body style={{ backgroundImage: `url(${getSrc(siteData.siteBackground)})` }} />
       <title>{siteTitle}</title>
       <meta name="description" content={description} />
       <meta name="image" content={image} />

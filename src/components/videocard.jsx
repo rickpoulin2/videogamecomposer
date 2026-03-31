@@ -2,28 +2,25 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { getSrc } from 'gatsby-plugin-image'
 import { Card } from 'react-bootstrap'
+import VideoWidget from './video-widget'
 
-import './video.scss'
+import './videocard.scss'
 
-const Video = ({ obj }) => {
+const VideoCard = ({ obj }) => {
   if (obj == null)
     return
   if (obj.title == null || obj.cardType == null || obj.videoId == null)
     return
 
   const styles = "videocard " + (obj.styles ? obj.styles : "")
-  const videoSrc = "https://www.youtube.com/embed/" + obj.videoId
   const cardStyles = obj.backgroundImage?.gatsbyImageData ? { backgroundImage: `url(${getSrc(obj.backgroundImage.gatsbyImageData)})` } : {}
   const cardClass = obj.cardType === "no-border" ? "no-border" : "text-bg-" + obj.cardType
-  const embed = (<iframe src={videoSrc} title={obj.title}
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen enablejsapi="1"></iframe>)
 
   if (obj.cardType === "none") {
     return (
       <div className={styles}>
         <div style={cardStyles}>
-          {embed}
+          <VideoWidget videoId={obj.videoId} placeholderImage={obj.coverImage} title={obj.title} />
         </div>
       </div>
     )
@@ -34,7 +31,7 @@ const Video = ({ obj }) => {
       <Card className={cardClass} style={cardStyles}>
         <Card.Body>
           <div>
-            {embed}
+            <VideoWidget videoId={obj.videoId} placeholderImage={obj.coverImage} title={obj.title} />
           </div>
         </Card.Body>
       </Card>
@@ -42,7 +39,7 @@ const Video = ({ obj }) => {
   )
 }
 
-export default Video
+export default VideoCard
 
 export const query = graphql`
   fragment ContentfulComponentVideo on ContentfulComponentVideo {

@@ -1,0 +1,40 @@
+.packs {
+
+    .container .col {
+        max-width: 900px;
+    }
+
+    &.wnav {
+        @media only screen and (min-width:768px) {
+            .container {
+                background-color: transparent;
+            }
+
+            .container>div {
+                max-width: 70%;
+                margin-left: 30%;
+            }
+
+            .container::before,
+            .container::after {
+                width: calc(70% - 2px);
+                margin-left: 30%;
+            }
+        }
+    }
+
+    .row {
+        justify-content: center;
+    }
+}
+
+.page-reorder {
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) {
+    .side-nav {
+        order: -1;
+    }
+}

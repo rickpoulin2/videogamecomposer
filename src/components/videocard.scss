@@ -1,0 +1,20 @@
+.videocard>div {
+  background-size: cover;
+  margin-bottom: 2em;
+
+  .card-body>div {
+    display: flex;
+    justify-content: center;
+  }
+
+  &.no-border {
+    border-color: transparent !important;
+  }
+
+  .video-widget {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 0;
+  }
+
+}

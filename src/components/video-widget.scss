@@ -1,0 +1,61 @@
+.video-widget {
+    margin-bottom: 1em;
+
+    .vidplaceholder,
+    .gatsby-image-wrapper,
+    .vidplaceholder>img,
+    iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        height: auto;
+        display: block;
+    }
+
+    .vidplaceholder {
+        position: relative;
+        padding: 0;
+        border: 0 none transparent;
+
+        >img {
+            object-fit: cover;
+        }
+
+        .btn {
+            position: absolute;
+            bottom: 1em;
+            right: 1em;
+            box-shadow: 0 0 1px 4px white;
+
+            @media only screen and (min-width: 768px) {
+                font-size: 2em;
+                top: 50%;
+                left: 50%;
+                bottom: auto;
+                right: auto;
+                transform: translateX(-50%) translateY(-50%);
+            }
+        }
+
+        &:hover,
+        &:active {
+            .btn {
+                border-color: var(--bs-hover);
+                background-color: var(--bs-hover);
+            }
+        }
+    }
+
+    iframe {
+        display: none;
+    }
+
+    &.playing {
+        .vidplaceholder {
+            display: none;
+        }
+
+        iframe {
+            display: block;
+        }
+    }
+}
