@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { getSrc } from 'gatsby-plugin-image'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './variables.scss'
 import './global.scss'
@@ -17,16 +18,20 @@ const Layout = (props) => {
           nodes {
             ... Header
             ... Footer
+            siteBackground {
+              gatsbyImageData(layout:FIXED)
+            }
           }
         }
         siteBuildMetadata {
           buildTime
         }
       }`)
-  const siteData = allContentfulSiteGlobals?.nodes[0];
+  const siteData = allContentfulSiteGlobals?.nodes[0]
 
   return (
     <>
+      <img className="sitebg" src={getSrc(siteData.siteBackground)} alt={siteData.siteBackground.description} />
       <Header navItems={siteData?.headerNavigation}
         siteLogo={siteData?.siteLogo}
         siteHeadingStart={siteData?.siteHeadingStart}

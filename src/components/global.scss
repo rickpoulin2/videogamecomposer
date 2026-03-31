@@ -119,12 +119,17 @@ body {
 }
 
 body {
-  background-color: var(--bs-primary);
-  background-position: center;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
   background-color: var(--bs-light);
+}
+
+.sitebg {
+  position: fixed;
+  z-index: 0;
+  bottom: 0;
+  right: 0;
+  width: 100lvw;
+  height: 100lvh;
+  object-fit: cover;
 }
 
 main {
