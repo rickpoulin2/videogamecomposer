@@ -50,5 +50,8 @@ export const query = graphql`
     backgroundImage {
       gatsbyImageData
     }
+    coverImage {
+      gatsbyImageData
+    }
   }
 `
