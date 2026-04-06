@@ -50,6 +50,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     title: String!
     publishedDate: Date @dateformat(formatString: "YYYY-MM-DD")
     content: RichText!
+    buttons: [ContentfulLink] @link(from: "buttons___NODE")
   }
   type ContentfulNewsletter implements ContentfulEntry {
     heading: String!

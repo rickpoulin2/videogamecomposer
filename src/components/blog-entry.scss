@@ -54,6 +54,23 @@ article.blog {
     }
   }
 
+  .ctas {
+    .btn {
+      width: 100%;
+    }
+
+    @media only screen and (min-width: 576px) {
+      .btn {
+        width: auto;
+      }
+    }
+  }
+
+  .btn {
+    margin-right: 0.5em;
+    margin-bottom: 0.25em;
+  }
+
   .top-link {
     text-align: right;
     font-size: 0.8em;

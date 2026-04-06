@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { Col } from 'react-bootstrap'
 import MyLink from './mylink'
 import RichText from './richtext'
-import Section from './section';
+import Section from './section'
 
 import './hero.scss'
 
@@ -15,10 +15,10 @@ const Hero = ({ obj }) => {
   const heading = obj.heading ? <h1>{obj.heading}</h1> : ''
   const image = obj.portraitImage?.gatsbyImageData
   const buttons = obj.buttons?.map((btn, i, arr) => {
-    const cl = 'btn btn-lg ' + (i === arr.length - 1 ? 'btn-secondary' : 'btn-outline-secondary');
+    const cl = 'btn btn-lg ' + (i === arr.length - 1 ? 'btn-secondary' : 'btn-outline-secondary')
     return <MyLink key={btn.id} obj={btn} addClasses={cl} />
-  });
-  const styles = "hero nobg " + (obj.styles ? obj.styles : "");
+  })
+  const styles = "hero nobg " + (obj.styles ? obj.styles : "")
 
   return (
     <Section styles={styles}>
