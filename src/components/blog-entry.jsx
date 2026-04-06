@@ -5,6 +5,7 @@ import Scrollspy from 'react-scrollspy'
 import RichText from './richtext'
 import BlogLink from './blog-link'
 import Section from './section'
+import MyLink from './mylink'
 
 import './blog-entry.scss'
 import './side-nav.scss'
@@ -27,6 +28,9 @@ const BlogEntries = () => {
             tag: publishedDate(formatString: "YYYYMMDD")
             content {
               ...RichText
+            }
+            buttons {
+              ...MyLink
             }
           }
         }
@@ -82,6 +86,10 @@ export default BlogEntries
 
 const BlogEntry = ({ obj, showNav }) => {
   const htmlid = `entry${obj.tag}`
+  const buttons = obj.buttons?.map((btn, i, arr) => {
+    const cl = 'btn ' + (i === 0 ? 'btn-primary' : 'btn-outline-primary')
+    return <MyLink key={btn.id} obj={btn} addClasses={cl} />
+  })
   return (
     <Section as="article" id={htmlid} styles={showNav ? "blog blog-wnav" : "blog"}>
       <Col className="blog-entry">
@@ -90,6 +98,9 @@ const BlogEntry = ({ obj, showNav }) => {
           <Badge bg="secondary">{obj.publishedDate}</Badge>
         </div>
         <RichText data={obj.content} />
+        <div className="ctas">
+          {buttons}
+        </div>
         <div className="top-link">
           <a href="#top-of-page">Back to top <i className="fas fa-caret-up"></i></a>
         </div>
