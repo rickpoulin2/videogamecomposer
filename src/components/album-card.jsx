@@ -8,12 +8,13 @@ import RichText from './richtext'
 import './album-card.scss'
 
 const CHANNELS = [
-  { title: "YouTube", icon: "youtube", fieldname: "YouTube" },
   { title: "Spotify", icon: "spotify", fieldname: "Spotify" },
-  { title: "Bandcamp", icon: "bandcamp", fieldname: "Bandcamp" },
-  { title: "itch.io", icon: "itch-io", fieldname: "Itchio" },
-  { title: "Apple Music", icon: "apple", fieldname: "Itunes" },
   { title: "Amazon Music", icon: "amazon", fieldname: "Amazon" },
+  { title: "Apple Music", icon: "apple", fieldname: "Itunes" },
+  { title: "YouTube", icon: "youtube", fieldname: "YouTube" },
+  { title: "Bandcamp", icon: "bandcamp", fieldname: "Bandcamp" },
+  { title: "Soundcloud", icon: "soundcloud", fieldname: "Soundcloud" },
+  //{ title: "itch.io", icon: "itch-io", fieldname: "Itchio" },
 ]
 
 const AlbumCard = ({ obj }) => {
@@ -99,6 +100,7 @@ export const query = graphql`
     linkItchio
     linkItunes
     linkAmazon
+    linkSoundcloud
     albumDescription {
       ...RichText
     }

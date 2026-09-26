@@ -1853,6 +1853,7 @@ type ContentfulAlbum implements ContentfulReference & ContentfulEntry & Node {
   linkItchio: String
   linkItunes: String
   linkAmazon: String
+  linkSoundcloud: String
   albumDescription: RichText
   spaceId: String
   createdAt(
@@ -2968,7 +2969,7 @@ type Query {
   allContentfulComponentButtonBanner(filter: ContentfulComponentButtonBannerFilterInput, sort: [ContentfulComponentButtonBannerSortInput], skip: Int, limit: Int): ContentfulComponentButtonBannerConnection!
   contentfulComponentContentCard(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, fancyHeading: StringQueryOperatorInput, cardType: StringQueryOperatorInput, image: ContentfulAssetFilterInput, content: RichTextFilterInput, buttons: ContentfulLinkFilterListInput, name: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentContentCardSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentContentCard
   allContentfulComponentContentCard(filter: ContentfulComponentContentCardFilterInput, sort: [ContentfulComponentContentCardSortInput], skip: Int, limit: Int): ContentfulComponentContentCardConnection!
-  contentfulAlbum(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, slug: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, trackCount: IntQueryOperatorInput, collaboratorName: StringQueryOperatorInput, collaboratorLink: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkYouTube: StringQueryOperatorInput, linkSpotify: StringQueryOperatorInput, linkBandcamp: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkItunes: StringQueryOperatorInput, linkAmazon: StringQueryOperatorInput, albumDescription: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulAlbumSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAlbum
+  contentfulAlbum(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, slug: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, trackCount: IntQueryOperatorInput, collaboratorName: StringQueryOperatorInput, collaboratorLink: StringQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkYouTube: StringQueryOperatorInput, linkSpotify: StringQueryOperatorInput, linkBandcamp: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkItunes: StringQueryOperatorInput, linkAmazon: StringQueryOperatorInput, linkSoundcloud: StringQueryOperatorInput, albumDescription: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulAlbumSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulAlbum
   allContentfulAlbum(filter: ContentfulAlbumFilterInput, sort: [ContentfulAlbumSortInput], skip: Int, limit: Int): ContentfulAlbumConnection!
   contentfulComponentAlbumList(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, styles: StringQueryOperatorInput, internalTitle: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentAlbumListSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentAlbumList
   allContentfulComponentAlbumList(filter: ContentfulComponentAlbumListFilterInput, sort: [ContentfulComponentAlbumListSortInput], skip: Int, limit: Int): ContentfulComponentAlbumListConnection!
@@ -6228,6 +6229,7 @@ input ContentfulAlbumFieldSelector {
   linkItchio: FieldSelectorEnum
   linkItunes: FieldSelectorEnum
   linkAmazon: FieldSelectorEnum
+  linkSoundcloud: FieldSelectorEnum
   albumDescription: RichTextFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
@@ -6286,6 +6288,7 @@ input ContentfulAlbumFilterInput {
   linkItchio: StringQueryOperatorInput
   linkItunes: StringQueryOperatorInput
   linkAmazon: StringQueryOperatorInput
+  linkSoundcloud: StringQueryOperatorInput
   albumDescription: RichTextFilterInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
@@ -6314,6 +6317,7 @@ input ContentfulAlbumSortInput {
   linkItchio: SortOrderEnum
   linkItunes: SortOrderEnum
   linkAmazon: SortOrderEnum
+  linkSoundcloud: SortOrderEnum
   albumDescription: RichTextSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
