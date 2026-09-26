@@ -16,7 +16,7 @@ const Poster = ({ obj }) => {
     image = <div className="inline-image"><GatsbyImage image={obj.image.gatsbyImageData} alt={obj.image.description} /></div>
   }
   if (obj.image?.file?.url) {
-    image = <div className="inline-file"><object data={obj.image.file.url} alt={obj.image.description}></object></div>
+    image = <div className="inline-file"><object data={obj.image.file.url} alt={obj.image.description} aria-label={"" + obj.image.description}></object></div>
   }
 
   let body = image

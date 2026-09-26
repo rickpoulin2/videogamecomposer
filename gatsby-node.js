@@ -32,6 +32,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     linkItchio: String
     linkItunes: String
     linkAmazon: String
+    linkSoundcloud: String
     albumDescription: RichText
   }
   type ContentfulMusicPack implements ContentfulEntry {
