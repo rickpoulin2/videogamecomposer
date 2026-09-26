@@ -34,7 +34,7 @@ const RichText = ({ data, addOptions }) => {
           return <div className="inline-image"><GatsbyImage image={node.data.target.gatsbyImageData} alt={node.data.target.description} /></div>
         }
         if (node.data?.target?.file?.url) {
-          return <div className="inline-file"><object data={node.data.target.file.url}></object></div>
+          return <div className="inline-file"><object data={node.data.target.file.url} aria-label={"" + node.data.target.file.fileName}></object></div>
         }
         return <></>
       },

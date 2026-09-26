@@ -13,7 +13,7 @@ const VideoWidget = ({ videoId, title, placeholderImage, opts }) => {
         return
     let img = placeholderImage == null ?
         <img src={"https://img.youtube.com/vi/" + videoId + "/hqdefault.jpg"} /> :
-        <GatsbyImage image={placeholderImage.gatsbyImageData} alt={placeholderImage.description} />
+        <GatsbyImage image={placeholderImage.gatsbyImageData} alt={"" + placeholderImage.description} />
 
     const videoReady = function (event) {
         setVidref(event.target)

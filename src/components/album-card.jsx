@@ -62,7 +62,7 @@ const AlbumCard = ({ obj }) => {
         </div>
       </Card.Header>
       <div className="card-aside">
-        <Button variant="outline-secondary" onClick={() => { setOpen(!open) }}>Show YouTube clip inline <i class="fab fa-youtube"></i></Button>
+        <Button variant="outline-secondary" onClick={() => { setOpen(!open) }}>Show YouTube clip inline <i className="fab fa-youtube"></i></Button>
         <Collapse in={open}>
           <div>
             <iframe src={"https://www.youtube.com/embed/" + obj.videoId} title="Album video on YouTube"
