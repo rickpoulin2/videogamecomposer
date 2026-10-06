@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
-import { Link, graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { Navbar, Offcanvas, Container, Col } from 'react-bootstrap';
+import { Navbar, Offcanvas, Container, Col } from 'react-bootstrap'
 import MyLink from './mylink'
 
 import './header.scss'
 
-const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems = [], buttonLink }) => {
+const Header = ({ siteData }) => {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  const navData = navItems?.map((i) =>
+  const navData = siteData?.headerNavigation?.map((i) =>
     <li className="nav-item" key={i.id}><MyLink obj={i} addClasses="nav-link" activeClass="active" onClick={handleClose} /></li>
   )
   const headerNav = (
@@ -22,7 +22,7 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
         </ul>
       </Col>
       <div className="navbar-cta">
-        <MyLink obj={buttonLink} addClasses="btn btn-outline-primary" onClick={handleClose}></MyLink>
+        <MyLink obj={siteData?.headerButtonLink} addClasses="btn btn-outline-primary" onClick={handleClose}></MyLink>
       </div>
     </>
   )
@@ -33,8 +33,8 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
         <Container fluid="lg">
           <Navbar.Brand as="div">
             <Link to="/" className="site-heading" id="top-of-page">
-              <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
-              <p className="h1"><span>{siteHeadingStart}</span> {siteHeadingEnd}</p>
+              <GatsbyImage image={siteData?.siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
+              <p className="h1"><span>{siteData?.siteHeadingStart}</span> {siteData?.siteHeadingEnd}</p>
             </Link>
           </Navbar.Brand>
           <div className="desktop-nav">
@@ -44,12 +44,13 @@ const Header = ({ siteLogo, siteHeadingStart = "", siteHeadingEnd = "", navItems
           <Offcanvas id="mobilenav" show={show} onHide={handleClose} placement="end" aria-labelledby="mobilenav-heading">
             <Offcanvas.Header closeButton="true" closeVariant="white">
               <Link to="/" className="site-heading">
-                <GatsbyImage image={siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
-                <Offcanvas.Title as="p" className="h3" id="mobilenav-heading">{siteHeadingStart} {siteHeadingEnd}</Offcanvas.Title>
+                <GatsbyImage image={siteData?.siteLogo.gatsbyImageData} className="site-logo" alt="site logo" />
+                <Offcanvas.Title as="p" className="h3" id="mobilenav-heading">{siteData?.siteHeadingStart} {siteData?.siteHeadingEnd}</Offcanvas.Title>
               </Link>
             </Offcanvas.Header>
             <Offcanvas.Body>
               {headerNav}
+              <GatsbyImage image={siteData?.menuBackground.gatsbyImageData} className="menu-background" alt={siteData?.menuBackground.description} />
             </Offcanvas.Body>
           </Offcanvas>
         </Container>
@@ -72,6 +73,9 @@ export const query = graphql`
     siteHeadingEnd
     siteLogo {
       gatsbyImageData(layout:FIXED,width:100)
+    }
+    menuBackground: siteBackground {
+      gatsbyImageData(layout:FIXED,width:420)
     }
   }
 `

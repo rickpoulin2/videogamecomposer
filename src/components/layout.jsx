@@ -32,11 +32,7 @@ const Layout = (props) => {
   return (
     <>
       <img className="sitebg" src={getSrc(siteData.siteBackground)} alt={siteData.siteBackground.description} />
-      <Header navItems={siteData?.headerNavigation}
-        siteLogo={siteData?.siteLogo}
-        siteHeadingStart={siteData?.siteHeadingStart}
-        siteHeadingEnd={siteData?.siteHeadingEnd}
-        buttonLink={siteData?.headerButtonLink} />
+      <Header siteData={siteData} />
       <main>{children}</main>
       <Footer copyrightLine={siteData?.copyrightLine}
         content={siteData?.footerContent}

@@ -149,19 +149,13 @@ header,
     background-color: var(--bs-primary);
   }
 
-  .offcanvas-body::after {
-    content: '';
+  .offcanvas-body .gatsby-image-wrapper {
     display: block;
     position: absolute;
     bottom: 0;
     left: 0;
+    right: 0;
     width: 100%;
-    aspect-ratio: 1;
-    z-index: 1;
     opacity: 0.3;
-    background-image: url('/img/studio.png');
-    background-position: center bottom;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
   }
 }
