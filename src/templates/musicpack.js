@@ -29,7 +29,7 @@ class MusicPackTemplate extends React.Component {
           <Section as="aside" styles="nobg side-nav left">
             <div className="box-flair">
               <div>
-                <MusicPackList activeItem={pageData.id} asSidebar={true} />
+                <MusicPackList activeItem={pageData.id} asSidebar={true} extras={this.props.data.allContentfulSiteGlobals?.nodes[0]?.musicPacksExtras} />
               </div>
             </div>
           </Section>
@@ -51,6 +51,13 @@ export const pageQuery = graphql`
       id
       title
       ...ContentfulMusicPack
+    }
+    allContentfulSiteGlobals(limit: 1, sort: {siteTitle: ASC}) {
+      nodes {
+        musicPacksExtras {
+          ... MyLink
+        }
+      }
     }
   }
 `

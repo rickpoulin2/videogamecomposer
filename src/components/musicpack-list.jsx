@@ -3,11 +3,12 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { navigate } from 'gatsby'
 import AppContext from './app-context'
 import EntryLink from './entry-link'
+import MyLink from './mylink'
 
 import './side-nav.scss'
 import './musicpack-list.scss'
 
-const MusicPackList = ({ obj, asSidebar = false }) => {
+const MusicPackList = ({ asSidebar = false, extras = [] }) => {
   const linkSlugs = useContext(AppContext).linkSlugs
   const packsData = useStaticQuery(
     graphql`
@@ -29,13 +30,23 @@ const MusicPackList = ({ obj, asSidebar = false }) => {
         }
       }`)
 
-  let navEntries = packsData.data?.nodes?.map((i) => {
-    return <li key={i.id}>
+  let navEntries = packsData.data?.nodes?.map(i =>
+    <li key={i.id}>
       <EntryLink type="ContentfulMusicPack" slug={i.url} activeClass="active">
         <span>{i.title}</span>
       </EntryLink>
     </li>
-  })
+  )
+
+  console.log('extras', extras)
+  let extraEntries = extras?.map(i =>
+    <li key={i.id} className="extra">
+      <MyLink obj={i}>
+        <span>{i.title}</span>
+      </MyLink>
+    </li>
+  )
+  console.log('extraEntries', extraEntries)
 
   let error = <></>
   if (!(packsData.data?.nodes?.length > 0)) {
@@ -56,6 +67,7 @@ const MusicPackList = ({ obj, asSidebar = false }) => {
       {error}
       <ul>
         {navEntries}
+        {extraEntries}
       </ul>
     </div>
   )

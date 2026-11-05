@@ -1264,6 +1264,7 @@ type ContentfulSiteGlobals implements ContentfulReference & ContentfulEntry & No
   albumsPage: ContentfulPage
   newsletterPage: ContentfulPage
   musicpacksPage: ContentfulPage
+  musicPacksExtras: [ContentfulLink]
   spaceId: String
   createdAt(
     """
@@ -2953,7 +2954,7 @@ type Query {
   allContentfulAsset(filter: ContentfulAssetFilterInput, sort: [ContentfulAssetSortInput], skip: Int, limit: Int): ContentfulAssetConnection!
   contentfulPage(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, url: StringQueryOperatorInput, hideTitle: BooleanQueryOperatorInput, site_globals: ContentfulSiteGlobalsFilterListInput, link: ContentfulLinkFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulPageSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulPage
   allContentfulPage(filter: ContentfulPageFilterInput, sort: [ContentfulPageSortInput], skip: Int, limit: Int): ContentfulPageConnection!
-  contentfulSiteGlobals(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, siteTitle: StringQueryOperatorInput, siteHeadingStart: StringQueryOperatorInput, siteHeadingEnd: StringQueryOperatorInput, headerNavigation: ContentfulLinkFilterListInput, headerButtonLink: ContentfulLinkFilterInput, footerNavigation: ContentfulLinkFilterListInput, siteIcon: ContentfulAssetFilterInput, siteLogo: ContentfulAssetFilterInput, siteBackground: ContentfulAssetFilterInput, footerContent: RichTextFilterInput, copyrightLine: StringQueryOperatorInput, blogPage: ContentfulPageFilterInput, albumsPage: ContentfulPageFilterInput, newsletterPage: ContentfulPageFilterInput, musicpacksPage: ContentfulPageFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulSiteGlobalsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulSiteGlobals
+  contentfulSiteGlobals(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, siteTitle: StringQueryOperatorInput, siteHeadingStart: StringQueryOperatorInput, siteHeadingEnd: StringQueryOperatorInput, headerNavigation: ContentfulLinkFilterListInput, headerButtonLink: ContentfulLinkFilterInput, footerNavigation: ContentfulLinkFilterListInput, siteIcon: ContentfulAssetFilterInput, siteLogo: ContentfulAssetFilterInput, siteBackground: ContentfulAssetFilterInput, footerContent: RichTextFilterInput, copyrightLine: StringQueryOperatorInput, blogPage: ContentfulPageFilterInput, albumsPage: ContentfulPageFilterInput, newsletterPage: ContentfulPageFilterInput, musicpacksPage: ContentfulPageFilterInput, musicPacksExtras: ContentfulLinkFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulSiteGlobalsSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulSiteGlobals
   allContentfulSiteGlobals(filter: ContentfulSiteGlobalsFilterInput, sort: [ContentfulSiteGlobalsSortInput], skip: Int, limit: Int): ContentfulSiteGlobalsConnection!
   contentfulLink(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, isInternal: BooleanQueryOperatorInput, text: StringQueryOperatorInput, targetLink: StringQueryOperatorInput, icon: StringQueryOperatorInput, styles: StringQueryOperatorInput, hideText: BooleanQueryOperatorInput, blog_entry: ContentfulBlogEntryFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulLinkSysFilterInput, component__blog_latest: ContentfulComponentBlogLatestFilterListInput, component__button_banner: ContentfulComponentButtonBannerFilterListInput, component__poster: ContentfulComponentPosterFilterListInput, site_globals: ContentfulSiteGlobalsFilterListInput, component__newsletter_latest: ContentfulComponentNewsletterLatestFilterListInput, component__hero: ContentfulComponentHeroFilterListInput, component__content_card: ContentfulComponentContentCardFilterListInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulLink
   allContentfulLink(filter: ContentfulLinkFilterInput, sort: [ContentfulLinkSortInput], skip: Int, limit: Int): ContentfulLinkConnection!
@@ -4323,6 +4324,7 @@ input ContentfulSiteGlobalsFilterInput {
   albumsPage: ContentfulPageFilterInput
   newsletterPage: ContentfulPageFilterInput
   musicpacksPage: ContentfulPageFilterInput
+  musicPacksExtras: ContentfulLinkFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
@@ -4841,6 +4843,7 @@ input ContentfulSiteGlobalsFieldSelector {
   albumsPage: ContentfulPageFieldSelector
   newsletterPage: ContentfulPageFieldSelector
   musicpacksPage: ContentfulPageFieldSelector
+  musicPacksExtras: ContentfulLinkFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
@@ -5297,6 +5300,7 @@ input ContentfulSiteGlobalsSortInput {
   albumsPage: ContentfulPageSortInput
   newsletterPage: ContentfulPageSortInput
   musicpacksPage: ContentfulPageSortInput
+  musicPacksExtras: ContentfulLinkSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum
