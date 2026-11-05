@@ -25,7 +25,8 @@ module.exports = {
       resolve: "gatsby-plugin-sass",
       options: {
         sassOptions: {
-          api: "modern-compiler"
+          api: "modern-compiler",
+          silenceDeprecations: ['legacy-js-api'],
         }
       }
     },
