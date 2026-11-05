@@ -68,12 +68,18 @@ aside.side-nav ul,
         transition: font-weight 0.5s ease-in-out;
         margin-bottom: 0.5em;
 
-        a {
+        a:not(.btn) {
             display: grid;
             border-radius: var(--bs-border-radius);
             background-color: var(--bs-gray-200);
             text-decoration: none;
         }
+    }
+
+    li.extra a {
+        display: block;
+        font-size: 1em;
+        text-align: left;
     }
 
     li.active a,
@@ -88,7 +94,8 @@ aside.side-nav ul,
         }
     }
 
-    span {
+    span,
+    .extra a {
         padding: 1em;
     }
 

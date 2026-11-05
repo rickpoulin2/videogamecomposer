@@ -200,6 +200,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     albumsPage: ContentfulPage @link(from: "albumsPage___NODE")
     newsletterPage: ContentfulPage @link(from: "newsletterPage___NODE")
     musicpacksPage: ContentfulPage @link(from: "musicpacksPage___NODE")
+    musicPacksExtras: [ContentfulLink] @link(from: "musicPacksExtras___NODE")
   }
   type ContentfulPage implements ContentfulEntry {
     title: String!
