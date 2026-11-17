@@ -17,6 +17,7 @@ import CommissionCard from './commission-card'
 import Poster from './poster'
 import Testimonials from './testimonials'
 import ContentList from './content-list'
+import Embed from './embed'
 
 const PageComponent = ({ obj }) => {
     const type = obj.__typename
@@ -53,9 +54,10 @@ const PageComponent = ({ obj }) => {
         return <Poster obj={obj} />
     if (type === 'ContentfulComponentTestimonials')
         return <Testimonials obj={obj} />
-    if (type === 'ContentfulComponentContentList') {
+    if (type === 'ContentfulComponentContentList')
         return <ContentList obj={obj} />
-    }
+    if (type === 'ContentfulComponentEmbed')
+        return <Embed obj={obj} />
 
     console.log("unknown component: " + type)
     return <></>
@@ -83,5 +85,6 @@ export const query = graphql`
         ...ContentfulComponentPoster
         ...ContentfulComponentTestimonials
         ...ContentfulComponentContentList
+        ...ContentfulComponentEmbed
     }
 `
