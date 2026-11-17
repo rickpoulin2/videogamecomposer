@@ -35,6 +35,7 @@ export default Testimonials
 export const query = graphql`
   fragment ContentfulComponentTestimonials on ContentfulComponentTestimonials {
     heading
+    styles
     testimonial1Image {
       description
       gatsbyImageData(layout:CONSTRAINED, height:70, aspectRatio:1, quality:95, placeholder:BLURRED, resizingBehavior:FILL, cropFocus:CENTER)
