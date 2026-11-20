@@ -11,15 +11,20 @@
     }
 
     &.reelcrafter {
+        position: relative;
+
         >div {
             position: relative;
-            height: calc(100% - 80px);
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            height: calc(100% - 165px);
 
             iframe {
                 position: relative;
-                inset: -24px;
-                width: calc(100% + 48px);
+                top: -24px;
+                bottom: -24px;
+                max-width: 750px;
             }
         }
     }

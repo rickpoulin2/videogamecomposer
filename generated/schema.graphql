@@ -1450,8 +1450,8 @@ type ContentfulComponentGroup implements ContentfulReference & ContentfulEntry &
 
 type ContentfulComponentGroupSys {
   type: String
-  revision: Int
   contentType: ContentfulComponentGroupSysContentType
+  revision: Int
 }
 
 type ContentfulComponentGroupSysContentType {
@@ -2910,11 +2910,13 @@ type ContentfulComponentEmbed implements ContentfulReference & ContentfulEntry &
   id: ID!
   node_locale: String!
   heading: String
+  useFancyHeading: Boolean
   styles: String
   height: Int
   embedUrl: String
   contentfulid: String
   page: [ContentfulPage]
+  component_group: [ContentfulComponentGroup]
   spaceId: String
   createdAt(
     """
@@ -3066,7 +3068,7 @@ type Query {
   allContentfulComponentContentList(filter: ContentfulComponentContentListFilterInput, sort: [ContentfulComponentContentListSortInput], skip: Int, limit: Int): ContentfulComponentContentListConnection!
   contentfulMusicPack(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, url: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkUnity: StringQueryOperatorInput, linkUnreal: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkGdm: StringQueryOperatorInput, description: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulMusicPackSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulMusicPack
   allContentfulMusicPack(filter: ContentfulMusicPackFilterInput, sort: [ContentfulMusicPackSortInput], skip: Int, limit: Int): ContentfulMusicPackConnection!
-  contentfulComponentEmbed(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, styles: StringQueryOperatorInput, height: IntQueryOperatorInput, embedUrl: StringQueryOperatorInput, contentfulid: StringQueryOperatorInput, page: ContentfulPageFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentEmbedSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentEmbed
+  contentfulComponentEmbed(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, useFancyHeading: BooleanQueryOperatorInput, styles: StringQueryOperatorInput, height: IntQueryOperatorInput, embedUrl: StringQueryOperatorInput, contentfulid: StringQueryOperatorInput, page: ContentfulPageFilterListInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentEmbedSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentEmbed
   allContentfulComponentEmbed(filter: ContentfulComponentEmbedFilterInput, sort: [ContentfulComponentEmbedSortInput], skip: Int, limit: Int): ContentfulComponentEmbedConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
@@ -4573,8 +4575,8 @@ input ContentfulPageSysContentTypeSysFilterInput {
 
 input ContentfulComponentGroupSysFilterInput {
   type: StringQueryOperatorInput
-  revision: IntQueryOperatorInput
   contentType: ContentfulComponentGroupSysContentTypeFilterInput
+  revision: IntQueryOperatorInput
 }
 
 input ContentfulComponentGroupSysContentTypeFilterInput {
@@ -5038,8 +5040,8 @@ input ContentfulComponentGroupFieldSelector {
 
 input ContentfulComponentGroupSysFieldSelector {
   type: FieldSelectorEnum
-  revision: FieldSelectorEnum
   contentType: ContentfulComponentGroupSysContentTypeFieldSelector
+  revision: FieldSelectorEnum
 }
 
 input ContentfulComponentGroupSysContentTypeFieldSelector {
@@ -5495,8 +5497,8 @@ input ContentfulComponentGroupSortInput {
 
 input ContentfulComponentGroupSysSortInput {
   type: SortOrderEnum
-  revision: SortOrderEnum
   contentType: ContentfulComponentGroupSysContentTypeSortInput
+  revision: SortOrderEnum
 }
 
 input ContentfulComponentGroupSysContentTypeSortInput {
@@ -7859,11 +7861,13 @@ input ContentfulComponentEmbedFieldSelector {
   id: FieldSelectorEnum
   node_locale: FieldSelectorEnum
   heading: FieldSelectorEnum
+  useFancyHeading: FieldSelectorEnum
   styles: FieldSelectorEnum
   height: FieldSelectorEnum
   embedUrl: FieldSelectorEnum
   contentfulid: FieldSelectorEnum
   page: ContentfulPageFieldSelector
+  component_group: ContentfulComponentGroupFieldSelector
   spaceId: FieldSelectorEnum
   createdAt: FieldSelectorEnum
   updatedAt: FieldSelectorEnum
@@ -7907,11 +7911,13 @@ input ContentfulComponentEmbedFilterInput {
   id: StringQueryOperatorInput
   node_locale: StringQueryOperatorInput
   heading: StringQueryOperatorInput
+  useFancyHeading: BooleanQueryOperatorInput
   styles: StringQueryOperatorInput
   height: IntQueryOperatorInput
   embedUrl: StringQueryOperatorInput
   contentfulid: StringQueryOperatorInput
   page: ContentfulPageFilterListInput
+  component_group: ContentfulComponentGroupFilterListInput
   spaceId: StringQueryOperatorInput
   createdAt: DateQueryOperatorInput
   updatedAt: DateQueryOperatorInput
@@ -7926,11 +7932,13 @@ input ContentfulComponentEmbedSortInput {
   id: SortOrderEnum
   node_locale: SortOrderEnum
   heading: SortOrderEnum
+  useFancyHeading: SortOrderEnum
   styles: SortOrderEnum
   height: SortOrderEnum
   embedUrl: SortOrderEnum
   contentfulid: SortOrderEnum
   page: ContentfulPageSortInput
+  component_group: ContentfulComponentGroupSortInput
   spaceId: SortOrderEnum
   createdAt: SortOrderEnum
   updatedAt: SortOrderEnum

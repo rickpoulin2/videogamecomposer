@@ -180,6 +180,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   }
   type ContentfulComponentEmbed implements ContentfulEntry {
     heading: String
+    useFancyHeading: Boolean
     styles: String
     height: Int
     embedUrl: String

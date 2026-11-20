@@ -8,7 +8,7 @@ const Embed = ({ obj }) => {
     return
 
   const isReelcrafter = ("" + obj.embedUrl).match(/reelcrafter/)
-  const heading = obj.heading ? <h2>{obj.heading}</h2> : ""
+  const heading = obj.heading ? <h2 className={obj.useFancyHeading ? "pix" : ""}><span>{obj.heading}</span></h2> : ""
   const styles = "cembed " + (obj.styles ? obj.styles : "") + (isReelcrafter ? " reelcrafter" : "")
   const height = obj.height ? obj.height : 400
 
@@ -32,6 +32,7 @@ export default Embed
 export const query = graphql`
   fragment ContentfulComponentEmbed on ContentfulComponentEmbed {
     heading
+    useFancyHeading
     styles
     height
     embedUrl
