@@ -1450,8 +1450,8 @@ type ContentfulComponentGroup implements ContentfulReference & ContentfulEntry &
 
 type ContentfulComponentGroupSys {
   type: String
-  revision: Int
   contentType: ContentfulComponentGroupSysContentType
+  revision: Int
 }
 
 type ContentfulComponentGroupSysContentType {
@@ -2905,6 +2905,74 @@ type ContentfulMusicPackSysContentTypeSys {
   id: String
 }
 
+type ContentfulComponentEmbed implements ContentfulReference & ContentfulEntry & Node {
+  contentful_id: String!
+  id: ID!
+  node_locale: String!
+  heading: String
+  useFancyHeading: Boolean
+  styles: String
+  height: Int
+  embedUrl: String
+  contentfulid: String
+  page: [ContentfulPage]
+  component_group: [ContentfulComponentGroup]
+  spaceId: String
+  createdAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  updatedAt(
+    """
+    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+    """
+    formatString: String
+
+    """Returns a string generated with Moment.js' `fromNow` function"""
+    fromNow: Boolean
+
+    """
+    Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
+    """
+    difference: String
+
+    """Configures the locale Moment.js will use to format the date."""
+    locale: String
+  ): Date
+  sys: ContentfulComponentEmbedSys
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+
+type ContentfulComponentEmbedSys {
+  type: String
+  contentType: ContentfulComponentEmbedSysContentType
+}
+
+type ContentfulComponentEmbedSysContentType {
+  sys: ContentfulComponentEmbedSysContentTypeSys
+}
+
+type ContentfulComponentEmbedSysContentTypeSys {
+  type: String
+  linkType: String
+  id: String
+}
+
 union LinkableTypes = ContentfulPage | ContentfulAlbum | ContentfulMusicPack | ContentfulBlogEntry | ContentfulNewsletter
 
 union RichTextEmbeds = ContentfulPage | ContentfulAlbum | ContentfulMusicPack | ContentfulBlogEntry | ContentfulNewsletter | ContentfulAsset
@@ -2914,7 +2982,7 @@ type RichText {
   references: [RichTextEmbeds]
 }
 
-union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentContentList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster | ContentfulComponentTestimonials
+union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentContentList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster | ContentfulComponentTestimonials | ContentfulComponentEmbed
 
 type ContentfulContentType implements Node {
   id: ID!
@@ -3000,6 +3068,8 @@ type Query {
   allContentfulComponentContentList(filter: ContentfulComponentContentListFilterInput, sort: [ContentfulComponentContentListSortInput], skip: Int, limit: Int): ContentfulComponentContentListConnection!
   contentfulMusicPack(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, title: StringQueryOperatorInput, url: StringQueryOperatorInput, publishedDate: DateQueryOperatorInput, coverImage: ContentfulAssetFilterInput, videoId: StringQueryOperatorInput, linkUnity: StringQueryOperatorInput, linkUnreal: StringQueryOperatorInput, linkItchio: StringQueryOperatorInput, linkGdm: StringQueryOperatorInput, description: RichTextFilterInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulMusicPackSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulMusicPack
   allContentfulMusicPack(filter: ContentfulMusicPackFilterInput, sort: [ContentfulMusicPackSortInput], skip: Int, limit: Int): ContentfulMusicPackConnection!
+  contentfulComponentEmbed(contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, heading: StringQueryOperatorInput, useFancyHeading: BooleanQueryOperatorInput, styles: StringQueryOperatorInput, height: IntQueryOperatorInput, embedUrl: StringQueryOperatorInput, contentfulid: StringQueryOperatorInput, page: ContentfulPageFilterListInput, component_group: ContentfulComponentGroupFilterListInput, spaceId: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, updatedAt: DateQueryOperatorInput, sys: ContentfulComponentEmbedSysFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ContentfulComponentEmbed
+  allContentfulComponentEmbed(filter: ContentfulComponentEmbedFilterInput, sort: [ContentfulComponentEmbedSortInput], skip: Int, limit: Int): ContentfulComponentEmbedConnection!
   contentfulContentType(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, name: StringQueryOperatorInput, displayField: StringQueryOperatorInput, description: StringQueryOperatorInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
   allContentfulContentType(filter: ContentfulContentTypeFilterInput, sort: [ContentfulContentTypeSortInput], skip: Int, limit: Int): ContentfulContentTypeConnection!
 }
@@ -4505,8 +4575,8 @@ input ContentfulPageSysContentTypeSysFilterInput {
 
 input ContentfulComponentGroupSysFilterInput {
   type: StringQueryOperatorInput
-  revision: IntQueryOperatorInput
   contentType: ContentfulComponentGroupSysContentTypeFilterInput
+  revision: IntQueryOperatorInput
 }
 
 input ContentfulComponentGroupSysContentTypeFilterInput {
@@ -4970,8 +5040,8 @@ input ContentfulComponentGroupFieldSelector {
 
 input ContentfulComponentGroupSysFieldSelector {
   type: FieldSelectorEnum
-  revision: FieldSelectorEnum
   contentType: ContentfulComponentGroupSysContentTypeFieldSelector
+  revision: FieldSelectorEnum
 }
 
 input ContentfulComponentGroupSysContentTypeFieldSelector {
@@ -5427,8 +5497,8 @@ input ContentfulComponentGroupSortInput {
 
 input ContentfulComponentGroupSysSortInput {
   type: SortOrderEnum
-  revision: SortOrderEnum
   contentType: ContentfulComponentGroupSysContentTypeSortInput
+  revision: SortOrderEnum
 }
 
 input ContentfulComponentGroupSysContentTypeSortInput {
@@ -7748,6 +7818,146 @@ input ContentfulMusicPackSysContentTypeSortInput {
 }
 
 input ContentfulMusicPackSysContentTypeSysSortInput {
+  type: SortOrderEnum
+  linkType: SortOrderEnum
+  id: SortOrderEnum
+}
+
+input ContentfulComponentEmbedSysFilterInput {
+  type: StringQueryOperatorInput
+  contentType: ContentfulComponentEmbedSysContentTypeFilterInput
+}
+
+input ContentfulComponentEmbedSysContentTypeFilterInput {
+  sys: ContentfulComponentEmbedSysContentTypeSysFilterInput
+}
+
+input ContentfulComponentEmbedSysContentTypeSysFilterInput {
+  type: StringQueryOperatorInput
+  linkType: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+}
+
+type ContentfulComponentEmbedConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentEmbedEdge!]!
+  nodes: [ContentfulComponentEmbed!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentEmbedFieldSelector!): [String!]!
+  max(field: ContentfulComponentEmbedFieldSelector!): Float
+  min(field: ContentfulComponentEmbedFieldSelector!): Float
+  sum(field: ContentfulComponentEmbedFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentEmbedFieldSelector!): [ContentfulComponentEmbedGroupConnection!]!
+}
+
+type ContentfulComponentEmbedEdge {
+  next: ContentfulComponentEmbed
+  node: ContentfulComponentEmbed!
+  previous: ContentfulComponentEmbed
+}
+
+input ContentfulComponentEmbedFieldSelector {
+  contentful_id: FieldSelectorEnum
+  id: FieldSelectorEnum
+  node_locale: FieldSelectorEnum
+  heading: FieldSelectorEnum
+  useFancyHeading: FieldSelectorEnum
+  styles: FieldSelectorEnum
+  height: FieldSelectorEnum
+  embedUrl: FieldSelectorEnum
+  contentfulid: FieldSelectorEnum
+  page: ContentfulPageFieldSelector
+  component_group: ContentfulComponentGroupFieldSelector
+  spaceId: FieldSelectorEnum
+  createdAt: FieldSelectorEnum
+  updatedAt: FieldSelectorEnum
+  sys: ContentfulComponentEmbedSysFieldSelector
+  parent: NodeFieldSelector
+  children: NodeFieldSelector
+  internal: InternalFieldSelector
+}
+
+input ContentfulComponentEmbedSysFieldSelector {
+  type: FieldSelectorEnum
+  contentType: ContentfulComponentEmbedSysContentTypeFieldSelector
+}
+
+input ContentfulComponentEmbedSysContentTypeFieldSelector {
+  sys: ContentfulComponentEmbedSysContentTypeSysFieldSelector
+}
+
+input ContentfulComponentEmbedSysContentTypeSysFieldSelector {
+  type: FieldSelectorEnum
+  linkType: FieldSelectorEnum
+  id: FieldSelectorEnum
+}
+
+type ContentfulComponentEmbedGroupConnection {
+  totalCount: Int!
+  edges: [ContentfulComponentEmbedEdge!]!
+  nodes: [ContentfulComponentEmbed!]!
+  pageInfo: PageInfo!
+  distinct(field: ContentfulComponentEmbedFieldSelector!): [String!]!
+  max(field: ContentfulComponentEmbedFieldSelector!): Float
+  min(field: ContentfulComponentEmbedFieldSelector!): Float
+  sum(field: ContentfulComponentEmbedFieldSelector!): Float
+  group(skip: Int, limit: Int, field: ContentfulComponentEmbedFieldSelector!): [ContentfulComponentEmbedGroupConnection!]!
+  field: String!
+  fieldValue: String
+}
+
+input ContentfulComponentEmbedFilterInput {
+  contentful_id: StringQueryOperatorInput
+  id: StringQueryOperatorInput
+  node_locale: StringQueryOperatorInput
+  heading: StringQueryOperatorInput
+  useFancyHeading: BooleanQueryOperatorInput
+  styles: StringQueryOperatorInput
+  height: IntQueryOperatorInput
+  embedUrl: StringQueryOperatorInput
+  contentfulid: StringQueryOperatorInput
+  page: ContentfulPageFilterListInput
+  component_group: ContentfulComponentGroupFilterListInput
+  spaceId: StringQueryOperatorInput
+  createdAt: DateQueryOperatorInput
+  updatedAt: DateQueryOperatorInput
+  sys: ContentfulComponentEmbedSysFilterInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
+}
+
+input ContentfulComponentEmbedSortInput {
+  contentful_id: SortOrderEnum
+  id: SortOrderEnum
+  node_locale: SortOrderEnum
+  heading: SortOrderEnum
+  useFancyHeading: SortOrderEnum
+  styles: SortOrderEnum
+  height: SortOrderEnum
+  embedUrl: SortOrderEnum
+  contentfulid: SortOrderEnum
+  page: ContentfulPageSortInput
+  component_group: ContentfulComponentGroupSortInput
+  spaceId: SortOrderEnum
+  createdAt: SortOrderEnum
+  updatedAt: SortOrderEnum
+  sys: ContentfulComponentEmbedSysSortInput
+  parent: NodeSortInput
+  children: NodeSortInput
+  internal: InternalSortInput
+}
+
+input ContentfulComponentEmbedSysSortInput {
+  type: SortOrderEnum
+  contentType: ContentfulComponentEmbedSysContentTypeSortInput
+}
+
+input ContentfulComponentEmbedSysContentTypeSortInput {
+  sys: ContentfulComponentEmbedSysContentTypeSysSortInput
+}
+
+input ContentfulComponentEmbedSysContentTypeSysSortInput {
   type: SortOrderEnum
   linkType: SortOrderEnum
   id: SortOrderEnum
