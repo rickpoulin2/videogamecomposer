@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import YouTube from 'react-youtube'
 
@@ -56,3 +57,16 @@ const VideoWidget = ({ videoId, title, placeholderImage, opts }) => {
 }
 
 export default VideoWidget
+
+export const query = graphql`
+  fragment ContentfulVideo on ContentfulVideo {
+    node_locale
+    title
+    videoId
+    playlistId
+    timestamp
+    coverImage {
+        gatsbyImageData
+    }
+  }
+`
