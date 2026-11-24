@@ -1,94 +1,60 @@
-body {
-  overflow-x: hidden;
-}
+.video-single,
+.video-grid {
+  h2.sr-only {
+    visibility: hidden;
+    text-indent: -9999px;
+    font-size: 1px;
+    display: block;
+    height: 0 !important;
+    margin: 0;
+  }
 
-.video-showcase {
+  .video-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+  }
+
+  &.no-border {
+    border-color: transparent !important;
+  }
+
+  >div {
+    background-size: cover;
+    margin-bottom: 2em;
+  }
+
+  .card-body h2.pix {
+    margin-top: 0;
+  }
 
   .video-widget {
-    margin-bottom: 0;
+    margin: 0;
   }
+}
 
-  h3 {
-    /*
-    font-size: 1.25em;
-    padding: 0 0.5em;
-*/
-    font-size: 1px;
-    text-indent: -9999px;
-    visibility: hidden;
-
-    span {
-      text-transform: uppercase;
-      font-weight: normal;
-      font-size: 0.85em;
-    }
-
-    span::after {
-      content: " |";
-    }
+.video-single>div {
+  .video-widget {
+    width: 100%;
+    max-width: 500px;
   }
+}
 
-  &.video-single .video-widget {
-    width: 90%;
-    margin: 0 auto;
-
-    @media only screen and (min-width: 768px) {
-      width: 80%;
-    }
-
-    @media only screen and (min-width: 992px) {
-      width: 70%;
-    }
-  }
-
-  &.video-hgrid {
-    position: relative;
-
+.video-grid {
+  @media only screen and (min-width: 768px) {
     .video-layout {
       display: grid;
-      grid-template-columns: 1fr;
       gap: 1em;
-      padding: 0 2em;
-
-      @media only screen and (min-width: 480px) {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      @media only screen and (min-width: 992px) {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-      }
+      grid-template-columns: repeat(6, 1fr);
     }
 
-    @media only screen and (min-width: 576px) {
-      >div {
-        transform: translateX(calc((100dvw - 100%)/-2));
-      }
-
-      .video-layout {
-        width: 100vw;
-      }
+    .span-3 {
+      grid-column: span 3;
     }
-  }
 
-  &.video-vgrid {
-    .video-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2em;
-
-      >div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      @media only screen and (min-width: 480px) {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      @media only screen and (min-width: 1400px) {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
+    .span-2 {
+      grid-column: span 2;
     }
   }
 }

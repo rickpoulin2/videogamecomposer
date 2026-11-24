@@ -1,5 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { getSrc } from 'gatsby-plugin-image'
+import { Card } from 'react-bootstrap'
 
 import './video-showcase.scss'
 import VideoWidget from './video-widget'
@@ -7,43 +9,48 @@ import VideoWidget from './video-widget'
 const VideoShowcase = ({ obj }) => {
   if (obj == null)
     return
-  if (obj.heading == null || obj.type == null || obj.videos == null || obj.videos.length === 0)
+  if (obj.heading == null || obj.videos == null || obj.videos.length === 0)
     return
 
-  let typeClz = ""
-  switch (obj.type) {
-    case "Single":
-      typeClz = "video-single"
-      break
-    case "Horizontal Grid":
-      typeClz = "video-hgrid"
-      break
-    case "Vertical Grid":
-      typeClz = "video-vgrid"
-      break
-    default:
-  }
+  let typeClz = obj.videos.length === 1 ? "video-single" : "video-grid"
 
-  let showTitles = typeClz === "video-vgrid"
+  const cardStyles = obj.backgroundImage?.gatsbyImageData ? { backgroundImage: `url(${getSrc(obj.backgroundImage.gatsbyImageData)})` } : {}
+  const cardClass = obj.cardType === "no-border" ? "no-border" : "text-bg-" + obj.cardType
+  const styles = `video-showcase ${typeClz} ` + (obj.styles ? obj.styles : "")
+  const heading = obj.heading !== null && obj.heading !== "" && obj.headingStyle !== "invisible" ? <h2 className={obj.headingStyle}><span>{obj.heading}</span></h2> : ""
 
-  const heading = obj.showHeading ? <h2>{obj.heading}</h2> : ""
-  const styles = `pageblock video-showcase ${typeClz} ` + (obj.styles ? obj.styles : "")
+  let i = 0
   const videos = obj.videos.map(e => {
-    let title = showTitles ? <h3><span>{e.type}</span> {e.title}</h3> : ""
-    return <div>
-      {title}
+    i++
+    let vidclz = i < 3 ? "span-3" : "span-2"
+    return <div data-vidid={i} className={vidclz}>
       <VideoWidget videoId={e.videoId} playlistId={e.youTubePlaylistId} timestamp={e.timestamp} title={e.title} placeholderImage={e.coverImage} locale={e.node_locale} />
     </div>
   })
 
-  return (
-    <div className={styles}>
-      {heading}
-      <div>
-        <div className="video-layout">
-          {videos}
+  if (obj.cardType === "none") {
+    return (
+      <div className={styles}>
+        <div style={cardStyles}>
+          {heading}
+          <div className="video-layout">
+            {videos}
+          </div>
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div className={styles}>
+      <Card className={cardClass} style={cardStyles}>
+        <Card.Body>
+          {heading}
+          <div className="video-layout">
+            {videos}
+          </div>
+        </Card.Body>
+      </Card>
     </div>
   )
 }
