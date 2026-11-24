@@ -2,10 +2,9 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Hero from '../components/hero'
 import Text from '../components/text'
-import VideoCard from '../components/videocard'
+import VideoShowcase from '../components/video-showcase'
 import ButtonBanner from '../components/button-banner'
 import ContentCard from '../components/content-card'
-import AlbumList from './album-list'
 import BlogEntries from './blog-entry'
 import BlogLatest from './blog-latest'
 import NewsletterLatest from './newsletter-latest'
@@ -28,14 +27,12 @@ const PageComponent = ({ obj }) => {
         return <Hero obj={obj} />
     if (type === 'ContentfulComponentText')
         return <Text obj={obj} />
-    if (type === 'ContentfulComponentVideo')
-        return <VideoCard obj={obj} />
+    if (type === 'ContentfulComponentVideoShowcase')
+        return <VideoShowcase obj={obj} />
     if (type === 'ContentfulComponentButtonBanner')
         return <ButtonBanner obj={obj} />
     if (type === 'ContentfulComponentContentCard')
         return <ContentCard obj={obj} />
-    if (type === 'ContentfulComponentAlbumList')
-        return <AlbumList obj={obj} />
     if (type === 'ContentfulComponentBlogEntries')
         return <BlogEntries obj={obj} />
     if (type === 'ContentfulComponentBlogLatest')
@@ -71,10 +68,9 @@ export const query = graphql`
         id
         ...ContentfulComponentHero
         ...ContentfulComponentText
-        ...ContentfulComponentVideo
+        ...ContentfulComponentVideoShowcase
         ...ContentfulComponentButtonBanner
         ...ContentfulComponentContentCard
-        ...ContentfulComponentAlbumList
         ...ContentfulComponentBlogEntries
         ...ContentfulComponentBlogLatest
         ...ContentfulComponentNewsletterLatest

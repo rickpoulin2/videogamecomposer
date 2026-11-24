@@ -17,6 +17,13 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     hideText: Boolean
   }
+  type ContentfulVideo implements ContentfulEntry {
+    title: String
+    videoId: String
+    playlistId: String
+    timestamp: Int
+    coverImage: ContentfulAsset @link(from: "coverImage___NODE")
+  }
   type ContentfulAlbum implements ContentfulEntry {
     title: String!
     slug: String!
@@ -89,13 +96,13 @@ exports.createSchemaCustomization = ({ actions }) => {
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
     portraitImage: ContentfulAsset @link(from: "portraitImage___NODE")
   }
-  type ContentfulComponentVideo implements ContentfulEntry {
-    title: String!
+  type ContentfulComponentVideoShowcase implements ContentfulEntry {
+    heading: String
+    headingStyle: String
     styles: String
     cardType: String
-    videoId: String
     backgroundImage: ContentfulAsset @link(from: "backgroundImage___NODE")
-    coverImage: ContentfulAsset @link(from: "coverImage___NODE")
+    videos: [ContentfulVideo] @link(from: "videos___NODE")
   }
   type ContentfulComponentButtonBanner implements ContentfulEntry {
     title: String!
@@ -103,10 +110,6 @@ exports.createSchemaCustomization = ({ actions }) => {
     styles: String
     cardType: String
     buttons: [ContentfulLink] @link(from: "buttons___NODE")
-  }
-  type ContentfulComponentAlbumList implements ContentfulEntry {
-    id: ID!
-    styles: String
   }
   type ContentfulComponentContentList implements ContentfulEntry {
     id: ID!
@@ -190,7 +193,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     structureType: String
     content: [ContentfulPageContent] @link(from: "content___NODE")
   }
-  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideo | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentAlbumList | ContentfulComponentContentList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster | ContentfulComponentTestimonials | ContentfulComponentEmbed
+  union ContentfulPageContent = ContentfulComponentGroup | ContentfulComponentText | ContentfulComponentHero | ContentfulComponentVideoShowcase | ContentfulComponentButtonBanner | ContentfulComponentContentCard | ContentfulComponentContentList | ContentfulComponentBlogEntries | ContentfulComponentBlogLatest | ContentfulComponentNewsletterLatest | ContentfulComponentNewsletterList | ContentfulComponentNewsletterSignup | ContentfulComponentContactForm | ContentfulComponentCommissionCard | ContentfulComponentPoster | ContentfulComponentTestimonials | ContentfulComponentEmbed
   type ContentfulSiteGlobals implements ContentfulEntry {
     siteTitle: String!
     siteHeadingStart: String
